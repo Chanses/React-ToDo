@@ -1,0 +1,47 @@
+.PopUp{
+    width: 800px;
+    position: absolute;
+    top: 50%;
+    left: 27%;
+    border: 1px black solid;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    color: #3F72AF;
+}
+.PopUp button{
+        color: #3F72AF;
+}
+
+.PopUp__Article{
+    display: flex;
+    justify-content: space-between;
+   
+}
+.PopUp__Article-Name{
+    color: #3F72AF;
+    font-size: 40px;
+    font-weight: 500;
+    text-align: left;
+    padding: 8px;
+    margin-bottom: 42px;
+}
+.PopUp__Article-Close{
+   padding-bottom: 50px;
+   font-size: 30px;
+   
+}
+
+
+
+.PopUp__Main{
+    display: flex;
+    justify-content: space-between;
+    background-color: none;
+
+}
+.PopUp__Main input{
+       
+}

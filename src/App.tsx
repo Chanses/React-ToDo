@@ -7,11 +7,11 @@ import Tasks from './components/Tasks';
 
 
 function App() {
-  return (
+   return (
     <Router>
       <div className="App">
           <Header/>
-        <div className="Content"> 
+        <div className="Content">     
           <Routes>
               <Route path ="/tasks" element={<Tasks/>}/>
               <Route path ="/categories"element={<Categories/>}/>
