@@ -1,4 +1,12 @@
 .App {
   text-align: center;
+  background-color: #DBE2EF;
+  font-family: Roboto;
 }
 
+.Content{
+  background-color: #DBE2EF;
+  height: calc(100vh - 130px);
+  margin-top: 10px;
+  padding: 15px 0;
+} 
