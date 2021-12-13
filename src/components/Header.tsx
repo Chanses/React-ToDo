@@ -4,12 +4,13 @@ import './Header.css';
 import CreatePopUp from './PopUps/CreatePopUp';
 
 
-const Header :React.FC= () => {
+
+const Header: React.FC= (props) => {
     let activeStyle = {
         color: "#8FB6FF"
       };
       const [isOpen,setIsOpen] = useState<boolean>(false);
-      const togglePopUp =() =>{
+      function togglePopUp() {
         setIsOpen(!isOpen);
       }
        return (
@@ -25,7 +26,7 @@ const Header :React.FC= () => {
               </div>           
             </div>
             <button className='Header__AddNewTask' onClick={togglePopUp}>Добавить задачу</button>
-            {isOpen && <CreatePopUp/>} 
+            {isOpen && <CreatePopUp  togglePopUp = {togglePopUp}/>} 
         
         </div>
     );
