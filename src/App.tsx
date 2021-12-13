@@ -7,6 +7,20 @@ import Tasks from './components/Tasks';
 
 
 function App() {
+  
+  const tasks =[
+    {
+        id:0,
+        name: "first",
+        description:"random",
+    },
+    {
+      id:1,
+      name: "second",
+      description:"lorem",
+      categorie:"js"
+  }
+]
    return (
     <Router>
       <div className="App">

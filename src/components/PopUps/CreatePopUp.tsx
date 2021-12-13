@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import "./StylePopUp.css"
 import closeImg from "../../images/Close.svg"
 
@@ -9,17 +9,23 @@ interface popUpProps {
   }
 
 const CreatePopUp: React.FC<popUpProps>= (props) => {
-    let invalidStyle = {border: "2px red solid"}
+    let invalidBorderStyle = {border: "2px red solid" }
+    let invalidTextStyle = {color:"red" }
     const [isDirty,setIsDirty] = useState<boolean>(false);
     const [name,setName] = useState<string>("");
-
-    let isInValid = false;
+    const [isInvalid,setIsInvalid] = useState<boolean>(true);
+    const nameInput = useRef<any>();
+    
     const dirtyHandler = () =>{
-      
-        if(name.length>0) isInValid = true;
         setIsDirty(true);
+        name.length> 0 ? setIsInvalid(false) : setIsInvalid(true);
+    }
+    
+    const validHandler = () =>{
+        setIsDirty(true);
+        setName(nameInput?.current?.value);
+        name.length> 0 ? setIsInvalid(false) : setIsInvalid(true);
         
-            
     }
       
 
@@ -33,17 +39,23 @@ const CreatePopUp: React.FC<popUpProps>= (props) => {
             <div className="PopUp__Main">
                 <div className="PopUp__Main-Name DoubleInput">
                     <div className="PopUp__Main-Name__article ">
-                          <div className='PopUp-InputsArticle' >Имя<span style={{color:"red"}}>*</span> </div>
+                          <div className='PopUp-InputsArticle'  style={(isDirty && isInvalid) ? invalidTextStyle : {}}>Имя<span style={{color:"red"}}>*</span> </div>
                     </div>
-                    <form action="submit"> <input type="text"  placeholder='Введите имя задачи' required pattern=".{1,}" 
-                    onFocus={dirtyHandler} onChange={event => setName(event.target.value)} style={isDirty || isInValid ? {} : invalidStyle}/></form>
+                    <form action="submit"> <input type="text" id="namefield" placeholder='Введите имя задачи' 
+                    onFocus={dirtyHandler} onChange={validHandler} ref={nameInput} style={(isDirty && isInvalid) ? invalidBorderStyle : {}}/></form>
                    
                 </div>
                 <div className="PopUp__Main-Categorie DoubleInput">
                     <div className="PopUp__Main-Categorie__article ">
                           <div className='PopUp-InputsArticle'>Категория </div>
                     </div>
-                    <input type="text" className="PopUp__Main-Categorie"  placeholder='Выберите категорию'/> 
+                    <div style={{display:"flex"}}>
+                       <select  name="" id="">
+                            <option style={{display:"none"}} value=""  disabled >Выберите категорию</option>
+                            <option value="">lorem1</option>
+                            <option value="">lorem2 </option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -56,7 +68,7 @@ const CreatePopUp: React.FC<popUpProps>= (props) => {
             
             <div className="PopUp__buttons">
                 <div className='PopUp__buttons-create'> 
-                     <button type='submit' >Создать</button>
+                     <button type='submit' onClick={() => console.log(isDirty,isInvalid,name.length)}>Создать</button>
                 </div>
                 <div  className='PopUp__buttons-close'> 
                      <button onClick={props.togglePopUp}>Закрыть</button>
