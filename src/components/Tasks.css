@@ -1,0 +1,56 @@
+.TaskWrapper{
+    width: 1000px;
+    min-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #3F72AF;
+    padding: 20px 16px 0  16px;
+}
+.TaskWrapper:first-child{
+    padding: 0 16px;
+}
+
+.TaskWrapper__Info__Name{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  
+}
+.TaskWrapper__Info__Name a{
+    text-decoration: none;
+}
+.TaskWrapper__Info__Name-name{
+    color: black;
+    font-weight: 700;
+    margin-right: 16px;
+}
+.TaskWrapper__Info__Name-folder{
+   color: #3F72AF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.TaskWrapper__Info__Name-folder img{
+    margin-right: 5px;
+ }
+.TaskWrapper__Info__Description{
+    color: #808080;
+}
+.TaskWrapper__Actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.TaskWrapper__Actions button{
+    border:none;
+    background: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    
+}
+.TaskWrapper__Actions button:first-child{
+   margin-right: 10px;
+    
+}

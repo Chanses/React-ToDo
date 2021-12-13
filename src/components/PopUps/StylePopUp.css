@@ -141,6 +141,10 @@
     font-family: Roboto;
  
 }
+.PopUp__Main-Description textarea:focus{
+    border: solid 2px #257FEA;
+    
+}
 .PopUp__Main-Description textarea::placeholder{
     color: rgba(0, 0, 0, 0.5);
     font-size: 20px;

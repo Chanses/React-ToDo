@@ -24,7 +24,7 @@ const CreatePopUp: React.FC<popUpProps>= (props) => {
     const validHandler = () =>{
         setIsDirty(true);
         setName(nameInput?.current?.value);
-        name.length> 0 ? setIsInvalid(false) : setIsInvalid(true);
+        name.length> -1 ? setIsInvalid(false) : setIsInvalid(true);
         
     }
       
@@ -68,7 +68,7 @@ const CreatePopUp: React.FC<popUpProps>= (props) => {
             
             <div className="PopUp__buttons">
                 <div className='PopUp__buttons-create'> 
-                     <button type='submit' onClick={() => console.log(isDirty,isInvalid,name.length)}>Создать</button>
+                     <button type='submit' >Создать</button>
                 </div>
                 <div  className='PopUp__buttons-close'> 
                      <button onClick={props.togglePopUp}>Закрыть</button>
