@@ -42,6 +42,32 @@ const Tasks:React.FC = () => {
                 </div>
             
             </div>
+            <div className='TaskWrapper'>
+                <div className="TaskWrapper__Info">
+                    <div className="TaskWrapper__Info__Name" >
+                        <div className="TaskWrapper__Info__Name-name">Задача2</div>
+                    </div>
+                    <div className="TaskWrapper__Info__Description" >Описание задачи, может быть длинным</div>
+                </div>
+                <div className="TaskWrapper__Actions">
+                    <button className="TaskWrapper__Actions-Edit"> <img src={editImg} alt="" /></button>
+                    <button className="TaskWrapper__Actions-Delete"> <img src={deleteImg} alt="" /></button>
+                </div>
+            
+            </div>
+            <div className='TaskWrapper'>
+                <div className="TaskWrapper__Info">
+                    <div className="TaskWrapper__Info__Name" >
+                        <div className="TaskWrapper__Info__Name-name">Задача2</div>
+                    </div>
+                    <div className="TaskWrapper__Info__Description" >Описание задачи, может быть длинным</div>
+                </div>
+                <div className="TaskWrapper__Actions">
+                    <button className="TaskWrapper__Actions-Edit"> <img src={editImg} alt="" /></button>
+                    <button className="TaskWrapper__Actions-Delete"> <img src={deleteImg} alt="" /></button>
+                </div>
+            
+            </div>
         </div>
     );
 };
