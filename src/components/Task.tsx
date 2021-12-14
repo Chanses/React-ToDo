@@ -2,23 +2,14 @@ import React from 'react';
 import folderImg from "../images/Folder.svg"
 import editImg from "../images/Edit.svg"
 import deleteImg from "../images/Delete.svg"
-import "./Tasks.css"
 
 
-interface TaskActionsPopUp{
-    toggleTaskPopUp: () => void;
-    toggleDeletePopUp: () => void;
- 
-}
+
 let openRequest = indexedDB.open("ToDo", 1);
 
-
-
-const Tasks:React.FC<TaskActionsPopUp> = (props) => {
-    
-
+const Task:React.FC = (props) => {
     return (
-        <div className="Content">
+        <div>
             <div className='TaskWrapper'>
                 <div className="TaskWrapper__Info">
                     <div className="TaskWrapper__Info__Name" >
@@ -28,8 +19,8 @@ const Tasks:React.FC<TaskActionsPopUp> = (props) => {
                     <div className="TaskWrapper__Info__Description" >Описание задачи, может быть длинным</div>
                 </div>
                 <div className="TaskWrapper__Actions">
-                    <button className="TaskWrapper__Actions-Edit" onClick={props.toggleTaskPopUp} > <img src={editImg} alt="" /></button>
-                    <button className="TaskWrapper__Actions-Delete" onClick={props.toggleDeletePopUp}> <img src={deleteImg} alt="" /></button>
+                    {/* <button className="TaskWrapper__Actions-Edit" onClick={props.toggleTaskPopUp} > <img src={editImg} alt="" /></button>
+                    <button className="TaskWrapper__Actions-Delete" onClick={props.toggleDeletePopUp}> <img src={deleteImg} alt="" /></button> */}
                 </div>
                 
             </div>
@@ -37,4 +28,4 @@ const Tasks:React.FC<TaskActionsPopUp> = (props) => {
     );
 };
 
-export default Tasks;
+export default Task;

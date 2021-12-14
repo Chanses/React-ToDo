@@ -1,21 +1,28 @@
 import React, { useRef, useState } from 'react';
 import "./StylePopUp.css"
 import closeImg from "../../images/Close.svg"
+import {addCategorie} from "../../state"
 
 
 
 interface popUpProps {
     togglePopUp: () => void;
+    action: string;
   }
 
 const CreateCategoriePopUp: React.FC<popUpProps>= (props) => {
     let invalidBorderStyle = {border: "2px red solid" }
     let invalidTextStyle = {color:"red" }
     const [isDirty,setIsDirty] = useState<boolean>(false);
-    const [name,setName] = useState<string>("");
     const [isInvalid,setIsInvalid] = useState<boolean>(true);
+    const [name,setName] = useState<string>("");
     const nameInput = useRef<any>();
-    
+    const [description,setDescription] = useState<string>("");
+    const descriptionInput = useRef<any>();
+   
+    const descriptionHandler = () =>{
+        setDescription(descriptionInput?.current?.value);
+}
     const dirtyHandler = () =>{
         setIsDirty(true);
         name.length> 0 ? setIsInvalid(false) : setIsInvalid(true);
@@ -34,8 +41,8 @@ const CreateCategoriePopUp: React.FC<popUpProps>= (props) => {
         
                 <div className='PopUp'> 
                     <div className='PopUp__Article' >
-                    <div className="PopUp__Article-Name ">Создание категории</div>
-                    <button className="PopUp__Article-Close"><img src={closeImg} alt="" onClick={props.togglePopUp}/></button>
+                    <div className="PopUp__Article-Name ">{props.action === "create" ? <span>Создать</span> : <span>Редактировать</span> } <span>категорию</span> </div>
+                    <button className="PopUp__Article-Close" onClick={props.togglePopUp}><img src={closeImg} alt="" /></button>
                     </div>
                     <div className="PopUp__Main-small">
                                 <div className="PopUp__Main-Name-small">
@@ -50,13 +57,14 @@ const CreateCategoriePopUp: React.FC<popUpProps>= (props) => {
                                 <div className="PopUp__Main-Description-small">
                                     <div className="PopUp__Main-Description">
                                         <div className='PopUp-InputsArticle'>Описание </div>
-                                        <textarea  className="description" placeholder='Введите описание категории'/>
+                                        <textarea  className="description" placeholder='Введите описание категории' ref={descriptionInput} onChange={descriptionHandler}/>
                                     </div>
                                 </div>
                             
                                 <div className="PopUp__buttons">
                                 <div className='PopUp__buttons-create'> 
-                                    <button type='submit' >Создать</button>
+                                {props.action === "create" ? <button type='submit' onClick={addCategorie(name,description)} >Создать</button> : <button type='submit' >Сохранить</button> }
+                                   
                                 </div>
                                 <div  className='PopUp__buttons-close'> 
                                     <button onClick={props.togglePopUp}>Закрыть</button>

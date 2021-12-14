@@ -9,7 +9,7 @@ interface popUpProps {
 const CreateNewTaskButton:React.FC<popUpProps> = (props) =>{
     return(
       <>
-      <button className='Header__AddNewTask' onClick={props.toggleCreateTaskPopUp}>Добавить задачу</button>
+      <button className='Header__AddNewTask' onClick={props.toggleCreateTaskPopUp} >Добавить задачу</button>
       </>
     )
   }

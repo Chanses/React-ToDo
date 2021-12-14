@@ -65,7 +65,7 @@
     margin-bottom: 50px;
 }
 .PopUp__Article-Close{
-   padding-bottom: 50px;
+   margin-bottom: 50px;
    font-size: 30px;
 }
 
@@ -207,6 +207,7 @@
     border: 2px solid #3F72AF;
     color: #3F72AF;
     width: 120px;
+    
 }
 .PopUp__buttons-close button:hover{
     background: rgba(37, 127, 234, 0.2);
