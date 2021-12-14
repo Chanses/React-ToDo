@@ -5,13 +5,10 @@ import deleteImg from "../images/Delete.svg"
 import "./Tasks.css"
 
 
-// interface Task {
-//     id:number,
-//     name:string,
-//     description:string,
-//     category?:string
-
-// }
+interface TaskActionsPopUp{
+    toggleEditPopUp: () => void,
+    toggleDeletePopUp: () => void
+}
 
 const Tasks:React.FC = () => {
 

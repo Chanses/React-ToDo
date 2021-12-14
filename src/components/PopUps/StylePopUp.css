@@ -1,9 +1,16 @@
+.PopUp-Wrapper{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+    background-color: rgba(0, 0, 0, 0.3);
+ }
 .PopUp{
     width: 800px;
     position: absolute;
     top: 33%;
     left: 27%;
-    border: 1px black solid;
+    background-color: #DBE2EF;
     display: flex;
     flex-direction: column;
     padding: 24px;
@@ -13,6 +20,10 @@
 }
 .PopUp button{
         color: #3F72AF;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
 }
 
 .PopUp input{
@@ -51,7 +62,7 @@
     font-size: 40px;
     font-weight: 500;
     text-align: left;
-    margin-bottom: 42px;
+    margin-bottom: 50px;
 }
 .PopUp__Article-Close{
    padding-bottom: 50px;
@@ -62,9 +73,15 @@
     display: flex;
     justify-content: space-between;
     background-color: none;
-    margin-bottom: 24px;
+    margin-bottom: 35px;
 }
 
+.PopUp__Main-Name-small{
+    margin-bottom: 35px;
+}
+.PopUp__Main-Name-small input{
+   width: calc(100% - 12px);
+}
 .PopUp__Main-Name__article{
     display: flex;
     position: relative;
@@ -120,11 +137,14 @@
    
 }
 .PopUp__Main-Description{
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     text-align: left;
     position: relative;
    
 }
+.PopUp__Main-Description-small{
+    margin-bottom: 32px;
+    }
 .PopUp__Main-Description textarea{
     width: 100%;
     min-height: 72px;

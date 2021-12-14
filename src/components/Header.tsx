@@ -1,35 +1,41 @@
 import React, { useState } from 'react';
 import {NavLink} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import './Header.css';
-import CreatePopUp from './PopUps/CreatePopUp';
+import CreateNewTaskButton from './CreateNewTaskButton';
+import CreateNewCategorieButton from './CreateNewCategorieButton';
 
 
+interface popUpProps {
+  toggleCreateTaskPopUp: () => void;
+  toggleCreateCategoriePopUp: () => void;
+}
 
-
-const Header: React.FC= (props) => {
+const Header: React.FC<popUpProps>= (props) => {
     let activeStyle = {
         color: "#8FB6FF"
       };
-      const [isOpen,setIsOpen] = useState<boolean>(false);
-      function togglePopUp() {
-        setIsOpen(!isOpen);
-      }
+      
        return (
-        <div className='Header'>
-            <div className='Header__Logo'>
-                <div className="Header__Logo-AppName">ToDo List</div>
-                <div className="Header__Logo__Actions">
-                        <NavLink  to='/tasks'  className={"Header__Logo__Actions-Tasks"} style={({ isActive }) =>
-              isActive ? activeStyle : {}} >Задачи</NavLink> 
-                        <p style={{fontSize:"36px"}}>|</p>
-                        <NavLink  to='/categories' className="Header__Logo__Actions-Categories" style={({ isActive }) =>
-              isActive ? activeStyle : {}}>Категории</NavLink>
-              </div>           
+         <>
+            <div className='Header'>
+                <div className='Header__Logo'>
+                    <div className="Header__Logo-AppName">ToDo List</div>
+                    <div className="Header__Logo__Actions">
+                            <NavLink  to='/tasks'  className={"Header__Logo__Actions-Tasks"} style={({ isActive }) =>
+                  isActive ? activeStyle : {}} >Задачи</NavLink> 
+                            <p style={{fontSize:"36px"}}>|</p>
+                            <NavLink  to='/categories' className="Header__Logo__Actions-Categories" style={({ isActive }) =>
+                  isActive ? activeStyle : {}}>Категории</NavLink>
+                  </div>           
+                </div> 
+                <Routes>
+                  <Route path="/tasks" element={<CreateNewTaskButton toggleCreateTaskPopUp={props.toggleCreateTaskPopUp}/>}></Route>
+                  <Route path="/categories" element={<CreateNewCategorieButton toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp}/>}></Route>
+                </Routes>            
             </div>
-            <button className='Header__AddNewTask' onClick={togglePopUp}>Добавить задачу</button>
-            {isOpen && <CreatePopUp  togglePopUp = {togglePopUp}/>} 
-        
-        </div>
+           
+            </>
     );
 };
 
