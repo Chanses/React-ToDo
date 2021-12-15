@@ -2,6 +2,7 @@ import React from "react";
 
 interface IDeletePopUp {
   togglePopUp: () => void;
+  deleteCategorie: (categorieId: string) => void;
   section: boolean;
 }
 
@@ -24,7 +25,19 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
           </div>
           <div className="PopUp__buttons">
             <div className="PopUp__buttons-create">
-              <button type="submit">Да</button>
+              {props.section ? (
+                <button name="Задачи" type="submit">
+                  Да
+                </button>
+              ) : (
+                <button
+                  name="Категории"
+                  type="submit"
+                  onClick={() => props.deleteCategorie("1")}
+                >
+                  Да
+                </button>
+              )}{" "}
             </div>
             <div className="PopUp__buttons-close">
               <button type="submit" onClick={props.togglePopUp}>

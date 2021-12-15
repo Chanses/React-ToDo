@@ -1,17 +1,20 @@
 import React from "react";
 import "./CategoriesStyles.css";
-import Categorie from "./Categorie";
+import Categorie, { ICategorie } from "./Categorie";
 
-interface TaskActionsPopUp {
+interface ICategoriesList {
   toggleTaskPopUp: () => void;
   toggleDeletePopUp: () => void;
   toogleEditHandlerEdit: () => void;
+  categorieList?: ICategorie[];
 }
 
-const CategoriesList: React.FC<TaskActionsPopUp> = (props) => {
+const CategoriesList: React.FC<ICategoriesList> = (props) => {
   return (
     <div>
-      <Categorie {...props} />
+      {props.categorieList?.map((categorie, index) => (
+        <Categorie {...categorie} key={index} />
+      ))}
     </div>
   );
 };

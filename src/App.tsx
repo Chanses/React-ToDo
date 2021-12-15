@@ -21,6 +21,7 @@ interface IApp {
   toggleCreateCategoriePopUp: () => void;
   setTaskSection: () => void;
   setCategorieSection: () => void;
+  deleteCategorie: (categorieId: string) => void;
 }
 
 const App: React.FC<IApp> = (props) => {
@@ -43,6 +44,7 @@ const App: React.FC<IApp> = (props) => {
           <DeleteItemPopUp
             togglePopUp={props.toggleDeletePopUp}
             section={props.section}
+            deleteCategorie={props.deleteCategorie}
           />
         )}
         <HeaderContainer

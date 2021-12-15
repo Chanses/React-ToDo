@@ -2,7 +2,10 @@ import React from "react";
 import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
 
-interface ICategorie {
+export interface ICategorie {
+  id: string;
+  name: string;
+  description?: string;
   toggleTaskPopUp: () => void;
   toggleDeletePopUp: () => void;
   toogleEditHandlerEdit: () => void;
@@ -13,10 +16,10 @@ const Categorie: React.FC<ICategorie> = (props) => {
     <div className="CategoriesWrapper">
       <div className="TaskWrapper__Info">
         <div className="TaskWrapper__Info__Name">
-          <div className="TaskWrapper__Info__Name-name">Категория1</div>
+          <div className="TaskWrapper__Info__Name-name">{props.name}</div>
         </div>
         <div className="TaskWrapper__Info__Description">
-          Описание категории, может быть длинным
+          {props.description}
         </div>
       </div>
       <div className="TaskWrapper__Actions">

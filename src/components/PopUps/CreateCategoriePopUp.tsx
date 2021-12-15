@@ -78,6 +78,7 @@ const CreateCategoriePopUp: React.FC<ICreateCategoriePopUp> = (props) => {
                   type="submit"
                   onClick={() => {
                     props.addCategorie(props.name, props.description);
+                    props.togglePopUp();
                   }}
                 >
                   Создать

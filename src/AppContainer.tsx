@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import App from "./App";
+import { deleteCategorie } from "./dbService";
 
 const AppContainer = () => {
   const [isOpenCreateTask, setIsOpenCreateTask] = useState<boolean>(false);
@@ -46,6 +47,7 @@ const AppContainer = () => {
       toggleCreateCategoriePopUp={toggleCreateCategoriePopUp}
       setTaskSection={setTaskSection}
       setCategorieSection={setCategorieSection}
+      deleteCategorie={deleteCategorie}
     />
   );
 };

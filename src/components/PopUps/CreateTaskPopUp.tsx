@@ -90,7 +90,10 @@ const CreateTaskPopUp: React.FC<ICreateTaskPopUp> = (props) => {
           <div className="PopUp__buttons-create">
             {props.action ? (
               <button
-                onClick={() => props.addTask(props.name, props.description)}
+                onClick={() => {
+                  props.addTask(props.name, props.description);
+                  props.togglePopUp();
+                }}
               >
                 Создать
               </button>
