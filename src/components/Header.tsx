@@ -10,6 +10,7 @@ import {getTasks} from "../state"
 interface popUpProps {
   toggleCreateTaskPopUp: () => void;
   toggleCreateCategoriePopUp: () => void;
+  toogleEditHandlerCreate:() => void;
   setCategorieSection:() => void;
   setTaskSection:() => void;
 }
@@ -22,8 +23,7 @@ const Header: React.FC<popUpProps>= (props) => {
        return (
          <>
             <div className='Header'>
-              <button onClick={getTasks}>asdas</button>
-                <div className='Header__Logo'>
+             <div className='Header__Logo'>
                     <div className="Header__Logo-AppName">ToDo List</div>
                     <div className="Header__Logo__Actions">
                             <NavLink  to='/tasks' onClick={props.setTaskSection}  className={"Header__Logo__Actions-Tasks"} style={({ isActive }) =>
@@ -34,9 +34,9 @@ const Header: React.FC<popUpProps>= (props) => {
                   </div>           
                 </div> 
                 <Routes>
-                  <Route path="/tasks" element={<CreateNewTaskButton toggleCreateTaskPopUp={props.toggleCreateTaskPopUp} 
+                  <Route path="/tasks" element={<CreateNewTaskButton toggleCreateTaskPopUp={props.toggleCreateTaskPopUp}  toogleEditHandlerCreate={props.toogleEditHandlerCreate}
                   />}></Route>
-                  <Route path="/categories" element={<CreateNewCategorieButton toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp}/>}></Route>
+                  <Route path="/categories" element={<CreateNewCategorieButton toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp} toogleEditHandlerCreate={props.toogleEditHandlerCreate}/>}></Route>
                 </Routes>            
             </div>
            

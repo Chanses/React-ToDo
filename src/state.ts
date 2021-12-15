@@ -11,7 +11,7 @@ let openRequest = indexedDB.open("ToDo", 1);
      
 
 let taskCount = 0;
-    export let addTask = (name:string,description:string) => openRequest.onupgradeneeded= () => {
+    export let addTask = (name:string,description?:string, categorie?:string) => openRequest.onupgradeneeded= () => {
 
         let db = openRequest.result;
         let transaction = db.transaction(["tasks"], "readwrite"); // (1)
@@ -57,6 +57,8 @@ let categorieCount = 0;
           console.log("Ошибка", request.error);
         };
      };
+
+
 export let getTasks = () => openRequest.onupgradeneeded = () =>{
 
     let db = openRequest.result;
@@ -72,10 +74,3 @@ export let getTasks = () => openRequest.onupgradeneeded = () =>{
       };
 }  
     
-
-interface TaskProps{
-    id: number,
-    name: string,
-    description?: string,
-    categorie?: string
-}

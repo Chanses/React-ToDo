@@ -7,7 +7,7 @@ import {addCategorie} from "../../state"
 
 interface popUpProps {
     togglePopUp: () => void;
-    action: string;
+    action: boolean;
   }
 
 const CreateCategoriePopUp: React.FC<popUpProps>= (props) => {
@@ -41,7 +41,7 @@ const CreateCategoriePopUp: React.FC<popUpProps>= (props) => {
         
                 <div className='PopUp'> 
                     <div className='PopUp__Article' >
-                    <div className="PopUp__Article-Name ">{props.action === "create" ? <span>Создать</span> : <span>Редактировать</span> } <span>категорию</span> </div>
+                    <div className="PopUp__Article-Name ">{props.action ? <span>Создать</span> : <span>Редактировать</span> } <span>категорию</span> </div>
                     <button className="PopUp__Article-Close" onClick={props.togglePopUp}><img src={closeImg} alt="" /></button>
                     </div>
                     <div className="PopUp__Main-small">
@@ -63,7 +63,7 @@ const CreateCategoriePopUp: React.FC<popUpProps>= (props) => {
                             
                                 <div className="PopUp__buttons">
                                 <div className='PopUp__buttons-create'> 
-                                {props.action === "create" ? <button type='submit' onClick={addCategorie(name,description)} >Создать</button> : <button type='submit' >Сохранить</button> }
+                                {props.action? <button type='submit' onClick={addCategorie(name,description)} >Создать</button> : <button type='submit' >Сохранить</button> }
                                    
                                 </div>
                                 <div  className='PopUp__buttons-close'> 

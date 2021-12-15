@@ -8,6 +8,7 @@ import "./Tasks.css"
 interface TaskActionsPopUp{
     toggleTaskPopUp: () => void;
     toggleDeletePopUp: () => void;
+    toogleEditHandlerEdit: () => void;
  
 }
 let openRequest = indexedDB.open("ToDo", 1);
@@ -28,7 +29,7 @@ const Tasks:React.FC<TaskActionsPopUp> = (props) => {
                     <div className="TaskWrapper__Info__Description" >Описание задачи, может быть длинным</div>
                 </div>
                 <div className="TaskWrapper__Actions">
-                    <button className="TaskWrapper__Actions-Edit" onClick={props.toggleTaskPopUp} > <img src={editImg} alt="" /></button>
+                    <button className="TaskWrapper__Actions-Edit" onClick={() => {props.toggleTaskPopUp(); props.toogleEditHandlerEdit();}} > <img src={editImg} alt="" /></button>
                     <button className="TaskWrapper__Actions-Delete" onClick={props.toggleDeletePopUp}> <img src={deleteImg} alt="" /></button>
                 </div>
                 

@@ -17,7 +17,7 @@ const DeleteItemPopUp: React.FC<popUpProps> = (props) => {
                          {props.section ? <span> задачу “Задача1”?</span> : <span> категорию “Категория1”?</span> }  </div> 
                         <div className="PopUp__buttons">
                             <div className='PopUp__buttons-create'> 
-                                <button type='submit' onClick={() => console.log(props.section)} >Да</button>
+                                <button type='submit'>Да</button>
                             </div>
                             <div  className='PopUp__buttons-close'> 
                                 <button type='submit' onClick={props.togglePopUp}>Нет</button>

@@ -6,6 +6,7 @@ import deleteImg from "../images/Delete.svg"
 interface TaskActionsPopUp{
     toggleTaskPopUp: () => void;
     toggleDeletePopUp: () => void;
+    toogleEditHandlerEdit: () => void;
  
 }
 
@@ -22,7 +23,7 @@ const Categories:React.FC<TaskActionsPopUp> = (props) => {
                     <div className="TaskWrapper__Info__Description" >Описание категории, может быть длинным</div>
                 </div>
                 <div className="TaskWrapper__Actions">
-                    <button className="TaskWrapper__Actions-Edit" onClick={props.toggleTaskPopUp}> <img src={editImg} alt="" /></button>
+                    <button className="TaskWrapper__Actions-Edit" onClick={() => {props.toggleTaskPopUp(); props.toogleEditHandlerEdit();}}> <img src={editImg} alt="" /></button>
                     <button className="TaskWrapper__Actions-Delete" onClick={props.toggleDeletePopUp}> <img src={deleteImg} alt="" /></button>
                 </div>
             

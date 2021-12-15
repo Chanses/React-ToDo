@@ -18,6 +18,14 @@ function App() {
   const [isOpenCreateCategorie,setIsOpenCreateCategorie] = useState<boolean>(false);
   const [isOpenDelete,setIsOpenDelete] = useState<boolean>(false);
   const [section,setSection] = useState<boolean>(true);
+  const [editHander,setEditHandler] = useState<boolean>(true);
+
+      function toogleEditHandlerCreate(){
+        setEditHandler(true);
+      }
+      function toogleEditHandlerEdit(){
+        setEditHandler(false);
+      }
   
       function toggleCreateTaskPopUp() {
         setIsOpenCreateTask(!isOpenCreateTask);
@@ -38,15 +46,15 @@ function App() {
    return (
     <Router>
       <div className="App">
-      {isOpenCreateTask && <CreateTaskPopUp  togglePopUp = {toggleCreateTaskPopUp} action={section}/>} 
-      {isOpenCreateCategorie && <CreateCategoriePopUp  togglePopUp = {toggleCreateCategoriePopUp} action='create'/>} 
+      {isOpenCreateTask && <CreateTaskPopUp  togglePopUp = {toggleCreateTaskPopUp} action={editHander}/>} 
+      {isOpenCreateCategorie && <CreateCategoriePopUp  togglePopUp = {toggleCreateCategoriePopUp} action={editHander}/>} 
       {isOpenDelete && <DeleteItemPopUp  togglePopUp = {toggleDeletePopUp} section={section}/>} 
           <Header toggleCreateTaskPopUp={toggleCreateTaskPopUp} toggleCreateCategoriePopUp={toggleCreateCategoriePopUp}
-           setTaskSection={setTaskSection} setCategorieSection={setCategorieSection}/>
+           setTaskSection={setTaskSection} setCategorieSection={setCategorieSection} toogleEditHandlerCreate={toogleEditHandlerCreate}/>
         <div className="Content">     
           <Routes>
-              <Route path ="/tasks" element={<Tasks toggleTaskPopUp={toggleCreateTaskPopUp} toggleDeletePopUp={toggleDeletePopUp}/>}/>
-              <Route path ="/categories"element={<Categories toggleTaskPopUp={toggleCreateCategoriePopUp} toggleDeletePopUp={toggleDeletePopUp}/>}/>
+              <Route path ="/tasks" element={<Tasks toggleTaskPopUp={toggleCreateTaskPopUp} toggleDeletePopUp={toggleDeletePopUp} toogleEditHandlerEdit={toogleEditHandlerEdit}/>}/>
+              <Route path ="/categories"element={<Categories toggleTaskPopUp={toggleCreateCategoriePopUp} toggleDeletePopUp={toggleDeletePopUp} toogleEditHandlerEdit={toogleEditHandlerEdit} />}/>
           </Routes>
         </div>
       </div>
