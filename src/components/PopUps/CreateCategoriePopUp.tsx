@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import "./StylePopUp.css";
 import closeImg from "../../images/Close.svg";
 

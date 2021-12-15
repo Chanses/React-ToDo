@@ -1,10 +1,12 @@
 import React from "react";
-interface popUpProps {
+interface ICreateNewCategorieButton {
   toggleCreateCategoriePopUp: () => void;
   toogleEditHandlerCreate: () => void;
 }
 
-const CreateNewCategorieButton: React.FC<popUpProps> = (props) => {
+const CreateNewCategorieButton: React.FC<ICreateNewCategorieButton> = (
+  props
+) => {
   return (
     <>
       <button

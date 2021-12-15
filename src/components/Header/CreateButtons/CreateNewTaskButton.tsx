@@ -1,11 +1,11 @@
 import React from "react";
 
-interface popUpProps {
+interface ICreateNewTaskButton {
   toggleCreateTaskPopUp: () => void;
   toogleEditHandlerCreate: () => void;
 }
 
-const CreateNewTaskButton: React.FC<popUpProps> = (props) => {
+const CreateNewTaskButton: React.FC<ICreateNewTaskButton> = (props) => {
   return (
     <>
       <button

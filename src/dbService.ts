@@ -33,7 +33,7 @@ export let addTask = (name: string, description?: string, categorie?: string) =>
     };
 };
 let categorieCount = 0;
-export let addCategorie = (name: string, description?: string) => openRequest.onupgradeneeded = () => {
+export let addCategorie = (name: string, description?: string) => {
 
     let db = openRequest.result;
     let transaction = db.transaction(["categories"], "readwrite"); // (1)
