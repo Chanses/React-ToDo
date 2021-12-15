@@ -1,65 +1,84 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import './App.css';
-import Categories from './components/Categories';
-import Header from './components/Header';
-import CreateCategoriePopUp from './components/PopUps/CreateCategoriePopUp';
-import CreateTaskPopUp from './components/PopUps/CreateTaskPopUp';
-import DeleteItemPopUp from './components/PopUps/DeleteItemPopUp';
-import Tasks from './components/Tasks';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import DeleteItemPopUp from "./components/PopUps/DeleteItemPopUp";
+import TasksListContainer from "./components/ListTasks/TasksListContainer";
+import CreateCategoriePopUpContainer from "./components/PopUps/CreateCategoriePopUpContainer";
+import CreateTaskPopUpContainer from "./components/PopUps/CreateTaskPopUpContainer";
+import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
 
+interface IApp {
+  isOpenCreateTask: boolean;
+  isOpenCreateCategorie: boolean;
+  isOpenDelete: boolean;
+  editHander: boolean;
+  section: boolean;
+  toggleCreateTaskPopUp: () => void;
+  toogleEditHandlerCreate: () => void;
+  toogleEditHandlerEdit: () => void;
+  toggleDeletePopUp: () => void;
+  toggleCreateCategoriePopUp: () => void;
+  setTaskSection: () => void;
+  setCategorieSection: () => void;
+}
 
-
-
-
-
-function App() {
-  const [isOpenCreateTask,setIsOpenCreateTask] = useState<boolean>(false);
-  const [isOpenCreateCategorie,setIsOpenCreateCategorie] = useState<boolean>(false);
-  const [isOpenDelete,setIsOpenDelete] = useState<boolean>(false);
-  const [section,setSection] = useState<boolean>(true);
-  const [editHander,setEditHandler] = useState<boolean>(true);
-
-      function toogleEditHandlerCreate(){
-        setEditHandler(true);
-      }
-      function toogleEditHandlerEdit(){
-        setEditHandler(false);
-      }
-  
-      function toggleCreateTaskPopUp() {
-        setIsOpenCreateTask(!isOpenCreateTask);
-      }
-      function toggleCreateCategoriePopUp() {
-        setIsOpenCreateCategorie(!isOpenCreateCategorie);
-      }
-      function toggleDeletePopUp() {
-        setIsOpenDelete(!isOpenDelete);
-      }
-      function setTaskSection(){
-        setSection(true);
-      }
-      function setCategorieSection(){
-        setSection(false);
-      }
-      
-   return (
+const App: React.FC<IApp> = (props) => {
+  return (
     <Router>
       <div className="App">
-      {isOpenCreateTask && <CreateTaskPopUp  togglePopUp = {toggleCreateTaskPopUp} action={editHander}/>} 
-      {isOpenCreateCategorie && <CreateCategoriePopUp  togglePopUp = {toggleCreateCategoriePopUp} action={editHander}/>} 
-      {isOpenDelete && <DeleteItemPopUp  togglePopUp = {toggleDeletePopUp} section={section}/>} 
-          <Header toggleCreateTaskPopUp={toggleCreateTaskPopUp} toggleCreateCategoriePopUp={toggleCreateCategoriePopUp}
-           setTaskSection={setTaskSection} setCategorieSection={setCategorieSection} toogleEditHandlerCreate={toogleEditHandlerCreate}/>
-        <div className="Content">     
+        {props.isOpenCreateTask && (
+          <CreateTaskPopUpContainer
+            togglePopUp={props.toggleCreateTaskPopUp}
+            action={props.editHander}
+          />
+        )}
+        {props.isOpenCreateCategorie && (
+          <CreateCategoriePopUpContainer
+            togglePopUp={props.toggleCreateCategoriePopUp}
+            action={props.editHander}
+          />
+        )}
+        {props.isOpenDelete && (
+          <DeleteItemPopUp
+            togglePopUp={props.toggleDeletePopUp}
+            section={props.section}
+          />
+        )}
+        <HeaderContainer
+          toggleCreateTaskPopUp={props.toggleCreateTaskPopUp}
+          toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp}
+          setTaskSection={props.setTaskSection}
+          setCategorieSection={props.setCategorieSection}
+          toogleEditHandlerCreate={props.toogleEditHandlerCreate}
+        />
+        <div className="Content">
           <Routes>
-              <Route path ="/tasks" element={<Tasks toggleTaskPopUp={toggleCreateTaskPopUp} toggleDeletePopUp={toggleDeletePopUp} toogleEditHandlerEdit={toogleEditHandlerEdit}/>}/>
-              <Route path ="/categories"element={<Categories toggleTaskPopUp={toggleCreateCategoriePopUp} toggleDeletePopUp={toggleDeletePopUp} toogleEditHandlerEdit={toogleEditHandlerEdit} />}/>
+            <Route
+              path="/tasks"
+              element={
+                <TasksListContainer
+                  toggleTaskPopUp={props.toggleCreateTaskPopUp}
+                  toggleDeletePopUp={props.toggleDeletePopUp}
+                  toogleEditHandlerEdit={props.toogleEditHandlerEdit}
+                />
+              }
+            />
+            <Route
+              path="/categories"
+              element={
+                <CategoriesListContainer
+                  toggleTaskPopUp={props.toggleCreateCategoriePopUp}
+                  toggleDeletePopUp={props.toggleDeletePopUp}
+                  toogleEditHandlerEdit={props.toogleEditHandlerEdit}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>
     </Router>
   );
-}
+};
 
 export default App;

@@ -1,19 +1,16 @@
 .App {
-  background-color: #DBE2EF;
+  background-color: #dbe2ef;
   font-family: Roboto;
- 
- 
 }
 
-.Content{
-  background-color: #DBE2EF;
-  height: calc(100vh - 130px);
+.Content {
+  background-color: #dbe2ef;
+  min-height: calc(100vh - 130px);
+  height: calc(100% - 130px);
   margin-top: 10px;
-  padding: 1px 0 30px 0 ;
+  padding: 1px 0 30px 0;
   display: flex;
   align-items: center;
   justify-content: top;
   flex-direction: column;
-  
-  
-} 
+}
