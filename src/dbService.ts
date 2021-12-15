@@ -59,37 +59,48 @@ export let addCategorie = (name: string, description?: string) => {
 };
 
 export let getTasks = (cb: (tasks: ITask[]) => void) => {
+    const openRequest = indexedDB.open("ToDo", 1);
+    openRequest.onsuccess = () => {
+        const db = openRequest.result;
+        const transaction = db.transaction(["tasks"], "readwrite"); // (1)
+        const tasks = transaction.objectStore("tasks"); // (2)
+        const allRecords = tasks.getAll();
 
-    let db = openRequest.result;
-    let transaction = db.transaction(["tasks"], "readwrite"); // (1)
-    let tasks = transaction.objectStore("tasks"); // (2)
-    let allRecords = tasks.getAll();
 
+        allRecords.onsuccess = function () {
+            cb(allRecords.result);
 
-    allRecords.onsuccess = function () {
-        cb(allRecords.result);
+        };
+        allRecords.onerror = function () {
+            console.log("Ошибка", allRecords.error);
+        };
+    }
 
-    };
-    allRecords.onerror = function () {
-        console.log("Ошибка", allRecords.error);
-    };
+    openRequest.onerror = () => console.log("open DB error")
 }
+
+
+
 export let getCategories = (cb: (categories: ICategorie[]) => void) => {
+    const openRequest = indexedDB.open("ToDo", 1);
 
-    let db = openRequest.result;
-    let transaction = db.transaction(["categories"], "readwrite"); // (1)
-    let tasks = transaction.objectStore("categories"); // (2)
-    let allRecords = tasks.getAll();
+    openRequest.onsuccess = () => {
+
+        let db = openRequest.result;
+        let transaction = db.transaction(["categories"], "readwrite"); // (1)
+        let tasks = transaction.objectStore("categories"); // (2)
+        let allRecords = tasks.getAll();
 
 
-    allRecords.onsuccess = function () {
-        cb(allRecords.result);
+        allRecords.onsuccess = function () {
+            cb(allRecords.result);
 
 
-    };
-    allRecords.onerror = function () {
-        console.log("Ошибка", allRecords.error);
-    };
+        };
+        allRecords.onerror = function () {
+            console.log("Ошибка", allRecords.error);
+        };
+    }
 }
 
 export let deleteCategorie = (categorieId: string) => {
