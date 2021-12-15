@@ -15,7 +15,10 @@ interface TaskActionsPopUp{
 }
 let openRequest = indexedDB.open("ToDo", 1);
 let getTasks = () => openRequest.onupgradeneeded = () =>{
-    
+    let list= document.getElementById("ContentArea");
+    list!.innerHTML =`<p>...Loading<p>`
+
+
     let db = openRequest.result;
     let transaction = db.transaction(["tasks"], "readwrite"); // (1)
     let tasks = transaction.objectStore("tasks"); // (2)
@@ -23,8 +26,8 @@ let getTasks = () => openRequest.onupgradeneeded = () =>{
 
     allRecords.onsuccess = function() {
         let result = allRecords.result;
-        result.map(e => {return <Task  id={e.id} name={e.name} description={e.description}/>});
-        
+        list!.innerHTML = result.map(e =>  <Task id={e.id} name={e.name} description={e.description}/>)
+    
     };
     allRecords.onerror = function() {
         console.log("Ошибка", allRecords.error);
@@ -51,7 +54,8 @@ const Tasks:React.FC<TaskActionsPopUp> = (props) => {
                     <button className="TaskWrapper__Actions-Delete" onClick={props.toggleDeletePopUp}> <img src={deleteImg} alt="" /></button>
                 </div>
             </div> */}
-             {getTasks()}
+            <button onClick={getTasks()}></button>
+             
             
             
         </div>
