@@ -23,7 +23,7 @@ const Header: React.FC<popUpProps>= (props) => {
        return (
          <>
             <div className='Header'>
-             <div className='Header__Logo'>
+                <div className='Header__Logo'>
                     <div className="Header__Logo-AppName">ToDo List</div>
                     <div className="Header__Logo__Actions">
                             <NavLink  to='/tasks' onClick={props.setTaskSection}  className={"Header__Logo__Actions-Tasks"} style={({ isActive }) =>

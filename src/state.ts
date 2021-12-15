@@ -4,11 +4,8 @@ let openRequest = indexedDB.open("ToDo", 1);
         let db = openRequest.result;
         db.createObjectStore('tasks', {keyPath: 'id', autoIncrement: true});
         db.createObjectStore('categories', {keyPath: 'id', autoIncrement: true});
-        
     };
-  
-    
-     
+
 
 let taskCount = 0;
     export let addTask = (name:string,description?:string, categorie?:string) => openRequest.onupgradeneeded= () => {
@@ -65,8 +62,10 @@ export let getTasks = () => openRequest.onupgradeneeded = () =>{
     let transaction = db.transaction(["tasks"], "readwrite"); // (1)
     let tasks = transaction.objectStore("tasks"); // (2)
     let allRecords = tasks.getAll();
+
+    
     allRecords.onsuccess = function() {
-        console.log(allRecords.result);
+        console.log(allRecords.result.map(e => console.log(e)));
         
     };
     allRecords.onerror = function() {
