@@ -12,7 +12,7 @@ const TasksList: React.FC<ITasksList> = (props) => {
   return (
     <div>
       {props.tasksList?.map((task, index) => (
-        <Task {...task} key={index}></Task>
+        <Task {...props} {...task} key={index}></Task>
       ))}
     </div>
   );

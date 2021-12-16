@@ -1,9 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Route, Routes } from "react-router-dom";
 import "./HeaderStyles.css";
-import CreateNewTaskButton from "./CreateButtons/CreateNewTaskButton";
-import CreateNewCategorieButton from "./CreateButtons/CreateNewCategorieButton";
+import CreateNewCategorieButton from "./CreateButton";
 
 interface IPopUp {
   toggleCreateTaskPopUp: () => void;
@@ -11,6 +9,7 @@ interface IPopUp {
   toogleEditHandlerCreate: () => void;
   setCategorieSection: () => void;
   setTaskSection: () => void;
+  section: boolean;
 }
 
 const Header: React.FC<IPopUp> = (props) => {
@@ -42,26 +41,12 @@ const Header: React.FC<IPopUp> = (props) => {
           </NavLink>
         </div>
       </div>
-      <Routes>
-        <Route
-          path="/tasks"
-          element={
-            <CreateNewTaskButton
-              toggleCreateTaskPopUp={props.toggleCreateTaskPopUp}
-              toogleEditHandlerCreate={props.toogleEditHandlerCreate}
-            />
-          }
-        ></Route>
-        <Route
-          path="/categories"
-          element={
-            <CreateNewCategorieButton
-              toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp}
-              toogleEditHandlerCreate={props.toogleEditHandlerCreate}
-            />
-          }
-        ></Route>
-      </Routes>
+      <CreateNewCategorieButton
+        toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp}
+        section={props.section}
+        toogleEditHandlerCreate={props.toogleEditHandlerCreate}
+        toggleCreateTaskPopUp={props.toggleCreateTaskPopUp}
+      />
     </div>
   );
 };

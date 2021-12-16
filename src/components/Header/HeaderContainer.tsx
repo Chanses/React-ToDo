@@ -7,6 +7,7 @@ interface IPopUp {
   toogleEditHandlerCreate: () => void;
   setCategorieSection: () => void;
   setTaskSection: () => void;
+  section: boolean;
 }
 
 const HeaderContainer: React.FC<IPopUp> = (props) => {

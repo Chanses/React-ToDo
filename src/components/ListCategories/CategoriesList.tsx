@@ -13,7 +13,7 @@ const CategoriesList: React.FC<ICategoriesList> = (props) => {
   return (
     <div>
       {props.categorieList?.map((categorie, index) => (
-        <Categorie {...categorie} key={index} />
+        <Categorie {...props} {...categorie} key={index} />
       ))}
     </div>
   );

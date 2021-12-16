@@ -53,6 +53,7 @@ const App: React.FC<IApp> = (props) => {
           setTaskSection={props.setTaskSection}
           setCategorieSection={props.setCategorieSection}
           toogleEditHandlerCreate={props.toogleEditHandlerCreate}
+          section={props.section}
         />
         <div className="Content">
           <Routes>
