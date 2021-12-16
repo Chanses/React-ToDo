@@ -5,6 +5,7 @@ interface ITasksList {
   toggleTaskPopUp: () => void;
   toggleDeletePopUp: () => void;
   toogleEditHandlerEdit: () => void;
+  setItemId: (id: string) => void;
   tasksList?: ITask[];
 }
 

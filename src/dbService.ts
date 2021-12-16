@@ -34,6 +34,7 @@ export const addTask = (name: string, description?: string, categorie?: string) 
     };
 };
 
+
 let categorieCount = 0;
 export const addCategorie = (name: string, description?: string) => {
 
@@ -80,7 +81,6 @@ export let getTasks = (cb: (tasks: ITask[]) => void) => {
 }
 
 
-
 export const getCategories = (cb: (categories: ICategorie[]) => void) => {
     const openRequest = indexedDB.open("ToDo", 1);
     openRequest.onsuccess = () => {
@@ -100,11 +100,28 @@ export const getCategories = (cb: (categories: ICategorie[]) => void) => {
     }
 }
 
-export const deleteCategorie = (categorieId: string) => {
+
+
+
+export const deleteTask = (taskId: string) => {
+    const db = openRequest.result;
+    const request = db.transaction(["tasks"], "readwrite")
+        .objectStore("tasks")
+        .delete(taskId);
+    request.onsuccess = function () {
+        console.log("задача удалена из хранилища", request.result);
+
+    };
+    request.onerror = function () {
+        console.log("Ошибка", request.error);
+    };
+}
+
+export const deleteCategorie = (CategorieId: string) => {
     const db = openRequest.result;
     const request = db.transaction(["categories"], "readwrite")
         .objectStore("categories")
-        .delete(categorieId);
+        .delete(CategorieId);
     request.onsuccess = function () {
         console.log("задача удалена из хранилища", request.result);
 

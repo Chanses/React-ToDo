@@ -7,6 +7,7 @@ interface ICategoriesList {
   toggleDeletePopUp: () => void;
   toogleEditHandlerEdit: () => void;
   categorieList?: ICategorie[];
+  setItemId: (id: string) => void;
 }
 
 const CategoriesList: React.FC<ICategoriesList> = (props) => {

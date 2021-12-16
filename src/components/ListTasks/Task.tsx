@@ -10,6 +10,7 @@ export interface ITask {
   description?: string;
   toggleTaskPopUp: () => void;
   toggleDeletePopUp: () => void;
+  setItemId: (id: string) => void;
 }
 
 const Task: React.FC<ITask> = (props) => {
@@ -38,7 +39,10 @@ const Task: React.FC<ITask> = (props) => {
           </button>
           <button
             className="TaskWrapper__Actions-Delete"
-            onClick={props.toggleDeletePopUp}
+            onClick={() => {
+              props.toggleDeletePopUp();
+              props.setItemId(props.id);
+            }}
           >
             {" "}
             <img src={deleteImg} alt="" />

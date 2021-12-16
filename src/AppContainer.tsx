@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import App from "./App";
+import { deleteTask } from "./dbService";
 import { deleteCategorie } from "./dbService";
 
 const AppContainer = () => {
@@ -9,6 +10,7 @@ const AppContainer = () => {
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [section, setSection] = useState<boolean>(true);
   const [editHander, setEditHandler] = useState<boolean>(true);
+  const [itemId, setItemId] = useState<string>("");
 
   function toogleEditHandlerCreate() {
     setEditHandler(true);
@@ -40,6 +42,7 @@ const AppContainer = () => {
       isOpenDelete={isOpenDelete}
       editHander={editHander}
       section={section}
+      itemId={itemId}
       toggleCreateTaskPopUp={toggleCreateTaskPopUp}
       toogleEditHandlerCreate={toogleEditHandlerCreate}
       toogleEditHandlerEdit={toogleEditHandlerEdit}
@@ -47,6 +50,8 @@ const AppContainer = () => {
       toggleCreateCategoriePopUp={toggleCreateCategoriePopUp}
       setTaskSection={setTaskSection}
       setCategorieSection={setCategorieSection}
+      setItemId={setItemId}
+      deleteTask={deleteTask}
       deleteCategorie={deleteCategorie}
     />
   );

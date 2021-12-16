@@ -1,7 +1,6 @@
 import React from "react";
 import "./StylePopUp.css";
 import closeImg from "../../images/Close.svg";
-import { ICategorie } from "../ListCategories/Categorie";
 
 interface ICreateCategoriePopUp {
   togglePopUp: () => void;

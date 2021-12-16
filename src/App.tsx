@@ -14,6 +14,7 @@ interface IApp {
   isOpenDelete: boolean;
   editHander: boolean;
   section: boolean;
+  itemId: string;
   toggleCreateTaskPopUp: () => void;
   toogleEditHandlerCreate: () => void;
   toogleEditHandlerEdit: () => void;
@@ -21,7 +22,9 @@ interface IApp {
   toggleCreateCategoriePopUp: () => void;
   setTaskSection: () => void;
   setCategorieSection: () => void;
-  deleteCategorie: (categorieId: string) => void;
+  setItemId: (id: string) => void;
+  deleteTask: (id: string) => void;
+  deleteCategorie: (id: string) => void;
 }
 
 const App: React.FC<IApp> = (props) => {
@@ -43,8 +46,10 @@ const App: React.FC<IApp> = (props) => {
         {props.isOpenDelete && (
           <DeleteItemPopUp
             togglePopUp={props.toggleDeletePopUp}
-            section={props.section}
+            deleteTask={props.deleteTask}
             deleteCategorie={props.deleteCategorie}
+            section={props.section}
+            itemId={props.itemId}
           />
         )}
         <HeaderContainer
@@ -64,6 +69,7 @@ const App: React.FC<IApp> = (props) => {
                   toggleTaskPopUp={props.toggleCreateTaskPopUp}
                   toggleDeletePopUp={props.toggleDeletePopUp}
                   toogleEditHandlerEdit={props.toogleEditHandlerEdit}
+                  setItemId={props.setItemId}
                 />
               }
             />
@@ -74,6 +80,7 @@ const App: React.FC<IApp> = (props) => {
                   toggleTaskPopUp={props.toggleCreateCategoriePopUp}
                   toggleDeletePopUp={props.toggleDeletePopUp}
                   toogleEditHandlerEdit={props.toogleEditHandlerEdit}
+                  setItemId={props.setItemId}
                 />
               }
             />

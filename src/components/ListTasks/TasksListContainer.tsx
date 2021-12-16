@@ -8,6 +8,7 @@ interface ITasksListContainer {
   toggleTaskPopUp: () => void;
   toggleDeletePopUp: () => void;
   toogleEditHandlerEdit: () => void;
+  setItemId: (id: string) => void;
 }
 
 const TasksListContainer: React.FC<ITasksListContainer> = (props) => {

@@ -7,6 +7,7 @@ interface ICategoriesListContainer {
   toggleTaskPopUp: () => void;
   toggleDeletePopUp: () => void;
   toogleEditHandlerEdit: () => void;
+  setItemId: (id: string) => void;
 }
 
 const CategoriesListContainer: React.FC<ICategoriesListContainer> = (props) => {

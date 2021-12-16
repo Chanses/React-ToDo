@@ -9,6 +9,7 @@ export interface ICategorie {
   toggleTaskPopUp: () => void;
   toggleDeletePopUp: () => void;
   toogleEditHandlerEdit: () => void;
+  setItemId: (id: string) => void;
 }
 
 const Categorie: React.FC<ICategorie> = (props) => {
@@ -35,7 +36,10 @@ const Categorie: React.FC<ICategorie> = (props) => {
         </button>
         <button
           className="TaskWrapper__Actions-Delete"
-          onClick={props.toggleDeletePopUp}
+          onClick={() => {
+            props.toggleDeletePopUp();
+            props.setItemId(props.id);
+          }}
         >
           {" "}
           <img src={deleteImg} alt="" />
