@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import CreateCategoriePopUp from "./CreateCategoriePopUp";
+import CreateCategoriePopUp from "./CategoriePopUp";
 import { addCategorie } from "../../dbService";
 
 interface ICreateCategoriePopUpCon {

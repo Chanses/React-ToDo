@@ -1,23 +1,35 @@
 import React from "react";
 import "./StylePopUp.css";
 import closeImg from "../../images/Close.svg";
+import { ITaskItem } from "../ListTasks/TasksListContainer";
+import CreateButton from "./Buttons/CreateButton";
+import SaveButton from "./Buttons/SaveButton";
+import CloseButton from "./Buttons/CloseButton";
+import TaskTextarea from "./Textareas/TaskTextarea";
+import PopUpSelect from "./Select/PopUpSelect";
+import TaskInput from "./Textareas/TaskInput";
+import CategoryInput from "./Textareas/CategoryInput";
 
-interface ICreateTaskPopUp {
+interface ITaskPopUp {
   togglePopUp: () => void;
   descriptionHandler: () => void;
-  validHandler: () => void;
   dirtyHandler: () => void;
   addTask: (name: string, description?: string, categorie?: string) => void;
+  handlerNameInput: (event: any) => void;
+  // getTaskList: () => void;
   action: boolean;
   isDirty: boolean;
   isInvalid: boolean;
+  itemNameValue: string;
+  itemDescriptionValue: string;
   name: string;
   description: string;
   nameInput: any;
   descriptionInput: any;
+  taskItem?: ITaskItem;
 }
 
-const CreateTaskPopUp: React.FC<ICreateTaskPopUp> = (props) => {
+const TaskPopUp: React.FC<ITaskPopUp> = (props) => {
   let invalidBorderStyle = { border: "2px red solid" };
   let invalidTextStyle = { color: "red" };
 
@@ -45,17 +57,8 @@ const CreateTaskPopUp: React.FC<ICreateTaskPopUp> = (props) => {
             </div>
             <form action="submit">
               {" "}
-              <input
-                type="text"
-                id="namefield"
-                placeholder="Введите имя задачи"
-                onFocus={props.dirtyHandler}
-                onChange={props.validHandler}
-                ref={props.nameInput}
-                style={
-                  props.isDirty && props.isInvalid ? invalidBorderStyle : {}
-                }
-              />
+              {/* Поля ввода для имени*/}
+              {props.action ? <TaskInput /> : <CategoryInput />}
             </form>
           </div>
           <div className="PopUp__Main-Categorie DoubleInput">
@@ -63,13 +66,8 @@ const CreateTaskPopUp: React.FC<ICreateTaskPopUp> = (props) => {
               <div className="PopUp-InputsArticle">Категория </div>
             </div>
             <div style={{ display: "flex" }}>
-              <select name="" id="">
-                <option style={{ display: "none" }} value="" disabled>
-                  Выберите категорию
-                </option>
-                <option value="">lorem1</option>
-                <option value="">lorem2 </option>
-              </select>
+              {/* Поля для выбора категорий*/}
+              <PopUpSelect />
             </div>
           </div>
         </div>
@@ -77,32 +75,17 @@ const CreateTaskPopUp: React.FC<ICreateTaskPopUp> = (props) => {
         <div className="PopUp__Main-Description">
           <div className="PopUp__Main-Description">
             <div className="PopUp-InputsArticle">Описание </div>
-            <textarea
-              className="description"
-              placeholder="Введите описание задачи"
-              ref={props.descriptionInput}
-              onChange={props.descriptionHandler}
-            />
+            <TaskTextarea />
           </div>
         </div>
 
         <div className="PopUp__buttons">
           <div className="PopUp__buttons-create">
-            {props.action ? (
-              <button
-                onClick={() => {
-                  props.addTask(props.name, props.description);
-                  props.togglePopUp();
-                }}
-              >
-                Создать
-              </button>
-            ) : (
-              <button type="submit">Сохранить</button>
-            )}
+            {/* Кнопки  для сохранения*/}
+            {props.action ? <CreateButton /> : <SaveButton />}
           </div>
           <div className="PopUp__buttons-close">
-            <button onClick={props.togglePopUp}>Закрыть</button>
+            <CloseButton />
           </div>
         </div>
       </div>
@@ -110,4 +93,4 @@ const CreateTaskPopUp: React.FC<ICreateTaskPopUp> = (props) => {
   );
 };
 
-export default CreateTaskPopUp;
+export default TaskPopUp;

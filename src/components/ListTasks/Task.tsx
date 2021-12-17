@@ -3,17 +3,23 @@ import folderImg from "../../images/Folder.svg";
 import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
 import "./TasksStyle.css";
+import { ITaskItem } from "./TasksListContainer";
 
 export interface ITask {
   id: string;
   name: string;
   description?: string;
+  taskItem?: ITaskItem;
   toggleTaskPopUp: () => void;
   toggleDeletePopUp: () => void;
   setItemId: (id: string) => void;
+  toogleEditHandlerEdit: () => void;
+  setItemNameValue: (itemName?: string) => void;
+  setItemDescriptionValue: (itemDescription?: string) => void;
+  getTaskItem: () => void;
 }
 
-const Task: React.FC<ITask> = (props) => {
+const Task = (props: ITask) => {
   return (
     <>
       <div className="TaskWrapper" id={props.id}>
@@ -32,7 +38,11 @@ const Task: React.FC<ITask> = (props) => {
         <div className="TaskWrapper__Actions">
           <button
             className="TaskWrapper__Actions-Edit"
-            onClick={props.toggleTaskPopUp}
+            onClick={() => {
+              props.toggleTaskPopUp();
+              props.toogleEditHandlerEdit();
+              props.getTaskItem();
+            }}
           >
             {" "}
             <img src={editImg} alt="" />
@@ -42,6 +52,7 @@ const Task: React.FC<ITask> = (props) => {
             onClick={() => {
               props.toggleDeletePopUp();
               props.setItemId(props.id);
+              console.log(props.taskItem);
             }}
           >
             {" "}

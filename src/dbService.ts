@@ -1,5 +1,6 @@
 import { ITask } from "./components/ListTasks/Task"
 import { ICategorie } from "./components/ListCategories/Categorie"
+import { ITaskItem } from "./components/ListTasks/TasksListContainer";
 const openRequest = indexedDB.open("ToDo", 1);
 
 export const openStorage = openRequest.onupgradeneeded = function () {
@@ -60,25 +61,6 @@ export const addCategorie = (name: string, description?: string) => {
 };
 
 
-export let getTasks = (cb: (tasks: ITask[]) => void) => {
-    const openRequest = indexedDB.open("ToDo", 1);
-    openRequest.onsuccess = () => {
-        const db = openRequest.result;
-        const transaction = db.transaction(["tasks"], "readwrite"); // (1)
-        const tasks = transaction.objectStore("tasks"); // (2)
-        const allRecords = tasks.getAll();
-
-        allRecords.onsuccess = function () {
-            cb(allRecords.result);
-
-        };
-        allRecords.onerror = function () {
-            console.log("Ошибка", allRecords.error);
-        };
-    }
-
-    openRequest.onerror = () => console.log("open DB error")
-}
 
 
 export const getCategories = (cb: (categories: ICategorie[]) => void) => {
@@ -99,8 +81,6 @@ export const getCategories = (cb: (categories: ICategorie[]) => void) => {
         };
     }
 }
-
-
 
 
 export const deleteTask = (taskId: string) => {
@@ -129,4 +109,49 @@ export const deleteCategorie = (CategorieId: string) => {
     request.onerror = function () {
         console.log("Ошибка", request.error);
     };
+}
+
+export let getTasks = (cb: (tasks: ITask[]) => void) => {
+    const openRequest = indexedDB.open("ToDo", 1);
+    openRequest.onsuccess = () => {
+        const db = openRequest.result;
+        const transaction = db.transaction(["tasks"], "readwrite"); // (1)
+        const tasks = transaction.objectStore("tasks"); // (2)
+        const allRecords = tasks.getAll();
+
+        allRecords.onsuccess = function () {
+            cb(allRecords.result);
+
+        };
+        allRecords.onerror = function () {
+            console.log("Ошибка", allRecords.error);
+        };
+    }
+
+    openRequest.onerror = () => console.log("open DB error")
+}
+/** */
+
+/**Метод получения Задачи 
+ * @param cb: коллбэк...
+*/
+export let getTask = (cb: (task: ITaskItem) => void) => {
+    const openRequest = indexedDB.open("ToDo", 1);
+    openRequest.onsuccess = () => {
+        const db = openRequest.result;
+        const transaction = db.transaction(["tasks"], "readwrite"); // (1)
+        const task = transaction.objectStore("tasks"); // (2)
+        const allRecords = task.get(0);
+
+        allRecords.onsuccess = function () {
+            cb(allRecords.result);
+            console.log(allRecords.result)
+
+        };
+        allRecords.onerror = function () {
+            console.log("Ошибка", allRecords.error);
+        };
+    }
+
+    openRequest.onerror = () => console.log("open DB error")
 }

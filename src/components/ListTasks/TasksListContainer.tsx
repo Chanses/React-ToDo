@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./TasksStyle.css";
 import { ITask } from "./Task";
-import { getTasks } from "../../dbService";
+import { getTask } from "../../dbService";
 import TasksList from "./TasksList";
 
 interface ITasksListContainer {
@@ -9,21 +9,37 @@ interface ITasksListContainer {
   toggleDeletePopUp: () => void;
   toogleEditHandlerEdit: () => void;
   setItemId: (id: string) => void;
+  setTaskItem: ({}: ITaskItem) => void;
+  setDescriptionName: (description: string) => void;
+  setItemNameValue: (name: string) => void;
+  // getTaskList: () => void;
+  taskList?: ITask[];
+  taskItem?: ITaskItem;
+}
+export interface ITaskItem {
+  id: string;
+  name: string;
+  description?: string;
 }
 
 const TasksListContainer: React.FC<ITasksListContainer> = (props) => {
-  const [tasksList, setTasksList] = useState<ITask[]>();
-  const handleLoadTasks = (tasks: ITask[]) => setTasksList(tasks);
+  // props.getTaskList();
+  const handleLoadTask = (task: ITaskItem) => props.setTaskItem(task);
 
-  useEffect(() => {
-    getTasks(handleLoadTasks);
-  }, []);
+  const GetTaskItem = useCallback(() => {
+    getTask(handleLoadTask);
+  }, [handleLoadTask(props.taskItem!)]);
 
-  console.log("tasksList", tasksList);
+  // props.setItemNameValue(props.taskItem!.name);
+  console.log("tasksItem", props.taskItem);
 
   return (
     <>
-      <TasksList {...props} tasksList={tasksList} />
+      <TasksList
+        {...props}
+        tasksList={props.taskList}
+        getTaskItem={GetTaskItem}
+      />
     </>
   );
 };

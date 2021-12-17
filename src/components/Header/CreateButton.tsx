@@ -1,4 +1,5 @@
 import React from "react";
+import TaskPopUp from "../PopUps/CreateEditPopUp";
 
 interface ICreateNewCategorieButton {
   toggleCreateCategoriePopUp: () => void;
@@ -7,9 +8,7 @@ interface ICreateNewCategorieButton {
   section: boolean;
 }
 
-const CreateNewCategorieButton: React.FC<ICreateNewCategorieButton> = (
-  props
-) => {
+const CreateButton: React.FC<ICreateNewCategorieButton> = (props) => {
   return (
     <>
       {!props.section ? (
@@ -37,4 +36,4 @@ const CreateNewCategorieButton: React.FC<ICreateNewCategorieButton> = (
   );
 };
 
-export default CreateNewCategorieButton;
+export default CreateButton;

@@ -1,15 +1,20 @@
 import React, { useRef, useState } from "react";
-import CreateTaskPopUp from "./CreateTaskPopUp";
+import TaskPopUp from "./CreateEditPopUp";
 import { addTask } from "../../dbService";
+import { ITaskItem } from "../ListTasks/TasksListContainer";
 
 interface ICreateTaskPopUpContainer {
   togglePopUp: () => void;
+  setItemNameValue: (name: string) => void;
+  setItemDescriptionValue: (name: string) => void;
+  // getTaskList: () => void;
+  itemNameValue: string;
+  itemDescriptionValue: string;
   action: boolean;
+  taskItem?: ITaskItem;
 }
 
-const CreateTaskPopUpContainer: React.FC<ICreateTaskPopUpContainer> = (
-  props
-) => {
+const TaskPopUpContainer: React.FC<ICreateTaskPopUpContainer> = (props) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -26,14 +31,15 @@ const CreateTaskPopUpContainer: React.FC<ICreateTaskPopUpContainer> = (
     setDescription(descriptionInput?.current?.value);
   };
 
-  const validHandler = () => {
+  const handlerNameInput = (event: any) => {
+    props.setItemNameValue(event.target.value);
     setIsDirty(true);
     setName(nameInput?.current?.value);
     name.length > -1 ? setIsInvalid(false) : setIsInvalid(true);
   };
 
   return (
-    <CreateTaskPopUp
+    <TaskPopUp
       {...props}
       isDirty={isDirty}
       isInvalid={isInvalid}
@@ -41,7 +47,7 @@ const CreateTaskPopUpContainer: React.FC<ICreateTaskPopUpContainer> = (
       description={description}
       descriptionHandler={descriptionHandler}
       dirtyHandler={dirtyHandler}
-      validHandler={validHandler}
+      handlerNameInput={handlerNameInput}
       nameInput={nameInput}
       descriptionInput={descriptionInput}
       addTask={addTask}
@@ -49,4 +55,4 @@ const CreateTaskPopUpContainer: React.FC<ICreateTaskPopUpContainer> = (
   );
 };
 
-export default CreateTaskPopUpContainer;
+export default TaskPopUpContainer;

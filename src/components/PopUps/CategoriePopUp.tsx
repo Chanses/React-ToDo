@@ -2,7 +2,7 @@ import React from "react";
 import "./StylePopUp.css";
 import closeImg from "../../images/Close.svg";
 
-interface ICreateCategoriePopUp {
+interface ICategoriePopUp {
   togglePopUp: () => void;
   descriptionHandler: () => void;
   validHandler: () => void;
@@ -17,7 +17,7 @@ interface ICreateCategoriePopUp {
   descriptionInput: any;
 }
 
-const CreateCategoriePopUp: React.FC<ICreateCategoriePopUp> = (props) => {
+const CategoriePopUp: React.FC<ICategoriePopUp> = (props) => {
   let invalidBorderStyle = { border: "2px red solid" };
   let invalidTextStyle = { color: "red" };
 
@@ -97,4 +97,4 @@ const CreateCategoriePopUp: React.FC<ICreateCategoriePopUp> = (props) => {
   );
 };
 
-export default CreateCategoriePopUp;
+export default CategoriePopUp;

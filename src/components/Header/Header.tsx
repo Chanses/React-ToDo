@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./HeaderStyles.css";
 import CreateNewCategorieButton from "./CreateButton";
+import CreateButton from "./CreateButton";
 
 interface IPopUp {
   toggleCreateTaskPopUp: () => void;
@@ -41,7 +42,7 @@ const Header: React.FC<IPopUp> = (props) => {
           </NavLink>
         </div>
       </div>
-      <CreateNewCategorieButton
+      <CreateButton
         toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp}
         section={props.section}
         toogleEditHandlerCreate={props.toogleEditHandlerCreate}
