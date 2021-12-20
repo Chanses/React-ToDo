@@ -5,7 +5,19 @@ import { modalStateValues } from "../../../models/modalStateValues";
 
 interface IButtonPopUp {
   setModalState: ({}: ModalState) => void;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
+  editTask: (
+    id: string,
+    name: string,
+    description?: string,
+    categorie?: string
+  ) => void;
+  editCategory: (id: string, name: string, description?: string) => void;
   modalState: ModalState;
+  name: string;
+  description: string;
+  itemId: string;
 }
 
 const SaveButton = (props: IButtonPopUp) => {
@@ -17,6 +29,9 @@ const SaveButton = (props: IButtonPopUp) => {
           type="submit"
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
+            props.setName("");
+            props.setDescription("");
+            props.editTask(props.itemId, props.name, props.description);
           }}
         >
           Сохранить
@@ -26,6 +41,9 @@ const SaveButton = (props: IButtonPopUp) => {
           name="categorieSaveButton"
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateCategory);
+            props.setName("");
+            props.setDescription("");
+            props.editCategory(props.itemId, props.name, props.description);
           }}
         >
           Сохранить

@@ -18,12 +18,11 @@ const AppContainer = () => {
   const [section, setSection] = useState<boolean>(true);
   // Установка значений
   const [itemId, setItemId] = useState<string>("");
-  const [itemNameValue, setItemNameValue] = useState<string>("");
-  const [itemDescriptionValue, setItemDescriptionValue] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   // Установка полученных значений
   const [tasksList, setTasksList] = useState<ITask[]>();
   const [categorieList, setCategorieList] = useState<ICategorie[]>();
-
   // Изменение состояний для попапов
 
   const [modalState, setModalState] = useState<ModalState>({
@@ -84,8 +83,8 @@ const AppContainer = () => {
       modalState={modalState}
       // Значения
       itemId={itemId}
-      itemNameValue={itemNameValue}
-      itemDescriptionValue={itemDescriptionValue}
+      name={name}
+      description={description}
       // Полученные данные
       taskList={tasksList}
       categorieList={categorieList}
@@ -95,8 +94,8 @@ const AppContainer = () => {
       setModalState={setModalState}
       // Установка значений
       setItemId={setItemId}
-      setItemNameValue={setItemNameValue}
-      setItemDescriptionValue={setItemDescriptionValue}
+      setName={setName}
+      setDescription={setDescription}
       // Удаление
       deleteTask={deleteTask}
       deleteCategorie={deleteCategorie}

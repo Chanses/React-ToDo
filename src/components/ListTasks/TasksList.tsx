@@ -3,7 +3,8 @@ import { ModalState } from "../../AppContainer";
 import Task, { ITask } from "./Task";
 
 interface ITasksList {
-  setItemNameValue: (name: string) => void;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
   setItemId: (id: string) => void;
   setModalState: ({}: ModalState) => void;
   tasksList?: ITask[];

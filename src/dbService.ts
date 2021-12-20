@@ -34,6 +34,30 @@ export const addTask = (name: string, description?: string, categorie?: string) 
     };
 };
 
+export const editTask = (id: string, name: string, description?: string, categorie?: string,) => {
+    const db = openRequest.result;
+    const transaction = db.transaction(["tasks"], "readwrite"); // (1)
+    const tasks = transaction.objectStore("tasks"); // (2)
+
+    const task = {
+        id: id,
+        name: name,
+        description: description,
+    }
+
+    const request = tasks.put(task); // (3)
+
+
+    request.onsuccess = function () { // (4)
+        console.log("задача заменена в хранилище", request.result);
+
+    };
+
+    request.onerror = function () {
+        console.log("Ошибка", request.error);
+    };
+};
+
 
 
 export const addCategory = (name: string, description?: string) => {
@@ -59,6 +83,29 @@ export const addCategory = (name: string, description?: string) => {
     };
 };
 
+export const editCategory = (id: string, name: string, description?: string) => {
+    const db = openRequest.result;
+    const transaction = db.transaction(["categories"], "readwrite"); // (1)
+    const categories = transaction.objectStore("categories"); // (2)
+
+    const category = {
+        id: id,
+        name: name,
+        description: description,
+    }
+
+    const request = categories.put(category); // (3)
+
+
+    request.onsuccess = function () { // (4)
+        console.log("задача заменена в хранилище", request.result);
+
+    };
+
+    request.onerror = function () {
+        console.log("Ошибка", request.error);
+    };
+};
 
 
 

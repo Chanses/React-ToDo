@@ -9,11 +9,10 @@ export interface ITask {
   id: string;
   name: string;
   key: number;
-  description?: string;
+  description: string;
   setItemId: (id: string) => void;
-  setItemNameValue: (itemName?: string) => void;
-  setItemDescriptionValue: (itemDescription?: string) => void;
-  getTaskItem: () => void;
+  setName: (itemName?: string) => void;
+  setDescription: (description: string) => void;
   setModalState: ({}: ModalState) => void;
 }
 
@@ -39,6 +38,8 @@ const Task = (props: ITask) => {
             onClick={() => {
               props.setModalState(modalStateValues.Open.OpenEditTask);
               props.setItemId(props.id);
+              props.setName(props.name);
+              props.setDescription(props.description);
             }}
           >
             {" "}

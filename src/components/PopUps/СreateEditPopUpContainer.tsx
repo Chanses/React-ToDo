@@ -1,14 +1,15 @@
 import React, { useRef, useState } from "react";
-import { addTask } from "../../dbService";
+import { addTask, editTask, editCategory } from "../../dbService";
 import { ModalState } from "../../AppContainer";
 import CreateEditPopUp from "./CreateEditPopUp";
 
 interface ICreateEditPopUpContainer {
-  setItemNameValue: (name: string) => void;
-  setItemDescriptionValue: (name: string) => void;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
   setModalState: ({}: ModalState) => void;
-  itemNameValue: string;
-  itemDescriptionValue: string;
+  name: string;
+  description: string;
+  itemId: string;
   modalState: ModalState;
 }
 
@@ -17,23 +18,21 @@ const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
 ) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const [isInvalid, setIsInvalid] = useState<boolean>(true);
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
   const nameInput = useRef<any>();
   const descriptionInput = useRef<any>();
 
   const dirtyHandler = () => {
     setIsDirty(true);
-    name.length > 0 ? setIsInvalid(false) : setIsInvalid(true);
+    props.name.length > 0 ? setIsInvalid(false) : setIsInvalid(true);
   };
   const handlerDescriptionInput = () => {
-    setDescription(descriptionInput?.current?.value);
+    props.setDescription(descriptionInput?.current?.value);
   };
 
   const handlerNameInput = () => {
     setIsDirty(true);
-    setName(nameInput?.current?.value);
-    name.length > -1 ? setIsInvalid(false) : setIsInvalid(true);
+    props.setName(nameInput?.current?.value);
+    props.name.length > -1 ? setIsInvalid(false) : setIsInvalid(true);
   };
 
   return (
@@ -41,13 +40,12 @@ const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
       {...props}
       isDirty={isDirty}
       isInvalid={isInvalid}
-      name={name}
-      description={description}
+      description={props.description}
       nameInput={nameInput}
       descriptionInput={descriptionInput}
-      setName={setName}
-      setDescription={setDescription}
       addTask={addTask}
+      editTask={editTask}
+      editCategory={editCategory}
       dirtyHandler={dirtyHandler}
       handlerDescriptionInput={handlerDescriptionInput}
       handlerNameInput={handlerNameInput}

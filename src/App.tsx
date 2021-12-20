@@ -13,16 +13,16 @@ import { ICategorie } from "./components/ListCategories/Categorie";
 interface IApp {
   section: boolean;
   itemId: string;
-  itemNameValue: string;
-  itemDescriptionValue: string;
+  name: string;
+  description: string;
   taskList?: ITask[];
   categorieList?: ICategorie[];
   modalState: ModalState;
   setTaskSection: () => void;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
   setCategorieSection: () => void;
   setItemId: (id: string) => void;
-  setItemNameValue: (name: string) => void;
-  setItemDescriptionValue: (name: string) => void;
   deleteTask: (id: string) => void;
   deleteCategorie: (id: string) => void;
   setModalState: ({}: ModalState) => void;
@@ -36,10 +36,11 @@ const App: React.FC<IApp> = (props) => {
           <CreateEditPopUpContainer
             setModalState={props.setModalState}
             modalState={props.modalState}
-            setItemNameValue={props.setItemNameValue}
-            setItemDescriptionValue={props.setItemDescriptionValue}
-            itemNameValue={props.itemNameValue}
-            itemDescriptionValue={props.itemDescriptionValue}
+            setName={props.setName}
+            name={props.name}
+            setDescription={props.setDescription}
+            description={props.description}
+            itemId={props.itemId}
           />
         )}
         {props.modalState.deleteModal.open && (
@@ -65,10 +66,10 @@ const App: React.FC<IApp> = (props) => {
               element={
                 <TasksListContainer
                   setItemId={props.setItemId}
-                  setItemNameValue={props.setItemNameValue}
-                  setDescriptionName={props.setItemDescriptionValue}
                   setModalState={props.setModalState}
                   taskList={props.taskList}
+                  setName={props.setName}
+                  setDescription={props.setDescription}
                 />
               }
             />
@@ -79,6 +80,8 @@ const App: React.FC<IApp> = (props) => {
                   setItemId={props.setItemId}
                   setModalState={props.setModalState}
                   categorieList={props.categorieList}
+                  setName={props.setName}
+                  setDescription={props.setDescription}
                 />
               }
             />

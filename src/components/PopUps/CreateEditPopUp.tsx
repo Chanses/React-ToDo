@@ -16,6 +16,13 @@ interface ICreateEditPopUp {
   handlerDescriptionInput: () => void;
   dirtyHandler: () => void;
   addTask: (name: string, description?: string, categorie?: string) => void;
+  editTask: (
+    id: string,
+    name: string,
+    description?: string,
+    categorie?: string
+  ) => void;
+  editCategory: (id: string, name: string, description?: string) => void;
   handlerNameInput: () => void;
   setModalState: ({}: ModalState) => void;
   setName: (name: string) => void;
@@ -25,6 +32,7 @@ interface ICreateEditPopUp {
   isInvalid: boolean;
   name: string;
   description: string;
+  itemId: string;
   nameInput: any;
   descriptionInput: any;
 }
@@ -60,7 +68,8 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
                 props.setModalState(
                   modalStateValues.CloseDontSave.CloseCreateTask
                 );
-                console.log(props.modalState);
+                props.setName("");
+                props.setDescription("");
               }}
             />
           </button>
@@ -122,6 +131,8 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
             modalActionsType.CREATE ? (
               <CreateButton
                 setModalState={props.setModalState}
+                setName={props.setName}
+                setDescription={props.setDescription}
                 modalState={props.modalState}
                 name={props.name}
                 description={props.description}
@@ -130,11 +141,22 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
               <SaveButton
                 setModalState={props.setModalState}
                 modalState={props.modalState}
+                setName={props.setName}
+                setDescription={props.setDescription}
+                editTask={props.editTask}
+                editCategory={props.editCategory}
+                name={props.name}
+                description={props.description}
+                itemId={props.itemId}
               />
             )}
           </div>
           <div className="PopUp__buttons-close">
-            <CloseButton setModalState={props.setModalState} />
+            <CloseButton
+              setModalState={props.setModalState}
+              setName={props.setName}
+              setDescription={props.setDescription}
+            />
           </div>
         </div>
       </div>

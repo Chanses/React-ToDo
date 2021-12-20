@@ -4,6 +4,8 @@ import { modalStateValues } from "../../../models/modalStateValues";
 
 interface IButtonPopUp {
   setModalState: ({}: ModalState) => void;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
 }
 
 const CloseButton = (props: IButtonPopUp) => {
@@ -12,6 +14,8 @@ const CloseButton = (props: IButtonPopUp) => {
       onClick={() => {
         props.setModalState(modalStateValues.CloseDontSave.CloseCreateCategory);
         props.setModalState(modalStateValues.CloseDontSave.CloseCreateTask);
+        props.setName("");
+        props.setDescription("");
       }}
     >
       Закрыть

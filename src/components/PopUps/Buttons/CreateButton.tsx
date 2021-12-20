@@ -6,6 +6,8 @@ import { addTask, addCategory } from "../../../dbService";
 
 interface IButtonPopUp {
   setModalState: ({}: ModalState) => void;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
   modalState: ModalState;
   name: string;
   description: string;
@@ -20,6 +22,8 @@ const CreateButton = (props: IButtonPopUp) => {
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
             addTask(props.name, props.description);
+            props.setName("");
+            props.setDescription("");
           }}
         >
           Создать
@@ -30,6 +34,8 @@ const CreateButton = (props: IButtonPopUp) => {
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateCategory);
             addCategory(props.name, props.description);
+            props.setName("");
+            props.setDescription("");
           }}
         >
           Создать

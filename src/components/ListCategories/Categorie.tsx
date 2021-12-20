@@ -7,7 +7,9 @@ import { modalStateValues } from "../../models/modalStateValues";
 export interface ICategorie {
   id: string;
   name: string;
-  description?: string;
+  description: string;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
   setItemId: (id: string) => void;
   setModalState: ({}: ModalState) => void;
 }
@@ -29,6 +31,8 @@ const Categorie: React.FC<ICategorie> = (props) => {
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenEditCategory);
             props.setItemId(props.id);
+            props.setName(props.name);
+            props.setDescription(props.description);
           }}
         >
           {" "}
