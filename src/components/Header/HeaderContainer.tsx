@@ -1,12 +1,11 @@
 import React from "react";
+import { ModalState } from "../../AppContainer";
 import Header from "./Header";
 
 interface IPopUp {
-  toggleCreateTaskPopUp: () => void;
-  toggleCreateCategoriePopUp: () => void;
-  toogleEditHandlerCreate: () => void;
   setCategorieSection: () => void;
   setTaskSection: () => void;
+  setModalState: ({}: ModalState) => void;
   section: boolean;
 }
 

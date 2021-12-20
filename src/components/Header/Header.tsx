@@ -3,13 +3,12 @@ import { NavLink } from "react-router-dom";
 import "./HeaderStyles.css";
 import CreateNewCategorieButton from "./CreateButton";
 import CreateButton from "./CreateButton";
+import { ModalState } from "../../AppContainer";
 
 interface IPopUp {
-  toggleCreateTaskPopUp: () => void;
-  toggleCreateCategoriePopUp: () => void;
-  toogleEditHandlerCreate: () => void;
   setCategorieSection: () => void;
   setTaskSection: () => void;
+  setModalState: ({}: ModalState) => void;
   section: boolean;
 }
 
@@ -43,10 +42,8 @@ const Header: React.FC<IPopUp> = (props) => {
         </div>
       </div>
       <CreateButton
-        toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp}
         section={props.section}
-        toogleEditHandlerCreate={props.toogleEditHandlerCreate}
-        toggleCreateTaskPopUp={props.toggleCreateTaskPopUp}
+        setModalState={props.setModalState}
       />
     </div>
   );

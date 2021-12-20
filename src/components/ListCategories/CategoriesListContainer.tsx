@@ -2,24 +2,16 @@ import React, { useEffect, useState } from "react";
 import { ICategorie } from "./Categorie";
 import CategoriesList from "./CategoriesList";
 import { getCategories } from "../../dbService";
+import { ModalState } from "../../AppContainer";
 
 interface ICategoriesListContainer {
-  toggleTaskPopUp: () => void;
-  toggleDeletePopUp: () => void;
-  toogleEditHandlerEdit: () => void;
   setItemId: (id: string) => void;
+  setModalState: ({}: ModalState) => void;
+  categorieList?: ICategorie[];
 }
 
 const CategoriesListContainer: React.FC<ICategoriesListContainer> = (props) => {
-  const [categorieList, setCategorieList] = useState<ICategorie[]>();
-  const handleLoadCategorie = (categorie: ICategorie[]) =>
-    setCategorieList(categorie);
-
-  useEffect(() => {
-    getCategories(handleLoadCategorie);
-  }, []);
-
-  return <CategoriesList {...props} categorieList={categorieList} />;
+  return <CategoriesList {...props} categorieList={props.categorieList} />;
 };
 
 export default CategoriesListContainer;

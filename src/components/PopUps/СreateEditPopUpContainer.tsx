@@ -1,25 +1,24 @@
 import React, { useRef, useState } from "react";
-import TaskPopUp from "./CreateEditPopUp";
 import { addTask } from "../../dbService";
-import { ITaskItem } from "../ListTasks/TasksListContainer";
+import { ModalState } from "../../AppContainer";
+import CreateEditPopUp from "./CreateEditPopUp";
 
-interface ICreateTaskPopUpContainer {
-  togglePopUp: () => void;
+interface ICreateEditPopUpContainer {
   setItemNameValue: (name: string) => void;
   setItemDescriptionValue: (name: string) => void;
-  // getTaskList: () => void;
+  setModalState: ({}: ModalState) => void;
   itemNameValue: string;
   itemDescriptionValue: string;
-  action: boolean;
-  taskItem?: ITaskItem;
+  modalState: ModalState;
 }
 
-const TaskPopUpContainer: React.FC<ICreateTaskPopUpContainer> = (props) => {
+const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
+  props
+) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
+  const [isInvalid, setIsInvalid] = useState<boolean>(true);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [isInvalid, setIsInvalid] = useState<boolean>(true);
-
   const nameInput = useRef<any>();
   const descriptionInput = useRef<any>();
 
@@ -27,32 +26,33 @@ const TaskPopUpContainer: React.FC<ICreateTaskPopUpContainer> = (props) => {
     setIsDirty(true);
     name.length > 0 ? setIsInvalid(false) : setIsInvalid(true);
   };
-  const descriptionHandler = () => {
+  const handlerDescriptionInput = () => {
     setDescription(descriptionInput?.current?.value);
   };
 
-  const handlerNameInput = (event: any) => {
-    props.setItemNameValue(event.target.value);
+  const handlerNameInput = () => {
     setIsDirty(true);
     setName(nameInput?.current?.value);
     name.length > -1 ? setIsInvalid(false) : setIsInvalid(true);
   };
 
   return (
-    <TaskPopUp
+    <CreateEditPopUp
       {...props}
       isDirty={isDirty}
       isInvalid={isInvalid}
       name={name}
       description={description}
-      descriptionHandler={descriptionHandler}
-      dirtyHandler={dirtyHandler}
-      handlerNameInput={handlerNameInput}
       nameInput={nameInput}
       descriptionInput={descriptionInput}
+      setName={setName}
+      setDescription={setDescription}
       addTask={addTask}
+      dirtyHandler={dirtyHandler}
+      handlerDescriptionInput={handlerDescriptionInput}
+      handlerNameInput={handlerNameInput}
     />
   );
 };
 
-export default TaskPopUpContainer;
+export default СreateEditPopUpContainer;

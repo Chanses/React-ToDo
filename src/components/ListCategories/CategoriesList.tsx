@@ -1,11 +1,10 @@
 import React from "react";
 import "./CategoriesStyles.css";
 import Categorie, { ICategorie } from "./Categorie";
+import { ModalState } from "../../AppContainer";
 
 interface ICategoriesList {
-  toggleTaskPopUp: () => void;
-  toggleDeletePopUp: () => void;
-  toogleEditHandlerEdit: () => void;
+  setModalState: ({}: ModalState) => void;
   categorieList?: ICategorie[];
   setItemId: (id: string) => void;
 }

@@ -2,75 +2,40 @@ import React, { useEffect, useState } from "react";
 import App from "./App";
 import { deleteTask } from "./dbService";
 import { deleteCategorie } from "./dbService";
-import { ITaskItem } from "./components/ListTasks/TasksListContainer";
 import { ITask } from "./components/ListTasks/Task";
-import { getTasks } from "./dbService";
+import { getTasks, getCategories } from "./dbService";
 import { modalNames } from "./models/enum/modalNames";
 import { IModalStateInterface } from "./models/IModalStateInterface";
 import { modalResultEnum } from "./models/enum/modalResultEnum";
 import { modalEntityType } from "./models/enum/modalEntityType";
+import { modalActionsType } from "./models/enum/modalActionsType";
+import { ICategorie } from "./components/ListCategories/Categorie";
+
+export type ModalState = Record<modalNames, IModalStateInterface>;
 
 const AppContainer = () => {
   // Состояния для попапов
-  const [isOpenCreateTask, setIsOpenCreateTask] = useState<boolean>(false);
-  const [isOpenCreateCategorie, setIsOpenCreateCategorie] =
-    useState<boolean>(false);
-  const [editHander, setEditHandler] = useState<boolean>(true);
-  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [section, setSection] = useState<boolean>(true);
   // Установка значений
   const [itemId, setItemId] = useState<string>("");
-  const [taskItem, setTaskItem] = useState<ITaskItem>();
   const [itemNameValue, setItemNameValue] = useState<string>("");
   const [itemDescriptionValue, setItemDescriptionValue] = useState<string>("");
   // Установка полученных значений
   const [tasksList, setTasksList] = useState<ITask[]>();
+  const [categorieList, setCategorieList] = useState<ICategorie[]>();
 
   // Изменение состояний для попапов
-
-  type ModalState = Record<modalNames, IModalStateInterface>;
 
   const [modalState, setModalState] = useState<ModalState>({
     createEditModal: {
       entityType: undefined,
+      action: modalActionsType.CREATE,
       open: false,
-      lastResult: undefined,
-    },
-    deleteModal: { open: false, lastResult: undefined },
-  });
-
-  function toogleEditHandlerCreate() {
-    setEditHandler(true);
-  }
-  function toogleEditHandlerEdit() {
-    setEditHandler(false);
-  }
-  let check = {
-    createEditModal: {
-      entityType: modalEntityType.TASK,
-      open: true,
       lastResult: modalResultEnum.OK,
     },
-    deleteModal: { open: false, lastResult: undefined },
-  };
-  setModalState({
-    ...modalState,
-    createEditModal: {
-      entityType: undefined,
-      open: false,
-      lastResult: undefined,
-    },
+    deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
   });
 
-  function toggleCreateTaskPopUp() {
-    setIsOpenCreateTask(!isOpenCreateTask);
-  }
-  function toggleCreateCategoriePopUp() {
-    setIsOpenCreateCategorie(!isOpenCreateCategorie);
-  }
-  function toggleDeletePopUp() {
-    setIsOpenDelete(!isOpenDelete);
-  }
   function setTaskSection() {
     setSection(true);
   }
@@ -80,44 +45,61 @@ const AppContainer = () => {
   const handleLoadTasks = (tasks: ITask[]) => setTasksList(tasks);
 
   useEffect(() => {
-    if (modalState.createEditModal.lastResult === modalResultEnum.OK) {
+    if (
+      (modalState.createEditModal.lastResult === modalResultEnum.OK ||
+        modalState.deleteModal.lastResult === modalResultEnum.OK) &&
+      (modalState.createEditModal.entityType === modalEntityType.TASK ||
+        modalState.createEditModal.entityType === undefined)
+    ) {
       getTasks(handleLoadTasks);
       console.log("appContainer effect");
     }
-  }, [modalState.createEditModal.lastResult]);
+  }, [
+    modalState.createEditModal.lastResult,
+    modalState.deleteModal.lastResult,
+  ]);
+
+  const handleLoadCategorie = (categorie: ICategorie[]) =>
+    setCategorieList(categorie);
+
+  useEffect(() => {
+    if (
+      (modalState.createEditModal.lastResult === modalResultEnum.OK ||
+        modalState.deleteModal.lastResult === modalResultEnum.OK) &&
+      (modalState.createEditModal.entityType === modalEntityType.CATEGORY ||
+        modalState.createEditModal.entityType === undefined)
+    ) {
+      getCategories(handleLoadCategorie);
+      console.log("appContainer effect categ");
+    }
+  }, [
+    modalState.createEditModal.lastResult,
+    modalState.deleteModal.lastResult,
+  ]);
 
   return (
     <App
       // Состояния для попапов
       section={section}
-      editHander={editHander}
-      isOpenCreateTask={isOpenCreateTask}
-      isOpenCreateCategorie={isOpenCreateCategorie}
-      isOpenDelete={isOpenDelete}
+      modalState={modalState}
       // Значения
       itemId={itemId}
       itemNameValue={itemNameValue}
       itemDescriptionValue={itemDescriptionValue}
-      taskItem={taskItem}
       // Полученные данные
       taskList={tasksList}
+      categorieList={categorieList}
       // Изменение состояний для попапов
-      toggleCreateTaskPopUp={toggleCreateTaskPopUp}
-      toogleEditHandlerCreate={toogleEditHandlerCreate}
-      toogleEditHandlerEdit={toogleEditHandlerEdit}
-      toggleDeletePopUp={toggleDeletePopUp}
-      toggleCreateCategoriePopUp={toggleCreateCategoriePopUp}
       setTaskSection={setTaskSection}
       setCategorieSection={setCategorieSection}
+      setModalState={setModalState}
       // Установка значений
       setItemId={setItemId}
-      setTaskItem={setTaskItem}
       setItemNameValue={setItemNameValue}
       setItemDescriptionValue={setItemDescriptionValue}
       // Удаление
       deleteTask={deleteTask}
       deleteCategorie={deleteCategorie}
-      // Получение данных
     />
   );
 };

@@ -16,10 +16,29 @@ export const modalStateValues = {
             },
             deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
         },
+        OpenEditTask: {
+
+            createEditModal: {
+                entityType: modalEntityType.TASK,
+                action: modalActionsType.EDIT,
+                open: true,
+                lastResult: modalResultEnum.CANCEL,
+            },
+            deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
+        },
         OpenCreateCategory: {
             createEditModal: {
                 entityType: modalEntityType.CATEGORY,
                 action: modalActionsType.CREATE,
+                open: true,
+                lastResult: modalResultEnum.CANCEL,
+            },
+            deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
+        },
+        OpenEditCategory: {
+            createEditModal: {
+                entityType: modalEntityType.CATEGORY,
+                action: modalActionsType.EDIT,
                 open: true,
                 lastResult: modalResultEnum.CANCEL,
             },
@@ -115,9 +134,5 @@ export const modalStateValues = {
         },
 
     }
-
-
-
-
 
 }

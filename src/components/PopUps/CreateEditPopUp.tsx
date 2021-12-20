@@ -1,35 +1,35 @@
 import React from "react";
 import "./StylePopUp.css";
 import closeImg from "../../images/Close.svg";
-import { ITaskItem } from "../ListTasks/TasksListContainer";
 import CreateButton from "./Buttons/CreateButton";
 import SaveButton from "./Buttons/SaveButton";
 import CloseButton from "./Buttons/CloseButton";
 import TaskTextarea from "./Textareas/TaskTextarea";
 import PopUpSelect from "./Select/PopUpSelect";
-import TaskInput from "./Textareas/TaskInput";
-import CategoryInput from "./Textareas/CategoryInput";
+import NameInput from "./Textareas/NameInput";
+import { ModalState } from "../../AppContainer";
+import { modalStateValues } from "../../models/modalStateValues";
+import { modalActionsType } from "../../models/enum/modalActionsType";
+import { modalEntityType } from "../../models/enum/modalEntityType";
 
-interface ITaskPopUp {
-  togglePopUp: () => void;
-  descriptionHandler: () => void;
+interface ICreateEditPopUp {
+  handlerDescriptionInput: () => void;
   dirtyHandler: () => void;
   addTask: (name: string, description?: string, categorie?: string) => void;
-  handlerNameInput: (event: any) => void;
-  // getTaskList: () => void;
-  action: boolean;
+  handlerNameInput: () => void;
+  setModalState: ({}: ModalState) => void;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
+  modalState: ModalState;
   isDirty: boolean;
   isInvalid: boolean;
-  itemNameValue: string;
-  itemDescriptionValue: string;
   name: string;
   description: string;
   nameInput: any;
   descriptionInput: any;
-  taskItem?: ITaskItem;
 }
 
-const TaskPopUp: React.FC<ITaskPopUp> = (props) => {
+const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
   let invalidBorderStyle = { border: "2px red solid" };
   let invalidTextStyle = { color: "red" };
 
@@ -38,11 +38,31 @@ const TaskPopUp: React.FC<ITaskPopUp> = (props) => {
       <div className="PopUp">
         <div className="PopUp__Article">
           <div className="PopUp__Article-Name ">
-            {props.action ? <span>Создать</span> : <span>Редактировать</span>}
-            <span> задачу</span>
+            {props.modalState.createEditModal.action ===
+            modalActionsType.CREATE ? (
+              <span>Создать</span>
+            ) : (
+              <span>Редактировать</span>
+            )}
+            {props.modalState.createEditModal.entityType ===
+            modalEntityType.TASK ? (
+              <span> задачу</span>
+            ) : (
+              <span> категорию</span>
+            )}
           </div>
           <button className="PopUp__Article-Close">
-            <img src={closeImg} alt="" onClick={props.togglePopUp} />
+            <img
+              src={closeImg}
+              alt=""
+              onClick={() => {
+                props.setModalState(modalStateValues.CloseSave.CreateCategory);
+                props.setModalState(
+                  modalStateValues.CloseDontSave.CloseCreateTask
+                );
+                console.log(props.modalState);
+              }}
+            />
           </button>
         </div>
         <div className="PopUp__Main">
@@ -58,34 +78,63 @@ const TaskPopUp: React.FC<ITaskPopUp> = (props) => {
             <form action="submit">
               {" "}
               {/* Поля ввода для имени*/}
-              {props.action ? <TaskInput /> : <CategoryInput />}
+              <NameInput
+                modalState={props.modalState}
+                name={props.name}
+                nameInput={props.nameInput}
+                handlerNameInput={props.handlerNameInput}
+              />
             </form>
           </div>
-          <div className="PopUp__Main-Categorie DoubleInput">
-            <div className="PopUp__Main-Categorie__article ">
-              <div className="PopUp-InputsArticle">Категория </div>
+          {/* Условия появления Select */}
+          {props.modalState.createEditModal.entityType ===
+          modalEntityType.TASK ? (
+            <div className="PopUp__Main-Categorie DoubleInput">
+              <div className="PopUp__Main-Categorie__article ">
+                <div className="PopUp-InputsArticle">Категория </div>
+              </div>
+              <div style={{ display: "flex" }}>
+                {/* Поля для выбора категорий*/}
+                <PopUpSelect />
+              </div>
             </div>
-            <div style={{ display: "flex" }}>
-              {/* Поля для выбора категорий*/}
-              <PopUpSelect />
-            </div>
-          </div>
+          ) : (
+            <></>
+          )}
         </div>
-
         <div className="PopUp__Main-Description">
           <div className="PopUp__Main-Description">
             <div className="PopUp-InputsArticle">Описание </div>
-            <TaskTextarea />
+            {/* Поля для ввода для описания*/}
+            <TaskTextarea
+              modalState={props.modalState}
+              description={props.description}
+              handlerDescriptionInput={props.handlerDescriptionInput}
+              descriptionInput={props.descriptionInput}
+            />
           </div>
         </div>
 
         <div className="PopUp__buttons">
           <div className="PopUp__buttons-create">
             {/* Кнопки  для сохранения*/}
-            {props.action ? <CreateButton /> : <SaveButton />}
+            {props.modalState.createEditModal.action ===
+            modalActionsType.CREATE ? (
+              <CreateButton
+                setModalState={props.setModalState}
+                modalState={props.modalState}
+                name={props.name}
+                description={props.description}
+              />
+            ) : (
+              <SaveButton
+                setModalState={props.setModalState}
+                modalState={props.modalState}
+              />
+            )}
           </div>
           <div className="PopUp__buttons-close">
-            <CloseButton />
+            <CloseButton setModalState={props.setModalState} />
           </div>
         </div>
       </div>
@@ -93,4 +142,4 @@ const TaskPopUp: React.FC<ITaskPopUp> = (props) => {
   );
 };
 
-export default TaskPopUp;
+export default CreateEditPopUp;

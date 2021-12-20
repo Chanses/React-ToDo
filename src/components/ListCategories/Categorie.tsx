@@ -1,15 +1,15 @@
 import React from "react";
 import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
+import { ModalState } from "../../AppContainer";
+import { modalStateValues } from "../../models/modalStateValues";
 
 export interface ICategorie {
   id: string;
   name: string;
   description?: string;
-  toggleTaskPopUp: () => void;
-  toggleDeletePopUp: () => void;
-  toogleEditHandlerEdit: () => void;
   setItemId: (id: string) => void;
+  setModalState: ({}: ModalState) => void;
 }
 
 const Categorie: React.FC<ICategorie> = (props) => {
@@ -27,8 +27,8 @@ const Categorie: React.FC<ICategorie> = (props) => {
         <button
           className="TaskWrapper__Actions-Edit"
           onClick={() => {
-            props.toggleTaskPopUp();
-            props.toogleEditHandlerEdit();
+            props.setModalState(modalStateValues.Open.OpenEditCategory);
+            props.setItemId(props.id);
           }}
         >
           {" "}
@@ -37,7 +37,7 @@ const Categorie: React.FC<ICategorie> = (props) => {
         <button
           className="TaskWrapper__Actions-Delete"
           onClick={() => {
-            props.toggleDeletePopUp();
+            props.setModalState(modalStateValues.Open.OpenDeleteCategory);
             props.setItemId(props.id);
           }}
         >

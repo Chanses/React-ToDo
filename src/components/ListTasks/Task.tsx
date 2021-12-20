@@ -2,21 +2,19 @@ import React from "react";
 import folderImg from "../../images/Folder.svg";
 import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
-import "./TasksStyle.css";
-import { ITaskItem } from "./TasksListContainer";
+import { ModalState } from "../../AppContainer";
+import { modalStateValues } from "../../models/modalStateValues";
 
 export interface ITask {
   id: string;
   name: string;
+  key: number;
   description?: string;
-  taskItem?: ITaskItem;
-  toggleTaskPopUp: () => void;
-  toggleDeletePopUp: () => void;
   setItemId: (id: string) => void;
-  toogleEditHandlerEdit: () => void;
   setItemNameValue: (itemName?: string) => void;
   setItemDescriptionValue: (itemDescription?: string) => void;
   getTaskItem: () => void;
+  setModalState: ({}: ModalState) => void;
 }
 
 const Task = (props: ITask) => {
@@ -39,9 +37,8 @@ const Task = (props: ITask) => {
           <button
             className="TaskWrapper__Actions-Edit"
             onClick={() => {
-              props.toggleTaskPopUp();
-              props.toogleEditHandlerEdit();
-              props.getTaskItem();
+              props.setModalState(modalStateValues.Open.OpenEditTask);
+              props.setItemId(props.id);
             }}
           >
             {" "}
@@ -50,9 +47,8 @@ const Task = (props: ITask) => {
           <button
             className="TaskWrapper__Actions-Delete"
             onClick={() => {
-              props.toggleDeletePopUp();
+              props.setModalState(modalStateValues.Open.OpenDeleteTask);
               props.setItemId(props.id);
-              console.log(props.taskItem);
             }}
           >
             {" "}

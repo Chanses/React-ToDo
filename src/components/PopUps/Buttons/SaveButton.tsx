@@ -1,10 +1,37 @@
 import React from "react";
+import { ModalState } from "../../../AppContainer";
+import { modalEntityType } from "../../../models/enum/modalEntityType";
+import { modalStateValues } from "../../../models/modalStateValues";
 
-const SaveButton = () => {
+interface IButtonPopUp {
+  setModalState: ({}: ModalState) => void;
+  modalState: ModalState;
+}
+
+const SaveButton = (props: IButtonPopUp) => {
   return (
-    <button type="submit" onClick={() => {}}>
-      Сохранить
-    </button>
+    <>
+      {props.modalState.createEditModal.entityType === modalEntityType.TASK ? (
+        <button
+          name="taskSaveButton"
+          type="submit"
+          onClick={() => {
+            props.setModalState(modalStateValues.CloseSave.CreateTask);
+          }}
+        >
+          Сохранить
+        </button>
+      ) : (
+        <button
+          name="categorieSaveButton"
+          onClick={() => {
+            props.setModalState(modalStateValues.CloseSave.CreateCategory);
+          }}
+        >
+          Сохранить
+        </button>
+      )}
+    </>
   );
 };
 

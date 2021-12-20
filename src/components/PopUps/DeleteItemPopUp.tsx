@@ -1,9 +1,13 @@
 import React from "react";
+import { ModalState } from "../../AppContainer";
+import { modalEntityType } from "../../models/enum/modalEntityType";
+import { modalStateValues } from "../../models/modalStateValues";
 
 interface IDeletePopUp {
-  togglePopUp: (id?: string) => void;
   deleteTask: (id: string) => void;
   deleteCategorie: (id: string) => void;
+  setModalState: ({}: ModalState) => void;
+  modalState: ModalState;
   section: boolean;
   itemId: string;
 }
@@ -14,7 +18,12 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
       <div className="PopUp">
         <div className="PopUp__Article-Name">
           Удаление{" "}
-          {props.section ? <span> задачи </span> : <span> категории </span>}{" "}
+          {props.modalState.createEditModal.entityType ===
+          modalEntityType.TASK ? (
+            <span> задачи </span>
+          ) : (
+            <span> категории </span>
+          )}{" "}
         </div>
         <div className="PopUp__Main-small" style={{ color: "black" }}>
           <div className="PopUp__Main-Description-small">
@@ -33,7 +42,7 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
                   type="submit"
                   onClick={() => {
                     props.deleteTask(props.itemId);
-                    props.togglePopUp();
+                    props.setModalState(modalStateValues.CloseSave.DeleteTask);
                   }}
                 >
                   Да
@@ -44,7 +53,9 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
                   type="submit"
                   onClick={() => {
                     props.deleteCategorie(props.itemId);
-                    props.togglePopUp();
+                    props.setModalState(
+                      modalStateValues.CloseSave.DeleteCategory
+                    );
                   }}
                 >
                   Да
@@ -52,7 +63,17 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
               )}{" "}
             </div>
             <div className="PopUp__buttons-close">
-              <button type="submit" onClick={() => props.togglePopUp()}>
+              <button
+                type="submit"
+                onClick={() => {
+                  props.setModalState(
+                    modalStateValues.CloseDontSave.CloseDeleteCategory
+                  );
+                  props.setModalState(
+                    modalStateValues.CloseDontSave.CloseDeleteTask
+                  );
+                }}
+              >
                 Нет
               </button>
             </div>

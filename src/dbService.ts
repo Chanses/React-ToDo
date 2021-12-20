@@ -1,6 +1,5 @@
 import { ITask } from "./components/ListTasks/Task"
 import { ICategorie } from "./components/ListCategories/Categorie"
-import { ITaskItem } from "./components/ListTasks/TasksListContainer";
 const openRequest = indexedDB.open("ToDo", 1);
 
 export const openStorage = openRequest.onupgradeneeded = function () {
@@ -10,20 +9,20 @@ export const openStorage = openRequest.onupgradeneeded = function () {
 };
 
 
-let taskCount = 0;
+
 export const addTask = (name: string, description?: string, categorie?: string) => {
     const db = openRequest.result;
     const transaction = db.transaction(["tasks"], "readwrite"); // (1)
     const tasks = transaction.objectStore("tasks"); // (2)
 
     const task = {
-        id: taskCount,
+
         name: name,
         description: description,
     }
 
-    const request = tasks.add(task); // (3)
-    taskCount++;
+    const request = tasks.put(task); // (3)
+
 
     request.onsuccess = function () { // (4)
         console.log("задача добавлена в хранилище", request.result);
@@ -36,20 +35,20 @@ export const addTask = (name: string, description?: string, categorie?: string) 
 };
 
 
-let categorieCount = 0;
-export const addCategorie = (name: string, description?: string) => {
+
+export const addCategory = (name: string, description?: string) => {
 
     const db = openRequest.result;
     const transaction = db.transaction(["categories"], "readwrite"); // (1)
     const categories = transaction.objectStore("categories"); // (2)
 
     const categorie = {
-        id: categorieCount,
+
         name: name,
         description: description,
     }
-    const request = categories.add(categorie); // (3)
-    categorieCount++;
+    const request = categories.put(categorie); // (3)
+
 
     request.onsuccess = function () { // (4)
         console.log("задача добавлена в хранилище", request.result);
@@ -135,23 +134,3 @@ export let getTasks = (cb: (tasks: ITask[]) => void) => {
 /**Метод получения Задачи 
  * @param cb: коллбэк...
 */
-export let getTask = (cb: (task: ITaskItem) => void) => {
-    const openRequest = indexedDB.open("ToDo", 1);
-    openRequest.onsuccess = () => {
-        const db = openRequest.result;
-        const transaction = db.transaction(["tasks"], "readwrite"); // (1)
-        const task = transaction.objectStore("tasks"); // (2)
-        const allRecords = task.get(0);
-
-        allRecords.onsuccess = function () {
-            cb(allRecords.result);
-            console.log(allRecords.result)
-
-        };
-        allRecords.onerror = function () {
-            console.log("Ошибка", allRecords.error);
-        };
-    }
-
-    openRequest.onerror = () => console.log("open DB error")
-}

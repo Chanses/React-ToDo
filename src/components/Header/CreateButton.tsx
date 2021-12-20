@@ -1,10 +1,9 @@
 import React from "react";
-import TaskPopUp from "../PopUps/CreateEditPopUp";
+import { ModalState } from "../../AppContainer";
+import { modalStateValues } from "../../models/modalStateValues";
 
 interface ICreateNewCategorieButton {
-  toggleCreateCategoriePopUp: () => void;
-  toogleEditHandlerCreate: () => void;
-  toggleCreateTaskPopUp: () => void;
+  setModalState: ({}: ModalState) => void;
   section: boolean;
 }
 
@@ -15,8 +14,7 @@ const CreateButton: React.FC<ICreateNewCategorieButton> = (props) => {
         <button
           className="Header__AddNewTask"
           onClick={() => {
-            props.toggleCreateCategoriePopUp();
-            props.toogleEditHandlerCreate();
+            props.setModalState(modalStateValues.Open.OpenCreateCategory);
           }}
         >
           Добавить категорию
@@ -25,8 +23,7 @@ const CreateButton: React.FC<ICreateNewCategorieButton> = (props) => {
         <button
           className="Header__AddNewTask"
           onClick={() => {
-            props.toggleCreateTaskPopUp();
-            props.toogleEditHandlerCreate();
+            props.setModalState(modalStateValues.Open.OpenCreateTask);
           }}
         >
           Добавить задачу

@@ -3,80 +3,60 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import DeleteItemPopUp from "./components/PopUps/DeleteItemPopUp";
-import TasksListContainer, {
-  ITaskItem,
-} from "./components/ListTasks/TasksListContainer";
-
+import TasksListContainer from "./components/ListTasks/TasksListContainer";
 import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
-import CreateCategoriePopUpContainer from "./components/PopUps/CreateCategoriePopUpContainer";
-import TaskPopUpContainer from "./components/PopUps/TaskPopUpContainer";
 import { ITask } from "./components/ListTasks/Task";
+import { ModalState } from "./AppContainer";
+import CreateEditPopUpContainer from "./components/PopUps/СreateEditPopUpContainer";
+import { ICategorie } from "./components/ListCategories/Categorie";
 
 interface IApp {
-  isOpenCreateTask: boolean;
-  isOpenCreateCategorie: boolean;
-  isOpenDelete: boolean;
-  editHander: boolean;
   section: boolean;
   itemId: string;
   itemNameValue: string;
   itemDescriptionValue: string;
-  taskItem?: ITaskItem;
   taskList?: ITask[];
-  toggleCreateTaskPopUp: () => void;
-  toogleEditHandlerCreate: () => void;
-  toogleEditHandlerEdit: () => void;
-  toggleDeletePopUp: () => void;
-  toggleCreateCategoriePopUp: () => void;
+  categorieList?: ICategorie[];
+  modalState: ModalState;
   setTaskSection: () => void;
   setCategorieSection: () => void;
   setItemId: (id: string) => void;
-  setTaskItem: ({}: ITaskItem) => void;
   setItemNameValue: (name: string) => void;
   setItemDescriptionValue: (name: string) => void;
   deleteTask: (id: string) => void;
   deleteCategorie: (id: string) => void;
-  // getTaskList: () => void;
+  setModalState: ({}: ModalState) => void;
 }
 
 const App: React.FC<IApp> = (props) => {
   return (
     <Router>
       <div className="App">
-        {props.isOpenCreateTask && (
-          <TaskPopUpContainer
-            togglePopUp={props.toggleCreateTaskPopUp}
-            action={props.editHander}
-            taskItem={props.taskItem}
-            itemNameValue={props.itemNameValue}
-            itemDescriptionValue={props.itemDescriptionValue}
+        {props.modalState.createEditModal.open && (
+          <CreateEditPopUpContainer
+            setModalState={props.setModalState}
+            modalState={props.modalState}
             setItemNameValue={props.setItemNameValue}
             setItemDescriptionValue={props.setItemDescriptionValue}
-            // getTaskList={props.getTaskList}
+            itemNameValue={props.itemNameValue}
+            itemDescriptionValue={props.itemDescriptionValue}
           />
         )}
-        {props.isOpenCreateCategorie && (
-          <CreateCategoriePopUpContainer
-            togglePopUp={props.toggleCreateCategoriePopUp}
-            action={props.editHander}
-          />
-        )}
-        {props.isOpenDelete && (
+        {props.modalState.deleteModal.open && (
           <DeleteItemPopUp
-            togglePopUp={props.toggleDeletePopUp}
             deleteTask={props.deleteTask}
             deleteCategorie={props.deleteCategorie}
+            setModalState={props.setModalState}
             section={props.section}
             itemId={props.itemId}
+            modalState={props.modalState}
           />
         )}
         <HeaderContainer
-          toggleCreateTaskPopUp={props.toggleCreateTaskPopUp}
-          toggleCreateCategoriePopUp={props.toggleCreateCategoriePopUp}
           setTaskSection={props.setTaskSection}
           setCategorieSection={props.setCategorieSection}
-          toogleEditHandlerCreate={props.toogleEditHandlerCreate}
           section={props.section}
+          setModalState={props.setModalState}
         />
         <div className="Content">
           <Routes>
@@ -84,15 +64,10 @@ const App: React.FC<IApp> = (props) => {
               path="/tasks"
               element={
                 <TasksListContainer
-                  toggleTaskPopUp={props.toggleCreateTaskPopUp}
-                  toggleDeletePopUp={props.toggleDeletePopUp}
-                  toogleEditHandlerEdit={props.toogleEditHandlerEdit}
                   setItemId={props.setItemId}
-                  setTaskItem={props.setTaskItem}
                   setItemNameValue={props.setItemNameValue}
                   setDescriptionName={props.setItemDescriptionValue}
-                  taskItem={props.taskItem}
-                  // getTaskList={props.getTaskList}
+                  setModalState={props.setModalState}
                   taskList={props.taskList}
                 />
               }
@@ -101,10 +76,9 @@ const App: React.FC<IApp> = (props) => {
               path="/categories"
               element={
                 <CategoriesListContainer
-                  toggleTaskPopUp={props.toggleCreateCategoriePopUp}
-                  toggleDeletePopUp={props.toggleDeletePopUp}
-                  toogleEditHandlerEdit={props.toogleEditHandlerEdit}
                   setItemId={props.setItemId}
+                  setModalState={props.setModalState}
+                  categorieList={props.categorieList}
                 />
               }
             />
