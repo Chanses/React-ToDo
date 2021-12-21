@@ -23,8 +23,10 @@ const SelectPopUp = (props: ISelectPopUp) => {
       >
         Выберите категорию
       </option>
-      {props.categorieList?.map((category) => (
-        <option value={category.name}>{category.name}</option>
+      {props.categorieList?.map((category, index) => (
+        <option value={category.name}>
+          {category.name} key={index}
+        </option>
       ))}
     </select>
   );
