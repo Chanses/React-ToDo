@@ -11,6 +11,7 @@ interface IButtonPopUp {
   modalState: ModalState;
   name: string;
   description: string;
+  selectValue: string;
 }
 
 const CreateButton = (props: IButtonPopUp) => {
@@ -21,7 +22,7 @@ const CreateButton = (props: IButtonPopUp) => {
           name="createTaskButton"
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
-            addTask(props.name, props.description);
+            addTask(props.name, props.description, props.selectValue);
             props.setName("");
             props.setDescription("");
           }}

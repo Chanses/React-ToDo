@@ -18,6 +18,7 @@ interface IButtonPopUp {
   name: string;
   description: string;
   itemId: string;
+  selectValue: string;
 }
 
 const SaveButton = (props: IButtonPopUp) => {
@@ -31,7 +32,12 @@ const SaveButton = (props: IButtonPopUp) => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
             props.setName("");
             props.setDescription("");
-            props.editTask(props.itemId, props.name, props.description);
+            props.editTask(
+              props.itemId,
+              props.name,
+              props.description,
+              props.selectValue
+            );
           }}
         >
           Сохранить

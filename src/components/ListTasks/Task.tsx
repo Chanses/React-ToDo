@@ -10,6 +10,7 @@ export interface ITask {
   name: string;
   key: number;
   description: string;
+  categorie: string;
   setItemId: (id: string) => void;
   setName: (itemName?: string) => void;
   setDescription: (description: string) => void;
@@ -23,10 +24,14 @@ const Task = (props: ITask) => {
         <div className="TaskWrapper__Info">
           <div className="TaskWrapper__Info__Name">
             <div className="TaskWrapper__Info__Name-name">{props.name}</div>
-            <p className="TaskWrapper__Info__Name-folder">
-              <img src={folderImg} alt="" />
-              Категория1
-            </p>
+            {props.categorie === undefined ? (
+              <></>
+            ) : (
+              <p className="TaskWrapper__Info__Name-folder">
+                <img src={folderImg} alt="" />
+                {props.categorie}
+              </p>
+            )}
           </div>
           <div className="TaskWrapper__Info__Description">
             {props.description}

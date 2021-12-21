@@ -19,6 +19,7 @@ export const addTask = (name: string, description?: string, categorie?: string) 
 
         name: name,
         description: description,
+        categorie: categorie
     }
 
     const request = tasks.put(task); // (3)
@@ -43,6 +44,7 @@ export const editTask = (id: string, name: string, description?: string, categor
         id: id,
         name: name,
         description: description,
+        categorie: categorie
     }
 
     const request = tasks.put(task); // (3)

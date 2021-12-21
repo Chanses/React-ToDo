@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { addTask, editTask, editCategory } from "../../dbService";
 import { ModalState } from "../../AppContainer";
 import CreateEditPopUp from "./CreateEditPopUp";
+import { ICategorie } from "../ListCategories/Categorie";
 
 interface ICreateEditPopUpContainer {
   setName: (name: string) => void;
@@ -11,6 +12,7 @@ interface ICreateEditPopUpContainer {
   description: string;
   itemId: string;
   modalState: ModalState;
+  categorieList?: ICategorie[];
 }
 
 const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
@@ -20,6 +22,11 @@ const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
   const [isInvalid, setIsInvalid] = useState<boolean>(true);
   const nameInput = useRef<any>();
   const descriptionInput = useRef<any>();
+  const [selectValue, setSelectValue] = useState<string>("placeholdrer");
+
+  const handleSelect = (event?: any) => {
+    setSelectValue(event?.target?.value);
+  };
 
   const dirtyHandler = () => {
     setIsDirty(true);
@@ -43,12 +50,15 @@ const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
       description={props.description}
       nameInput={nameInput}
       descriptionInput={descriptionInput}
+      selectValue={selectValue}
       addTask={addTask}
       editTask={editTask}
       editCategory={editCategory}
       dirtyHandler={dirtyHandler}
       handlerDescriptionInput={handlerDescriptionInput}
       handlerNameInput={handlerNameInput}
+      setSelectValue={setSelectValue}
+      handleSelect={handleSelect}
     />
   );
 };

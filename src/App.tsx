@@ -41,6 +41,7 @@ const App: React.FC<IApp> = (props) => {
             setDescription={props.setDescription}
             description={props.description}
             itemId={props.itemId}
+            categorieList={props.categorieList}
           />
         )}
         {props.modalState.deleteModal.open && (

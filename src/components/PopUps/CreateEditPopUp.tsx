@@ -5,12 +5,13 @@ import CreateButton from "./Buttons/CreateButton";
 import SaveButton from "./Buttons/SaveButton";
 import CloseButton from "./Buttons/CloseButton";
 import TaskTextarea from "./Textareas/TaskTextarea";
-import PopUpSelect from "./Select/PopUpSelect";
+import SelectPopUp from "./Select/SelectPopUp";
 import NameInput from "./Textareas/NameInput";
 import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import { modalActionsType } from "../../models/enum/modalActionsType";
 import { modalEntityType } from "../../models/enum/modalEntityType";
+import { ICategorie } from "../ListCategories/Categorie";
 
 interface ICreateEditPopUp {
   handlerDescriptionInput: () => void;
@@ -27,6 +28,8 @@ interface ICreateEditPopUp {
   setModalState: ({}: ModalState) => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
+  setSelectValue: (selectValue: string) => void;
+  handleSelect: () => void;
   modalState: ModalState;
   isDirty: boolean;
   isInvalid: boolean;
@@ -35,6 +38,8 @@ interface ICreateEditPopUp {
   itemId: string;
   nameInput: any;
   descriptionInput: any;
+  categorieList?: ICategorie[];
+  selectValue: string;
 }
 
 const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
@@ -104,7 +109,11 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
               </div>
               <div style={{ display: "flex" }}>
                 {/* Поля для выбора категорий*/}
-                <PopUpSelect />
+                <SelectPopUp
+                  categorieList={props.categorieList}
+                  handleSelect={props.handleSelect}
+                  selectValue={props.selectValue}
+                />
               </div>
             </div>
           ) : (
@@ -136,6 +145,7 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
                 modalState={props.modalState}
                 name={props.name}
                 description={props.description}
+                selectValue={props.selectValue}
               />
             ) : (
               <SaveButton
@@ -148,6 +158,7 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
                 name={props.name}
                 description={props.description}
                 itemId={props.itemId}
+                selectValue={props.selectValue}
               />
             )}
           </div>
