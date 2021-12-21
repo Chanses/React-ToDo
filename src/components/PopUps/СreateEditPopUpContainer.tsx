@@ -22,7 +22,7 @@ const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
   const [isInvalid, setIsInvalid] = useState<boolean>(true);
   const nameInput = useRef<any>();
   const descriptionInput = useRef<any>();
-  const [selectValue, setSelectValue] = useState<string>("placeholdrer");
+  const [selectValue, setSelectValue] = useState<string>("placeholder");
 
   const handleSelect = (event?: any) => {
     setSelectValue(event?.target?.value);

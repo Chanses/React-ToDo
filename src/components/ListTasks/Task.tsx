@@ -24,7 +24,7 @@ const Task = (props: ITask) => {
         <div className="TaskWrapper__Info">
           <div className="TaskWrapper__Info__Name">
             <div className="TaskWrapper__Info__Name-name">{props.name}</div>
-            {props.categorie === undefined ? (
+            {props.categorie === (undefined || "placeholder") ? (
               <></>
             ) : (
               <p className="TaskWrapper__Info__Name-folder">
@@ -45,6 +45,7 @@ const Task = (props: ITask) => {
               props.setItemId(props.id);
               props.setName(props.name);
               props.setDescription(props.description);
+              console.log(props.categorie);
             }}
           >
             {" "}

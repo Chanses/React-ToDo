@@ -15,12 +15,7 @@ const SelectPopUp = (props: ISelectPopUp) => {
       value={props.selectValue}
       onChange={props.handleSelect}
     >
-      <option
-        style={{ display: "none" }}
-        value="placeholdrer"
-        selected
-        disabled
-      >
+      <option style={{ display: "none" }} value="placeholder" selected disabled>
         Выберите категорию
       </option>
       {props.categorieList?.map((category, index) => (
