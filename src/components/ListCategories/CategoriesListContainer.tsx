@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ICategorie } from "./Categorie";
 import CategoriesList from "./CategoriesList";
-import { getCategories } from "../../dbService";
+
 import { ModalState } from "../../AppContainer";
 
 interface ICategoriesListContainer {

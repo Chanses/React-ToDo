@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./HeaderStyles.css";
-import CreateNewCategorieButton from "./CreateButton";
 import CreateButton from "./CreateButton";
 import { ModalState } from "../../AppContainer";
 
