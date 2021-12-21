@@ -12,6 +12,8 @@ interface IButtonPopUp {
   name: string;
   description: string;
   selectValue: string;
+  isDirty: boolean;
+  isInvalid: boolean;
 }
 
 const CreateButton = (props: IButtonPopUp) => {
@@ -20,12 +22,21 @@ const CreateButton = (props: IButtonPopUp) => {
       {props.modalState.createEditModal.entityType === modalEntityType.TASK ? (
         <button
           name="createTaskButton"
+          disabled={true}
+          style={{ background: "#adbad3", cursor: "default" }}
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
             addTask(props.name, props.description, props.selectValue);
             props.setName("");
             props.setDescription("");
+            console.log(props.isInvalid);
           }}
+          {...(props.isInvalid
+            ? {}
+            : {
+                disabled: false,
+                style: { background: "#3F72AF" },
+              })}
         >
           Создать
         </button>

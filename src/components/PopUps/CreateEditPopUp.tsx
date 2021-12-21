@@ -98,6 +98,7 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
                 handlerNameInput={props.handlerNameInput}
                 isDirty={props.isDirty}
                 isInvalid={props.isInvalid}
+                dirtyHandler={props.dirtyHandler}
               />
             </form>
           </div>
@@ -147,6 +148,8 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
                 name={props.name}
                 description={props.description}
                 selectValue={props.selectValue}
+                isDirty={props.isDirty}
+                isInvalid={props.isInvalid}
               />
             ) : (
               <SaveButton
@@ -160,6 +163,8 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
                 description={props.description}
                 itemId={props.itemId}
                 selectValue={props.selectValue}
+                isDirty={props.isDirty}
+                isInvalid={props.isInvalid}
               />
             )}
           </div>

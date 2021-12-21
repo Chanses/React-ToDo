@@ -3,10 +3,11 @@ import { ModalState } from "../../../AppContainer";
 import { modalEntityType } from "../../../models/enum/modalEntityType";
 
 interface IInputs {
-  modalState: ModalState;
-  name: string;
   nameInput: () => void;
   handlerNameInput: () => void;
+  dirtyHandler: () => void;
+  modalState: ModalState;
+  name: string;
   isDirty: boolean;
   isInvalid: boolean;
 }
@@ -22,7 +23,7 @@ const NameInput = (props: IInputs) => {
           ref={props.nameInput}
           value={props.name}
           onChange={props.handlerNameInput}
-          onClick={() => console.log(props.isDirty)}
+          onFocus={props.dirtyHandler}
           style={props.isDirty && props.isInvalid ? invalidBorderStyle : {}}
         />
       ) : (

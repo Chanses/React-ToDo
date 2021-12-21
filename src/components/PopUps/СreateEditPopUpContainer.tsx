@@ -27,19 +27,19 @@ const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
   const handleSelect = (event?: any) => {
     setSelectValue(event?.target?.value);
   };
+  const handlerDescriptionInput = () => {
+    props.setDescription(descriptionInput?.current?.value);
+  };
 
   const dirtyHandler = () => {
     setIsDirty(true);
-    props.name.length > 0 ? setIsInvalid(false) : setIsInvalid(true);
-  };
-  const handlerDescriptionInput = () => {
-    props.setDescription(descriptionInput?.current?.value);
+    props.name.length > 1 ? setIsInvalid(false) : setIsInvalid(true);
   };
 
   const handlerNameInput = () => {
     setIsDirty(true);
     props.setName(nameInput?.current?.value);
-    props.name.length > -1 ? setIsInvalid(false) : setIsInvalid(true);
+    props.name.length > 1 ? setIsInvalid(false) : setIsInvalid(true);
   };
 
   return (

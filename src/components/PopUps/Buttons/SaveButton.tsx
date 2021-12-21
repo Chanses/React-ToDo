@@ -19,6 +19,8 @@ interface IButtonPopUp {
   description: string;
   itemId: string;
   selectValue: string;
+  isDirty: boolean;
+  isInvalid: boolean;
 }
 
 const SaveButton = (props: IButtonPopUp) => {
@@ -28,6 +30,8 @@ const SaveButton = (props: IButtonPopUp) => {
         <button
           name="taskSaveButton"
           type="submit"
+          disabled={true}
+          style={{ background: "#adbad3" }}
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
             props.setName("");
@@ -39,6 +43,9 @@ const SaveButton = (props: IButtonPopUp) => {
               props.selectValue
             );
           }}
+          {...(props.isDirty && props.isInvalid
+            ? {}
+            : { disabled: false, style: { background: "#3F72AF" } })}
         >
           Сохранить
         </button>
