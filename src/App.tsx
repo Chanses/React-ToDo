@@ -25,7 +25,7 @@ interface IApp {
   setItemId: (id: string) => void;
   deleteTask: (id: string) => void;
   deleteCategorie: (id: string) => void;
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
 }
 
 const App: React.FC<IApp> = (props) => {
@@ -33,61 +33,16 @@ const App: React.FC<IApp> = (props) => {
     <Router>
       <div className="App">
         {props.modalState.createEditModal.open && (
-          <CreateEditPopUpContainer
-            setModalState={props.setModalState}
-            modalState={props.modalState}
-            setName={props.setName}
-            name={props.name}
-            setDescription={props.setDescription}
-            description={props.description}
-            itemId={props.itemId}
-            categorieList={props.categorieList}
-          />
+          <CreateEditPopUpContainer {...props} />
         )}
-        {props.modalState.deleteModal.open && (
-          <DeleteItemPopUp
-            deleteTask={props.deleteTask}
-            deleteCategorie={props.deleteCategorie}
-            setModalState={props.setModalState}
-            setName={props.setName}
-            setDescription={props.setDescription}
-            section={props.section}
-            itemId={props.itemId}
-            modalState={props.modalState}
-            name={props.name}
-          />
-        )}
-        <HeaderContainer
-          setTaskSection={props.setTaskSection}
-          setCategorieSection={props.setCategorieSection}
-          section={props.section}
-          setModalState={props.setModalState}
-        />
+        {props.modalState.deleteModal.open && <DeleteItemPopUp {...props} />}
+        <HeaderContainer {...props} />
         <div className="Content">
           <Routes>
-            <Route
-              path="/tasks"
-              element={
-                <TasksListContainer
-                  setItemId={props.setItemId}
-                  setModalState={props.setModalState}
-                  taskList={props.taskList}
-                  setName={props.setName}
-                  setDescription={props.setDescription}
-                />
-              }
-            />
+            <Route path="/tasks" element={<TasksListContainer {...props} />} />
             <Route
               path="/categories"
-              element={
-                <CategoriesListContainer
-                  setItemId={props.setItemId}
-                  setModalState={props.setModalState}
-                  categorieList={props.categorieList}
-                  setName={props.setName}
-                  setDescription={props.setDescription}
-                />
-              }
+              element={<CategoriesListContainer {...props} />}
             />
           </Routes>
         </div>

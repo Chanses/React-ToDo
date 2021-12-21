@@ -25,10 +25,10 @@ interface ICreateEditPopUp {
   ) => void;
   editCategory: (id: string, name: string, description?: string) => void;
   handlerNameInput: () => void;
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
-  setSelectValue: (selectValue: string) => void;
+  setSelectValueId: (selectValue: string) => void;
   handleSelect: () => void;
   modalState: ModalState;
   isDirty: boolean;
@@ -39,10 +39,10 @@ interface ICreateEditPopUp {
   nameInput: any;
   descriptionInput: any;
   categorieList?: ICategorie[];
-  selectValue: string;
+  selectValueId: string;
 }
 
-const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
+const CreateEditPopUp = (props: ICreateEditPopUp) => {
   let invalidTextStyle = { color: "red" };
 
   return (
@@ -83,23 +83,18 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
             <div className="PopUp__Main-Name__article ">
               <div
                 className="PopUp-InputsArticle"
-                style={props.isDirty && props.isInvalid ? invalidTextStyle : {}}
+                style={
+                  props.isDirty && props.isInvalid
+                    ? invalidTextStyle
+                    : undefined
+                }
               >
-                Имя<span style={{ color: "red" }}>*</span>{" "}
+                Имя<span style={{ color: "red" }}>*</span>
               </div>
             </div>
             <form action="submit">
-              {" "}
               {/* Поля ввода для имени*/}
-              <NameInput
-                modalState={props.modalState}
-                name={props.name}
-                nameInput={props.nameInput}
-                handlerNameInput={props.handlerNameInput}
-                isDirty={props.isDirty}
-                isInvalid={props.isInvalid}
-                dirtyHandler={props.dirtyHandler}
-              />
+              <NameInput {...props} />
             </form>
           </div>
           {/* Условия появления Select */}
@@ -111,11 +106,7 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
               </div>
               <div style={{ display: "flex" }}>
                 {/* Поля для выбора категорий*/}
-                <SelectPopUp
-                  categorieList={props.categorieList}
-                  handleSelect={props.handleSelect}
-                  selectValue={props.selectValue}
-                />
+                <SelectPopUp {...props} />
               </div>
             </div>
           ) : (
@@ -126,12 +117,7 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
           <div className="PopUp__Main-Description">
             <div className="PopUp-InputsArticle">Описание </div>
             {/* Поля для ввода для описания*/}
-            <TaskTextarea
-              modalState={props.modalState}
-              description={props.description}
-              handlerDescriptionInput={props.handlerDescriptionInput}
-              descriptionInput={props.descriptionInput}
-            />
+            <TaskTextarea {...props} />
           </div>
         </div>
 
@@ -140,40 +126,13 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
             {/* Кнопки  для сохранения*/}
             {props.modalState.createEditModal.action ===
             modalActionsType.CREATE ? (
-              <CreateButton
-                setModalState={props.setModalState}
-                setName={props.setName}
-                setDescription={props.setDescription}
-                modalState={props.modalState}
-                name={props.name}
-                description={props.description}
-                selectValue={props.selectValue}
-                isDirty={props.isDirty}
-                isInvalid={props.isInvalid}
-              />
+              <CreateButton {...props} />
             ) : (
-              <SaveButton
-                setModalState={props.setModalState}
-                modalState={props.modalState}
-                setName={props.setName}
-                setDescription={props.setDescription}
-                editTask={props.editTask}
-                editCategory={props.editCategory}
-                name={props.name}
-                description={props.description}
-                itemId={props.itemId}
-                selectValue={props.selectValue}
-                isDirty={props.isDirty}
-                isInvalid={props.isInvalid}
-              />
+              <SaveButton {...props} />
             )}
           </div>
           <div className="PopUp__buttons-close">
-            <CloseButton
-              setModalState={props.setModalState}
-              setName={props.setName}
-              setDescription={props.setDescription}
-            />
+            <CloseButton {...props} />
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { getTasks, getCategories } from "./dbService";
 import { modalNames } from "./models/enum/modalNames";
 import { IModalStateInterface } from "./models/IModalStateInterface";
 import { modalResultEnum } from "./models/enum/modalResultEnum";
-import { modalEntityType } from "./models/enum/modalEntityType";
+
 import { modalActionsType } from "./models/enum/modalActionsType";
 import { ICategorie } from "./components/ListCategories/Categorie";
 
@@ -20,11 +20,11 @@ const AppContainer = () => {
   const [itemId, setItemId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+
   // Установка полученных значений
   const [tasksList, setTasksList] = useState<ITask[]>();
   const [categorieList, setCategorieList] = useState<ICategorie[]>();
   // Изменение состояний для попапов
-
   const [modalState, setModalState] = useState<ModalState>({
     createEditModal: {
       entityType: undefined,
@@ -45,13 +45,10 @@ const AppContainer = () => {
 
   useEffect(() => {
     if (
-      (modalState.createEditModal.lastResult === modalResultEnum.OK ||
-        modalState.deleteModal.lastResult === modalResultEnum.OK) &&
-      (modalState.createEditModal.entityType === modalEntityType.TASK ||
-        modalState.createEditModal.entityType === undefined)
+      modalState.createEditModal.lastResult === modalResultEnum.OK ||
+      modalState.deleteModal.lastResult === modalResultEnum.OK
     ) {
       getTasks(handleLoadTasks);
-      console.log("appContainer effect");
     }
   }, [
     modalState.createEditModal.lastResult,
@@ -63,13 +60,10 @@ const AppContainer = () => {
 
   useEffect(() => {
     if (
-      (modalState.createEditModal.lastResult === modalResultEnum.OK ||
-        modalState.deleteModal.lastResult === modalResultEnum.OK) &&
-      (modalState.createEditModal.entityType === modalEntityType.CATEGORY ||
-        modalState.createEditModal.entityType === undefined)
+      modalState.createEditModal.lastResult === modalResultEnum.OK ||
+      modalState.deleteModal.lastResult === modalResultEnum.OK
     ) {
       getCategories(handleLoadCategorie);
-      console.log("appContainer effect categ");
     }
   }, [
     modalState.createEditModal.lastResult,

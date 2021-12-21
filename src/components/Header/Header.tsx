@@ -7,11 +7,11 @@ import { ModalState } from "../../AppContainer";
 interface IPopUp {
   setCategorieSection: () => void;
   setTaskSection: () => void;
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
   section: boolean;
 }
 
-const Header: React.FC<IPopUp> = (props) => {
+const Header = (props: IPopUp) => {
   let activeStyle = {
     color: "#8FB6FF",
   };
@@ -40,10 +40,7 @@ const Header: React.FC<IPopUp> = (props) => {
           </NavLink>
         </div>
       </div>
-      <CreateButton
-        section={props.section}
-        setModalState={props.setModalState}
-      />
+      <CreateButton {...props} />
     </div>
   );
 };

@@ -1,22 +1,24 @@
 import React from "react";
 import { ModalState } from "../../AppContainer";
+import { ICategorie } from "../ListCategories/Categorie";
 import Task, { ITask } from "./Task";
 
 interface ITasksList {
   setName: (name: string) => void;
   setDescription: (description: string) => void;
   setItemId: (id: string) => void;
-  setModalState: ({}: ModalState) => void;
-  tasksList?: ITask[];
+  setModalState: (statge: ModalState) => void;
+  taskList?: ITask[];
+  categorieList?: ICategorie[];
 }
 
-const TasksList: React.FC<ITasksList> = (props) => {
+const TasksList = (props: ITasksList) => {
   return (
-    <div>
-      {props.tasksList?.map((task, index) => (
+    <>
+      {props.taskList?.map((task, index) => (
         <Task {...props} {...task} key={index}></Task>
       ))}
-    </div>
+    </>
   );
 };
 

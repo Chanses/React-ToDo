@@ -4,7 +4,7 @@ import { modalEntityType } from "../../../models/enum/modalEntityType";
 import { modalStateValues } from "../../../models/modalStateValues";
 
 interface IButtonPopUp {
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
   editTask: (
@@ -18,7 +18,7 @@ interface IButtonPopUp {
   name: string;
   description: string;
   itemId: string;
-  selectValue: string;
+  selectValueId: string;
   isDirty: boolean;
   isInvalid: boolean;
 }
@@ -31,20 +31,20 @@ const SaveButton = (props: IButtonPopUp) => {
           name="taskSaveButton"
           type="submit"
           disabled={true}
-          style={{ background: "#adbad3" }}
+          style={{ background: "#adbad3", cursor: "default" }}
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
-            props.setName("");
-            props.setDescription("");
             props.editTask(
               props.itemId,
               props.name,
               props.description,
-              props.selectValue
+              props.selectValueId
             );
+            props.setName("");
+            props.setDescription("");
           }}
           {...(props.isDirty && props.isInvalid
-            ? {}
+            ? undefined
             : { disabled: false, style: { background: "#3F72AF" } })}
         >
           Сохранить

@@ -4,14 +4,14 @@ import Categorie, { ICategorie } from "./Categorie";
 import { ModalState } from "../../AppContainer";
 
 interface ICategoriesList {
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
   categorieList?: ICategorie[];
   setItemId: (id: string) => void;
 }
 
-const CategoriesList: React.FC<ICategoriesList> = (props) => {
+const CategoriesList = (props: ICategoriesList) => {
   return (
     <div>
       {props.categorieList?.map((categorie, index) => (

@@ -7,7 +7,7 @@ import { ICategorie } from "../ListCategories/Categorie";
 interface ICreateEditPopUpContainer {
   setName: (name: string) => void;
   setDescription: (description: string) => void;
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
   name: string;
   description: string;
   itemId: string;
@@ -15,17 +15,18 @@ interface ICreateEditPopUpContainer {
   categorieList?: ICategorie[];
 }
 
-const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
-  props
-) => {
+const СreateEditPopUpContainer = (props: ICreateEditPopUpContainer) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const [isInvalid, setIsInvalid] = useState<boolean>(true);
   const nameInput = useRef<any>();
   const descriptionInput = useRef<any>();
-  const [selectValue, setSelectValue] = useState<string>("placeholder");
+  const [selectValueId, setSelectValueId] = useState<string>("placeholder");
 
   const handleSelect = (event?: any) => {
-    setSelectValue(event?.target?.value);
+    const index = event.target.selectedIndex;
+    const optionElement = event.target.childNodes[index];
+    const optionElementId = optionElement.getAttribute("id");
+    setSelectValueId(optionElementId);
   };
   const handlerDescriptionInput = () => {
     props.setDescription(descriptionInput?.current?.value);
@@ -33,13 +34,17 @@ const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
 
   const dirtyHandler = () => {
     setIsDirty(true);
-    props.name.length > 1 ? setIsInvalid(false) : setIsInvalid(true);
+    props.name.length > 1 && props.name.length < 256
+      ? setIsInvalid(false)
+      : setIsInvalid(true);
   };
 
   const handlerNameInput = () => {
     setIsDirty(true);
     props.setName(nameInput?.current?.value);
-    props.name.length > 1 ? setIsInvalid(false) : setIsInvalid(true);
+    props.name.length > 1 && props.name.length < 256
+      ? setIsInvalid(false)
+      : setIsInvalid(true);
   };
 
   return (
@@ -50,14 +55,14 @@ const СreateEditPopUpContainer: React.FC<ICreateEditPopUpContainer> = (
       description={props.description}
       nameInput={nameInput}
       descriptionInput={descriptionInput}
-      selectValue={selectValue}
+      selectValueId={selectValueId}
       addTask={addTask}
       editTask={editTask}
       editCategory={editCategory}
       dirtyHandler={dirtyHandler}
       handlerDescriptionInput={handlerDescriptionInput}
       handlerNameInput={handlerNameInput}
-      setSelectValue={setSelectValue}
+      setSelectValueId={setSelectValueId}
       handleSelect={handleSelect}
     />
   );

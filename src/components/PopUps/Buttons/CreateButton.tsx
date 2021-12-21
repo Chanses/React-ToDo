@@ -5,13 +5,13 @@ import { modalStateValues } from "../../../models/modalStateValues";
 import { addTask, addCategory } from "../../../dbService";
 
 interface IButtonPopUp {
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
   modalState: ModalState;
   name: string;
   description: string;
-  selectValue: string;
+  selectValueId: string;
   isDirty: boolean;
   isInvalid: boolean;
 }
@@ -22,17 +22,17 @@ const CreateButton = (props: IButtonPopUp) => {
       {props.modalState.createEditModal.entityType === modalEntityType.TASK ? (
         <button
           name="createTaskButton"
+          type="submit"
           disabled={true}
           style={{ background: "#adbad3", cursor: "default" }}
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
-            addTask(props.name, props.description, props.selectValue);
+            addTask(props.name, props.description, props.selectValueId);
             props.setName("");
             props.setDescription("");
-            console.log(props.isInvalid);
           }}
           {...(props.isInvalid
-            ? {}
+            ? undefined
             : {
                 disabled: false,
                 style: { background: "#3F72AF" },

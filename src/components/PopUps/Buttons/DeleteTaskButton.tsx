@@ -2,25 +2,30 @@ import React from "react";
 import { ModalState } from "../../../AppContainer";
 import { modalStateValues } from "../../../models/modalStateValues";
 
-interface IButtonPopUp {
+interface IDeleteTaskButton {
   setModalState: (state: ModalState) => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
+  deleteTask: (id: string) => void;
+  modalState: ModalState;
+  itemId: string;
 }
 
-const CloseButton = (props: IButtonPopUp) => {
+const DeleteTaskButton = (props: IDeleteTaskButton) => {
   return (
     <button
+      name="Задачи"
+      type="submit"
       onClick={() => {
-        props.setModalState(modalStateValues.CloseDontSave.CloseCreateCategory);
-        props.setModalState(modalStateValues.CloseDontSave.CloseCreateTask);
+        props.deleteTask(props.itemId);
+        props.setModalState(modalStateValues.CloseSave.DeleteTask);
         props.setName("");
         props.setDescription("");
       }}
     >
-      Закрыть
+      Да
     </button>
   );
 };
 
-export default CloseButton;
+export default DeleteTaskButton;

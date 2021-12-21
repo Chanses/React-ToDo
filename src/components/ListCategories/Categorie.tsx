@@ -11,10 +11,10 @@ export interface ICategorie {
   setName: (name: string) => void;
   setDescription: (description: string) => void;
   setItemId: (id: string) => void;
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
 }
 
-const Categorie: React.FC<ICategorie> = (props) => {
+const Categorie = (props: ICategorie) => {
   return (
     <div className="CategoriesWrapper">
       <div className="TaskWrapper__Info">
@@ -35,7 +35,6 @@ const Categorie: React.FC<ICategorie> = (props) => {
             props.setDescription(props.description);
           }}
         >
-          {" "}
           <img src={editImg} alt="" />
         </button>
         <button
@@ -46,7 +45,6 @@ const Categorie: React.FC<ICategorie> = (props) => {
             props.setName(props.name);
           }}
         >
-          {" "}
           <img src={deleteImg} alt="" />
         </button>
       </div>

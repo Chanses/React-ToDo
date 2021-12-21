@@ -5,11 +5,11 @@ import Header from "./Header";
 interface IPopUp {
   setCategorieSection: () => void;
   setTaskSection: () => void;
-  setModalState: ({}: ModalState) => void;
+  setModalState: (state: ModalState) => void;
   section: boolean;
 }
 
-const HeaderContainer: React.FC<IPopUp> = (props) => {
+const HeaderContainer = (props: IPopUp) => {
   return (
     <>
       <Header {...props} />

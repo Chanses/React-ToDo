@@ -2,25 +2,26 @@ import React from "react";
 import { ModalState } from "../../../AppContainer";
 import { modalStateValues } from "../../../models/modalStateValues";
 
-interface IButtonPopUp {
-  setModalState: (state: ModalState) => void;
+interface ICloseDeletePopUpButton {
   setName: (name: string) => void;
   setDescription: (description: string) => void;
+  setModalState: (state: ModalState) => void;
 }
 
-const CloseButton = (props: IButtonPopUp) => {
+const CloseDeletePopUpButton = (props: ICloseDeletePopUpButton) => {
   return (
     <button
+      type="submit"
       onClick={() => {
-        props.setModalState(modalStateValues.CloseDontSave.CloseCreateCategory);
-        props.setModalState(modalStateValues.CloseDontSave.CloseCreateTask);
+        props.setModalState(modalStateValues.CloseDontSave.CloseDeleteCategory);
+        props.setModalState(modalStateValues.CloseDontSave.CloseDeleteTask);
         props.setName("");
         props.setDescription("");
       }}
     >
-      Закрыть
+      Нет
     </button>
   );
 };
 
-export default CloseButton;
+export default CloseDeletePopUpButton;

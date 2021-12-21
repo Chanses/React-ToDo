@@ -10,53 +10,61 @@ export const openStorage = openRequest.onupgradeneeded = function () {
 
 
 
-export const addTask = (name: string, description?: string, categorie?: string) => {
+export const addTask = (name: string, description?: string, categoryId?: string) => {
     const db = openRequest.result;
     const transaction = db.transaction(["tasks"], "readwrite"); // (1)
     const tasks = transaction.objectStore("tasks"); // (2)
+
+
+    const transactionCategory = db.transaction(["categories"], "readwrite"); // (1)
+    const categories = transactionCategory.objectStore("categories"); // (2)
+
+    const categoryItem = categories.get("Срочно")
+    console.log(categoryItem)
 
     const task = {
 
         name: name,
         description: description,
-        categorie: categorie
+        categoryId: categoryId
     }
 
     const request = tasks.put(task); // (3)
 
 
     request.onsuccess = function () { // (4)
-        console.log("задача добавлена в хранилище", request.result);
+
 
     };
 
     request.onerror = function () {
-        console.log("Ошибка", request.error);
+
     };
 };
 
-export const editTask = (id: string, name: string, description?: string, categorie?: string,) => {
+export const editTask = (id: string, name: string, description?: string, categoryId?: string,) => {
     const db = openRequest.result;
     const transaction = db.transaction(["tasks"], "readwrite"); // (1)
     const tasks = transaction.objectStore("tasks"); // (2)
+
 
     const task = {
         id: id,
         name: name,
         description: description,
-        categorie: categorie
+        categoryId: categoryId
     }
 
     const request = tasks.put(task); // (3)
 
 
     request.onsuccess = function () { // (4)
-        console.log("задача заменена в хранилище", request.result);
+
 
     };
 
     request.onerror = function () {
-        console.log("Ошибка", request.error);
+
     };
 };
 
@@ -77,15 +85,15 @@ export const addCategory = (name: string, description?: string) => {
 
 
     request.onsuccess = function () { // (4)
-        console.log("задача добавлена в хранилище", request.result);
+
     };
 
     request.onerror = function () {
-        console.log("Ошибка", request.error);
+
     };
 };
 
-export const editCategory = (id: string, name: string, description?: string) => {
+export const editCategory = (id: string, name: string, description?: string, categorieId?: string) => {
     const db = openRequest.result;
     const transaction = db.transaction(["categories"], "readwrite"); // (1)
     const categories = transaction.objectStore("categories"); // (2)
@@ -94,18 +102,19 @@ export const editCategory = (id: string, name: string, description?: string) => 
         id: id,
         name: name,
         description: description,
+        categorieId: categorieId
     }
 
     const request = categories.put(category); // (3)
 
 
     request.onsuccess = function () { // (4)
-        console.log("задача заменена в хранилище", request.result);
+
 
     };
 
     request.onerror = function () {
-        console.log("Ошибка", request.error);
+
     };
 };
 
@@ -125,7 +134,7 @@ export const getCategories = (cb: (categories: ICategorie[]) => void) => {
         };
 
         allRecords.onerror = function () {
-            console.log("Ошибка", allRecords.error);
+
         };
     }
 }
@@ -137,11 +146,11 @@ export const deleteTask = (taskId: string) => {
         .objectStore("tasks")
         .delete(taskId);
     request.onsuccess = function () {
-        console.log("задача удалена из хранилища", request.result);
+
 
     };
     request.onerror = function () {
-        console.log("Ошибка", request.error);
+
     };
 }
 
@@ -151,11 +160,11 @@ export const deleteCategorie = (CategorieId: string) => {
         .objectStore("categories")
         .delete(CategorieId);
     request.onsuccess = function () {
-        console.log("задача удалена из хранилища", request.result);
+
 
     };
     request.onerror = function () {
-        console.log("Ошибка", request.error);
+
     };
 }
 
@@ -172,14 +181,9 @@ export let getTasks = (cb: (tasks: ITask[]) => void) => {
 
         };
         allRecords.onerror = function () {
-            console.log("Ошибка", allRecords.error);
+
         };
     }
 
     openRequest.onerror = () => console.log("open DB error")
 }
-/** */
-
-/**Метод получения Задачи 
- * @param cb: коллбэк...
-*/
