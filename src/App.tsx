@@ -52,6 +52,7 @@ const App: React.FC<IApp> = (props) => {
             section={props.section}
             itemId={props.itemId}
             modalState={props.modalState}
+            name={props.name}
           />
         )}
         <HeaderContainer

@@ -7,8 +7,11 @@ interface IInputs {
   name: string;
   nameInput: () => void;
   handlerNameInput: () => void;
+  isDirty: boolean;
+  isInvalid: boolean;
 }
 const NameInput = (props: IInputs) => {
+  let invalidBorderStyle = { border: "2px red solid" };
   return (
     <>
       {props.modalState.createEditModal.entityType === modalEntityType.TASK ? (
@@ -19,6 +22,8 @@ const NameInput = (props: IInputs) => {
           ref={props.nameInput}
           value={props.name}
           onChange={props.handlerNameInput}
+          onClick={() => console.log(props.isDirty)}
+          style={props.isDirty && props.isInvalid ? invalidBorderStyle : {}}
         />
       ) : (
         <input

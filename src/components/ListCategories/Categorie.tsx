@@ -43,6 +43,7 @@ const Categorie: React.FC<ICategorie> = (props) => {
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenDeleteCategory);
             props.setItemId(props.id);
+            props.setName(props.name);
           }}
         >
           {" "}

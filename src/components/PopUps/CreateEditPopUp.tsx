@@ -43,7 +43,6 @@ interface ICreateEditPopUp {
 }
 
 const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
-  let invalidBorderStyle = { border: "2px red solid" };
   let invalidTextStyle = { color: "red" };
 
   return (
@@ -97,6 +96,8 @@ const CreateEditPopUp: React.FC<ICreateEditPopUp> = (props) => {
                 name={props.name}
                 nameInput={props.nameInput}
                 handlerNameInput={props.handlerNameInput}
+                isDirty={props.isDirty}
+                isInvalid={props.isInvalid}
               />
             </form>
           </div>

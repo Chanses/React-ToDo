@@ -55,6 +55,7 @@ const Task = (props: ITask) => {
             onClick={() => {
               props.setModalState(modalStateValues.Open.OpenDeleteTask);
               props.setItemId(props.id);
+              props.setName(props.name);
             }}
           >
             {" "}

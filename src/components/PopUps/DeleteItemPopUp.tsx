@@ -10,6 +10,7 @@ interface IDeletePopUp {
   modalState: ModalState;
   section: boolean;
   itemId: string;
+  name: string;
 }
 
 const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
@@ -29,9 +30,9 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
           <div className="PopUp__Main-Description-small">
             Вы уверены, что хотите удалить
             {props.section ? (
-              <span> задачу “Задача1”?</span>
+              <span> задачу “{props.name}”?</span>
             ) : (
-              <span> категорию “Категория1”?</span>
+              <span> категорию “{props.name}”?</span>
             )}{" "}
           </div>
           <div className="PopUp__buttons">
