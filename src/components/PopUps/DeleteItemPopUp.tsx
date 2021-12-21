@@ -7,6 +7,8 @@ interface IDeletePopUp {
   deleteTask: (id: string) => void;
   deleteCategorie: (id: string) => void;
   setModalState: ({}: ModalState) => void;
+  setName: (name: string) => void;
+  setDescription: (description: string) => void;
   modalState: ModalState;
   section: boolean;
   itemId: string;
@@ -44,6 +46,8 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
                   onClick={() => {
                     props.deleteTask(props.itemId);
                     props.setModalState(modalStateValues.CloseSave.DeleteTask);
+                    props.setName("");
+                    props.setDescription("");
                   }}
                 >
                   Да
@@ -57,6 +61,8 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
                     props.setModalState(
                       modalStateValues.CloseSave.DeleteCategory
                     );
+                    props.setName("");
+                    props.setDescription("");
                   }}
                 >
                   Да
@@ -73,6 +79,8 @@ const DeleteItemPopUp: React.FC<IDeletePopUp> = (props) => {
                   props.setModalState(
                     modalStateValues.CloseDontSave.CloseDeleteTask
                   );
+                  props.setName("");
+                  props.setDescription("");
                 }}
               >
                 Нет

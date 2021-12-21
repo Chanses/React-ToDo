@@ -49,6 +49,8 @@ const App: React.FC<IApp> = (props) => {
             deleteTask={props.deleteTask}
             deleteCategorie={props.deleteCategorie}
             setModalState={props.setModalState}
+            setName={props.setName}
+            setDescription={props.setDescription}
             section={props.section}
             itemId={props.itemId}
             modalState={props.modalState}
