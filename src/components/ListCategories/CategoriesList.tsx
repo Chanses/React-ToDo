@@ -1,14 +1,16 @@
 import React from "react";
 import "./CategoriesStyles.css";
 import Categorie, { ICategorie } from "./Categorie";
-import { ModalState } from "../../AppContainer";
+import { ICategoryItem, ModalState } from "../../AppContainer";
 
 interface ICategoriesList {
   setModalState: (state: ModalState) => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
-  categorieList?: ICategorie[];
   setItemId: (id: string) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  categoryItem: ICategoryItem;
+  categorieList?: ICategorie[];
 }
 
 const CategoriesList = (props: ICategoriesList) => {

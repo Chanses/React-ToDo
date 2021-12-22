@@ -6,7 +6,7 @@ import DeleteItemPopUp from "./components/PopUps/DeleteItemPopUp";
 import TasksListContainer from "./components/ListTasks/TasksListContainer";
 import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
 import { ITask } from "./components/ListTasks/Task";
-import { ModalState } from "./AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "./AppContainer";
 import CreateEditPopUpContainer from "./components/PopUps/СreateEditPopUpContainer";
 import { ICategorie } from "./components/ListCategories/Categorie";
 
@@ -18,6 +18,8 @@ interface IApp {
   taskList?: ITask[];
   categorieList?: ICategorie[];
   modalState: ModalState;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
   setTaskSection: () => void;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
@@ -26,6 +28,8 @@ interface IApp {
   deleteTask: (id: string) => void;
   deleteCategorie: (id: string) => void;
   setModalState: (state: ModalState) => void;
+  setTaskItem: (state: ITaskItem) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
 }
 
 const App: React.FC<IApp> = (props) => {

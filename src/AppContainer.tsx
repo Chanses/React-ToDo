@@ -12,6 +12,17 @@ import { modalActionsType } from "./models/enum/modalActionsType";
 import { ICategorie } from "./components/ListCategories/Categorie";
 
 export type ModalState = Record<modalNames, IModalStateInterface>;
+export interface ITaskItem {
+  id: string;
+  name: string;
+  description: string;
+  categoryId: string;
+}
+export interface ICategoryItem {
+  id: string;
+  name: string;
+  description: string;
+}
 
 const AppContainer = () => {
   // Состояния для попапов
@@ -33,6 +44,19 @@ const AppContainer = () => {
       lastResult: modalResultEnum.OK,
     },
     deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
+  });
+
+  const [taskItem, setTaskItem] = useState<ITaskItem>({
+    id: "",
+    name: "",
+    description: "",
+    categoryId: "",
+  });
+
+  const [categoryItem, setCategoryItem] = useState<ICategoryItem>({
+    id: "",
+    name: "",
+    description: "",
   });
 
   function setTaskSection() {
@@ -79,6 +103,8 @@ const AppContainer = () => {
       itemId={itemId}
       name={name}
       description={description}
+      taskItem={taskItem}
+      categoryItem={categoryItem}
       // Полученные данные
       taskList={tasksList}
       categorieList={categorieList}
@@ -90,6 +116,8 @@ const AppContainer = () => {
       setItemId={setItemId}
       setName={setName}
       setDescription={setDescription}
+      setTaskItem={setTaskItem}
+      setCategoryItem={setCategoryItem}
       // Удаление
       deleteTask={deleteTask}
       deleteCategorie={deleteCategorie}

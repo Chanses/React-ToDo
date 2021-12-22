@@ -26,7 +26,7 @@ const Task = (props: ITask) => {
       <div className="TaskWrapper__Info">
         <div className="TaskWrapper__Info__Name">
           <div className="TaskWrapper__Info__Name-name">{props.name}</div>
-
+          {/* Поиск выбранной категории в массиве */}
           {props.categorieList?.map((category, index) =>
             category.id.toString() === props.categoryId ? (
               <p className="TaskWrapper__Info__Name-folder" key={index}>

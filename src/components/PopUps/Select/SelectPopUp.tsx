@@ -14,12 +14,7 @@ const SelectPopUp = (props: ISelectPopUp) => {
   return (
     <>
       {props.modalState.createEditModal.action === modalActionsType.CREATE ? (
-        <select
-          name="categories"
-          id=""
-          value={props.selectValueId}
-          onChange={props.handleSelect}
-        >
+        <select name="categories" id="" onChange={props.handleSelect}>
           <option
             id="0"
             style={{ display: "none" }}
@@ -36,11 +31,7 @@ const SelectPopUp = (props: ISelectPopUp) => {
           ))}
         </select>
       ) : (
-        <select
-          name="categories"
-          value={props.selectValueId}
-          onChange={props.handleSelect}
-        >
+        <select name="categories" onChange={props.handleSelect}>
           <option
             id="0"
             style={{ display: "none" }}
