@@ -30,15 +30,25 @@ const СreateEditPopUpContainer = (props: ICreateEditPopUpContainer) => {
     setSelectValueId(optionElementId);
   };
 
-  const handlerDescriptionInput = () => {
+  const handlerTaskDescriptionInput = () => {
     props.setTaskItem({
       ...props.taskItem,
       description: descriptionInput?.current?.value,
     });
+    props.taskItem.description.length < 1536
+      ? setIsInvalid(false)
+      : setIsInvalid(true);
+  };
+
+  const handlerCategoryDescriptionInput = () => {
     props.setCategoryItem({
       ...props.categoryItem,
       description: descriptionInput?.current?.value,
     });
+
+    props.categoryItem.description.length < 512
+      ? setIsInvalid(false)
+      : setIsInvalid(true);
   };
   const handlerNameInput = () => {
     setIsDirty(true);
@@ -75,10 +85,11 @@ const СreateEditPopUpContainer = (props: ICreateEditPopUpContainer) => {
       editTask={editTask}
       editCategory={editCategory}
       dirtyHandler={dirtyHandler}
-      handlerDescriptionInput={handlerDescriptionInput}
+      handlerCategoryDescriptionInput={handlerCategoryDescriptionInput}
       handlerNameInput={handlerNameInput}
       handleSelect={handleSelect}
       setIsChanged={setIsChanged}
+      handlerTaskDescriptionInput={handlerTaskDescriptionInput}
     />
   );
 };

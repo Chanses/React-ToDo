@@ -5,8 +5,9 @@ interface IInputs {
   modalState: ModalState;
   taskItem: ITaskItem;
   categoryItem: ICategoryItem;
-  handlerDescriptionInput: () => void;
+  handlerCategoryDescriptionInput: () => void;
   descriptionInput: () => void;
+  handlerTaskDescriptionInput: () => void;
   handleSelect: () => void;
   setIsChanged: (isChanged: boolean) => void;
 }
@@ -19,7 +20,7 @@ const TaskTextarea = (props: IInputs) => {
           placeholder="Введите описание задачи"
           value={props.taskItem.description}
           onChange={() => {
-            props.handlerDescriptionInput();
+            props.handlerTaskDescriptionInput();
             props.setIsChanged(true);
             props.handleSelect();
           }}
@@ -31,7 +32,7 @@ const TaskTextarea = (props: IInputs) => {
           className="description"
           placeholder="Введите описание категории"
           value={props.categoryItem.description}
-          onChange={props.handlerDescriptionInput}
+          onChange={props.handlerCategoryDescriptionInput}
           ref={props.descriptionInput}
         />
       )}

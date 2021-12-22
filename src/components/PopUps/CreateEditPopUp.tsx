@@ -14,7 +14,8 @@ import { ICategorie } from "../ListCategories/Categorie";
 import SelectPopUpContainer from "./Select/SelectPopUpContainer";
 
 interface ICreateEditPopUp {
-  handlerDescriptionInput: () => void;
+  handlerCategoryDescriptionInput: () => void;
+  handlerTaskDescriptionInput: () => void;
   dirtyHandler: () => void;
   addTask: (name: string, description?: string, categorie?: string) => void;
   editTask: (
