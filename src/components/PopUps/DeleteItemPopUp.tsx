@@ -16,7 +16,6 @@ interface IDeletePopUp {
   taskItem: ITaskItem;
   categoryItem: ICategoryItem;
   modalState: ModalState;
-  section: boolean;
 }
 
 const DeleteItemPopUp = (props: IDeletePopUp) => {
@@ -35,7 +34,8 @@ const DeleteItemPopUp = (props: IDeletePopUp) => {
         <div className="PopUp__Main-small" style={{ color: "black" }}>
           <div className="PopUp__Main-Description-small">
             Вы уверены, что хотите удалить
-            {props.section ? (
+            {props.modalState.createEditModal.entityType ===
+            modalEntityType.TASK ? (
               <span> задачу “{props.taskItem.name}”?</span>
             ) : (
               <span> категорию “{props.categoryItem.name}”?</span>
@@ -43,7 +43,8 @@ const DeleteItemPopUp = (props: IDeletePopUp) => {
           </div>
           <div className="PopUp__buttons">
             <div className="PopUp__buttons-create">
-              {props.section ? (
+              {props.modalState.createEditModal.entityType ===
+              modalEntityType.TASK ? (
                 <DeleteTaskButton {...props} />
               ) : (
                 <DeleteCategoryButton {...props} />
