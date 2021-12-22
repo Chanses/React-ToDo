@@ -1,6 +1,8 @@
 import React from "react";
-import { ICategoryItem, ITaskItem, ModalState } from "../../../AppContainer";
+import { ModalState } from "../../../AppContainer";
 import { modalEntityType } from "../../../models/enum/modalEntityType";
+import { ICategoryItem } from "../../ListCategories/Categorie";
+import { ITaskItem } from "../../ListTasks/Task";
 interface IInputs {
   modalState: ModalState;
   taskItem: ITaskItem;

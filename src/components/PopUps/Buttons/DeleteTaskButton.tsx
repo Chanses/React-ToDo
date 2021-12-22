@@ -1,6 +1,7 @@
 import React from "react";
-import { ITaskItem, ModalState } from "../../../AppContainer";
+import { ModalState } from "../../../AppContainer";
 import { modalStateValues } from "../../../models/modalStateValues";
+import { ITaskItem } from "../../ListTasks/Task";
 
 interface IDeleteTaskButton {
   setModalState: (state: ModalState) => void;

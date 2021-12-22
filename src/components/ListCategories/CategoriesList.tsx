@@ -1,7 +1,7 @@
 import React from "react";
 import "./CategoriesStyles.css";
-import Categorie, { ICategorie } from "./Categorie";
-import { ICategoryItem, ModalState } from "../../AppContainer";
+import Categorie, { ICategorie, ICategoryItem } from "./Categorie";
+import { ModalState } from "../../AppContainer";
 
 interface ICategoriesList {
   setModalState: (state: ModalState) => void;

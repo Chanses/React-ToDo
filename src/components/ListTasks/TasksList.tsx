@@ -1,7 +1,7 @@
 import React from "react";
-import { ITaskItem, ModalState } from "../../AppContainer";
+import { ModalState } from "../../AppContainer";
 import { ICategorie } from "../ListCategories/Categorie";
-import Task, { ITask } from "./Task";
+import Task, { ITask, ITaskItem } from "./Task";
 
 interface ITasksList {
   setModalState: (statge: ModalState) => void;

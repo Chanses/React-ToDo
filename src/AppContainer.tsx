@@ -2,27 +2,19 @@ import React, { useEffect, useState } from "react";
 import App from "./App";
 import { deleteTask } from "./dbService";
 import { deleteCategorie } from "./dbService";
-import { ITask } from "./components/ListTasks/Task";
+import { ITask, ITaskItem } from "./components/ListTasks/Task";
 import { getTasks, getCategories } from "./dbService";
 import { modalNames } from "./models/enum/modalNames";
 import { IModalStateInterface } from "./models/IModalStateInterface";
 import { modalResultEnum } from "./models/enum/modalResultEnum";
 
 import { modalActionsType } from "./models/enum/modalActionsType";
-import { ICategorie } from "./components/ListCategories/Categorie";
+import {
+  ICategorie,
+  ICategoryItem,
+} from "./components/ListCategories/Categorie";
 
 export type ModalState = Record<modalNames, IModalStateInterface>;
-export interface ITaskItem {
-  id: string;
-  name: string;
-  description: string;
-  categoryId: string;
-}
-export interface ICategoryItem {
-  id: string;
-  name: string;
-  description: string;
-}
 
 const AppContainer = () => {
   // Состояния для попапов
@@ -34,7 +26,6 @@ const AppContainer = () => {
     description: "",
     categoryId: "",
   });
-
   const [categoryItem, setCategoryItem] = useState<ICategoryItem>({
     id: "",
     name: "",

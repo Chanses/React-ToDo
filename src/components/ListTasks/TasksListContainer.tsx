@@ -1,8 +1,8 @@
 import React from "react";
 import "./TasksStyle.css";
-import { ITask } from "./Task";
+import { ITask, ITaskItem } from "./Task";
 import TasksList from "./TasksList";
-import { ITaskItem, ModalState } from "../../AppContainer";
+import { ModalState } from "../../AppContainer";
 import { ICategorie } from "../ListCategories/Categorie";
 
 interface ITasksListContainer {

@@ -1,6 +1,7 @@
 import React from "react";
-import { ICategoryItem, ModalState } from "../../../AppContainer";
+import { ModalState } from "../../../AppContainer";
 import { modalStateValues } from "../../../models/modalStateValues";
+import { ICategoryItem } from "../../ListCategories/Categorie";
 
 interface IDeleteCategoryButton {
   setModalState: (state: ModalState) => void;

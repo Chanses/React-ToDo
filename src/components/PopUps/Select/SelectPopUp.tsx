@@ -1,8 +1,9 @@
 import React from "react";
-import { ITaskItem, ModalState } from "../../../AppContainer";
+import { ModalState } from "../../../AppContainer";
 import { modalActionsType } from "../../../models/enum/modalActionsType";
 
 import { ICategorie } from "../../ListCategories/Categorie";
+import { ITaskItem } from "../../ListTasks/Task";
 
 interface ISelectPopUp {
   categorieList?: ICategorie[];

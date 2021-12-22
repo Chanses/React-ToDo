@@ -5,10 +5,13 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import DeleteItemPopUp from "./components/PopUps/DeleteItemPopUp";
 import TasksListContainer from "./components/ListTasks/TasksListContainer";
 import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
-import { ITask } from "./components/ListTasks/Task";
-import { ICategoryItem, ITaskItem, ModalState } from "./AppContainer";
+import { ITask, ITaskItem } from "./components/ListTasks/Task";
+import { ModalState } from "./AppContainer";
 import CreateEditPopUpContainer from "./components/PopUps/СreateEditPopUpContainer";
-import { ICategorie } from "./components/ListCategories/Categorie";
+import {
+  ICategorie,
+  ICategoryItem,
+} from "./components/ListCategories/Categorie";
 
 interface IApp {
   section: boolean;

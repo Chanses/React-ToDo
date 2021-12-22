@@ -6,12 +6,13 @@ import SaveButton from "./Buttons/SaveButton";
 import CloseButton from "./Buttons/CloseButton";
 import TaskTextarea from "./Textareas/TaskTextarea";
 import NameInput from "./Textareas/NameInput";
-import { ICategoryItem, ITaskItem, ModalState } from "../../AppContainer";
+import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import { modalActionsType } from "../../models/enum/modalActionsType";
 import { modalEntityType } from "../../models/enum/modalEntityType";
-import { ICategorie } from "../ListCategories/Categorie";
+import { ICategorie, ICategoryItem } from "../ListCategories/Categorie";
 import SelectPopUpContainer from "./Select/SelectPopUpContainer";
+import { ITaskItem } from "../ListTasks/Task";
 
 interface ICreateEditPopUp {
   handlerCategoryDescriptionInput: () => void;

@@ -1,6 +1,7 @@
 import React from "react";
-import { ITaskItem, ModalState } from "../../../AppContainer";
+import { ModalState } from "../../../AppContainer";
 import { ICategorie } from "../../ListCategories/Categorie";
+import { ITaskItem } from "../../ListTasks/Task";
 import SelectPopUp from "./SelectPopUp";
 
 interface ISelectPopUpContainer {

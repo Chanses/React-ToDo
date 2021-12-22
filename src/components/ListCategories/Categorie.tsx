@@ -1,8 +1,14 @@
 import React from "react";
 import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
-import { ICategoryItem, ModalState } from "../../AppContainer";
+import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
+
+export interface ICategoryItem {
+  id: string;
+  name: string;
+  description: string;
+}
 
 export interface ICategorie {
   id: string;

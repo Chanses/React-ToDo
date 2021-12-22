@@ -2,9 +2,16 @@ import React from "react";
 import folderImg from "../../images/Folder.svg";
 import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
-import { ITaskItem, ModalState } from "../../AppContainer";
+import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import { ICategorie } from "../ListCategories/Categorie";
+
+export interface ITaskItem {
+  id: string;
+  name: string;
+  description: string;
+  categoryId: string;
+}
 
 export interface ITask {
   id: string;

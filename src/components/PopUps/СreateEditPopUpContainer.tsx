@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
 import { addTask, editTask, editCategory } from "../../dbService";
-import { ICategoryItem, ITaskItem, ModalState } from "../../AppContainer";
+import { ModalState } from "../../AppContainer";
 import CreateEditPopUp from "./CreateEditPopUp";
-import { ICategorie } from "../ListCategories/Categorie";
+import { ICategorie, ICategoryItem } from "../ListCategories/Categorie";
+import { ITaskItem } from "../ListTasks/Task";
 
 interface ICreateEditPopUpContainer {
   setModalState: (state: ModalState) => void;

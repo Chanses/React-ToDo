@@ -1,8 +1,10 @@
 import React from "react";
-import { ICategoryItem, ITaskItem, ModalState } from "../../../AppContainer";
+import { ModalState } from "../../../AppContainer";
 import { modalEntityType } from "../../../models/enum/modalEntityType";
 import { modalStateValues } from "../../../models/modalStateValues";
 import { addTask, addCategory } from "../../../dbService";
+import { ITaskItem } from "../../ListTasks/Task";
+import { ICategoryItem } from "../../ListCategories/Categorie";
 
 interface IButtonPopUp {
   setModalState: (state: ModalState) => void;
