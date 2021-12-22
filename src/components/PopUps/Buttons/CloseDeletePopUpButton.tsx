@@ -1,11 +1,13 @@
 import React from "react";
-import { ModalState } from "../../../AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "../../../AppContainer";
 import { modalStateValues } from "../../../models/modalStateValues";
 
 interface ICloseDeletePopUpButton {
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
   setModalState: (state: ModalState) => void;
+  setTaskItem: (state: ITaskItem) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
 }
 
 const CloseDeletePopUpButton = (props: ICloseDeletePopUpButton) => {
@@ -15,8 +17,16 @@ const CloseDeletePopUpButton = (props: ICloseDeletePopUpButton) => {
       onClick={() => {
         props.setModalState(modalStateValues.CloseDontSave.CloseDeleteCategory);
         props.setModalState(modalStateValues.CloseDontSave.CloseDeleteTask);
-        props.setName("");
-        props.setDescription("");
+        props.setCategoryItem({
+          ...props.categoryItem,
+          name: "",
+          description: "",
+        });
+        props.setTaskItem({
+          ...props.taskItem,
+          name: "",
+          description: "",
+        });
       }}
     >
       Нет

@@ -1,12 +1,10 @@
 import React from "react";
-import { ModalState } from "../../../AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "../../../AppContainer";
 import { modalEntityType } from "../../../models/enum/modalEntityType";
 import { modalStateValues } from "../../../models/modalStateValues";
 
 interface IButtonPopUp {
   setModalState: (state: ModalState) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
   editTask: (
     id: string,
     name: string,
@@ -14,13 +12,16 @@ interface IButtonPopUp {
     categorie?: string
   ) => void;
   editCategory: (id: string, name: string, description?: string) => void;
+  setTaskItem: (state: ITaskItem) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  handleSelect: () => void;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
   modalState: ModalState;
-  name: string;
-  description: string;
-  itemId: string;
   selectValueId: string;
   isDirty: boolean;
   isInvalid: boolean;
+  isChanged: boolean;
 }
 
 const SaveButton = (props: IButtonPopUp) => {
@@ -30,21 +31,30 @@ const SaveButton = (props: IButtonPopUp) => {
         <button
           name="taskSaveButton"
           type="submit"
-          disabled={true}
           style={{ background: "#adbad3", cursor: "default" }}
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
+            props.handleSelect();
             props.editTask(
-              props.itemId,
-              props.name,
-              props.description,
+              props.taskItem.id,
+              props.taskItem.name,
+              props.taskItem.description,
               props.selectValueId
             );
-            props.setName("");
-            props.setDescription("");
+
+            props.setTaskItem({
+              ...props.taskItem,
+              name: "",
+              description: "",
+            });
+            props.setCategoryItem({
+              ...props.categoryItem,
+              name: "",
+              description: "",
+            });
           }}
-          {...(props.isDirty && props.isInvalid
-            ? undefined
+          {...((props.isDirty && props.isInvalid) || !props.isChanged
+            ? { disabled: true }
             : { disabled: false, style: { background: "#3F72AF" } })}
         >
           Сохранить
@@ -54,9 +64,21 @@ const SaveButton = (props: IButtonPopUp) => {
           name="categorieSaveButton"
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateCategory);
-            props.setName("");
-            props.setDescription("");
-            props.editCategory(props.itemId, props.name, props.description);
+            props.editCategory(
+              props.categoryItem.id,
+              props.categoryItem.name,
+              props.categoryItem.description
+            );
+            props.setTaskItem({
+              ...props.taskItem,
+              name: "",
+              description: "",
+            });
+            props.setCategoryItem({
+              ...props.categoryItem,
+              name: "",
+              description: "",
+            });
           }}
         >
           Сохранить

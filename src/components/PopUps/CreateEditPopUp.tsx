@@ -5,13 +5,13 @@ import CreateButton from "./Buttons/CreateButton";
 import SaveButton from "./Buttons/SaveButton";
 import CloseButton from "./Buttons/CloseButton";
 import TaskTextarea from "./Textareas/TaskTextarea";
-import SelectPopUp from "./Select/SelectPopUp";
 import NameInput from "./Textareas/NameInput";
-import { ModalState } from "../../AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import { modalActionsType } from "../../models/enum/modalActionsType";
 import { modalEntityType } from "../../models/enum/modalEntityType";
 import { ICategorie } from "../ListCategories/Categorie";
+import SelectPopUpContainer from "./Select/SelectPopUpContainer";
 
 interface ICreateEditPopUp {
   handlerDescriptionInput: () => void;
@@ -26,18 +26,19 @@ interface ICreateEditPopUp {
   editCategory: (id: string, name: string, description?: string) => void;
   handlerNameInput: () => void;
   setModalState: (state: ModalState) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
-  setSelectValueId: (selectValue: string) => void;
   handleSelect: () => void;
+  setTaskItem: (state: ITaskItem) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  setIsChanged: (isChanged: boolean) => void;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
   modalState: ModalState;
   isDirty: boolean;
   isInvalid: boolean;
-  name: string;
-  description: string;
-  itemId: string;
+  isChanged: boolean;
   nameInput: any;
   descriptionInput: any;
+  selectRef: any;
   categorieList?: ICategorie[];
   selectValueId: string;
 }
@@ -72,8 +73,16 @@ const CreateEditPopUp = (props: ICreateEditPopUp) => {
                 props.setModalState(
                   modalStateValues.CloseDontSave.CloseCreateTask
                 );
-                props.setName("");
-                props.setDescription("");
+                props.setCategoryItem({
+                  ...props.categoryItem,
+                  name: "",
+                  description: "",
+                });
+                props.setTaskItem({
+                  ...props.taskItem,
+                  name: "",
+                  description: "",
+                });
               }}
             />
           </button>
@@ -106,7 +115,7 @@ const CreateEditPopUp = (props: ICreateEditPopUp) => {
               </div>
               <div style={{ display: "flex" }}>
                 {/* Поля для выбора категорий*/}
-                <SelectPopUp {...props} />
+                <SelectPopUpContainer {...props} />
               </div>
             </div>
           ) : (

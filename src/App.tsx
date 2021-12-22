@@ -12,19 +12,13 @@ import { ICategorie } from "./components/ListCategories/Categorie";
 
 interface IApp {
   section: boolean;
-  itemId: string;
-  name: string;
-  description: string;
   taskList?: ITask[];
   categorieList?: ICategorie[];
   modalState: ModalState;
   taskItem: ITaskItem;
   categoryItem: ICategoryItem;
   setTaskSection: () => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
   setCategorieSection: () => void;
-  setItemId: (id: string) => void;
   deleteTask: (id: string) => void;
   deleteCategorie: (id: string) => void;
   setModalState: (state: ModalState) => void;

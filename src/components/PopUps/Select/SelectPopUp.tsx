@@ -1,54 +1,60 @@
 import React from "react";
-import { ModalState } from "../../../AppContainer";
+import { ITaskItem, ModalState } from "../../../AppContainer";
 import { modalActionsType } from "../../../models/enum/modalActionsType";
+
 import { ICategorie } from "../../ListCategories/Categorie";
 
 interface ISelectPopUp {
   categorieList?: ICategorie[];
-  selectValueId: string;
   modalState: ModalState;
+  taskItem: ITaskItem;
+  selectRef: any;
+  selectValueId: string;
   handleSelect: () => void;
+  setIsChanged: (isChanged: boolean) => void;
+
+  value: { name: string; id: string };
 }
 
 const SelectPopUp = (props: ISelectPopUp) => {
   return (
-    <>
+    <select
+      name="categories"
+      id=""
+      ref={props.selectRef}
+      onChange={() => {
+        props.handleSelect();
+        props.setIsChanged(true);
+      }}
+    >
       {props.modalState.createEditModal.action === modalActionsType.CREATE ? (
-        <select name="categories" id="" onChange={props.handleSelect}>
-          <option
-            id="0"
-            style={{ display: "none" }}
-            value="placeholder"
-            selected
-            disabled
-          >
-            Выберите категорию
-          </option>
-          {props.categorieList?.map((category, index) => (
-            <option value={category.name} key={index} id={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <option
+          id="0"
+          style={{ display: "none" }}
+          value="placeholder"
+          selected
+          disabled
+        >
+          Выберете категорию
+        </option>
       ) : (
-        <select name="categories" onChange={props.handleSelect}>
-          <option
-            id="0"
-            style={{ display: "none" }}
-            value="placeholder"
-            selected
-            disabled
-          >
-            Выберите категорию
-          </option>
-          {props.categorieList?.map((category, index) => (
-            <option value={category.name} key={index} id={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <option
+          id={props.value.id}
+          value={props.value.name}
+          selected
+          disabled
+          style={{ display: "none" }}
+        >
+          {props.value.name}
+        </option>
       )}
-    </>
+
+      {props.categorieList?.map((category, index) => (
+        <option value={category.name} key={index} id={category.id}>
+          {category.name}
+        </option>
+      ))}
+    </select>
   );
 };
 

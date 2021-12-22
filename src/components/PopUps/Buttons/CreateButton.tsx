@@ -1,16 +1,16 @@
 import React from "react";
-import { ModalState } from "../../../AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "../../../AppContainer";
 import { modalEntityType } from "../../../models/enum/modalEntityType";
 import { modalStateValues } from "../../../models/modalStateValues";
 import { addTask, addCategory } from "../../../dbService";
 
 interface IButtonPopUp {
   setModalState: (state: ModalState) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
+  setTaskItem: (state: ITaskItem) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
   modalState: ModalState;
-  name: string;
-  description: string;
   selectValueId: string;
   isDirty: boolean;
   isInvalid: boolean;
@@ -27,9 +27,21 @@ const CreateButton = (props: IButtonPopUp) => {
           style={{ background: "#adbad3", cursor: "default" }}
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateTask);
-            addTask(props.name, props.description, props.selectValueId);
-            props.setName("");
-            props.setDescription("");
+            addTask(
+              props.taskItem.name,
+              props.taskItem.description,
+              props.selectValueId
+            );
+            props.setCategoryItem({
+              ...props.categoryItem,
+              name: "",
+              description: "",
+            });
+            props.setTaskItem({
+              ...props.taskItem,
+              name: "",
+              description: "",
+            });
           }}
           {...(props.isInvalid
             ? undefined
@@ -43,12 +55,32 @@ const CreateButton = (props: IButtonPopUp) => {
       ) : (
         <button
           name="createCategorieButton"
+          type="submit"
+          disabled={true}
+          style={{ background: "#adbad3", cursor: "default" }}
           onClick={() => {
             props.setModalState(modalStateValues.CloseSave.CreateCategory);
-            addCategory(props.name, props.description);
-            props.setName("");
-            props.setDescription("");
+            addCategory(
+              props.categoryItem.name,
+              props.categoryItem.description
+            );
+            props.setCategoryItem({
+              ...props.categoryItem,
+              name: "",
+              description: "",
+            });
+            props.setTaskItem({
+              ...props.taskItem,
+              name: "",
+              description: "",
+            });
           }}
+          {...(props.isInvalid
+            ? undefined
+            : {
+                disabled: false,
+                style: { background: "#3F72AF" },
+              })}
         >
           Создать
         </button>

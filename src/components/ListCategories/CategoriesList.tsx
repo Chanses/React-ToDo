@@ -5,9 +5,6 @@ import { ICategoryItem, ModalState } from "../../AppContainer";
 
 interface ICategoriesList {
   setModalState: (state: ModalState) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
-  setItemId: (id: string) => void;
   setCategoryItem: (state: ICategoryItem) => void;
   categoryItem: ICategoryItem;
   categorieList?: ICategorie[];

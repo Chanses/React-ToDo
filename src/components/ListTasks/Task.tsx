@@ -2,7 +2,7 @@ import React from "react";
 import folderImg from "../../images/Folder.svg";
 import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
-import { ModalState } from "../../AppContainer";
+import { ITaskItem, ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import { ICategorie } from "../ListCategories/Categorie";
 
@@ -14,9 +14,8 @@ export interface ITask {
   description: string;
   selectedValueId: string;
   categorieList?: ICategorie[];
-  setItemId: (id: string) => void;
-  setName: (itemName?: string) => void;
-  setDescription: (description: string) => void;
+  taskItem: ITaskItem;
+  setTaskItem: (state: ITaskItem) => void;
   setModalState: (state: ModalState) => void;
 }
 
@@ -47,9 +46,13 @@ const Task = (props: ITask) => {
           className="TaskWrapper__Actions-Edit"
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenEditTask);
-            props.setItemId(props.id);
-            props.setName(props.name);
-            props.setDescription(props.description);
+            props.setTaskItem({
+              ...props.taskItem,
+              id: props.id,
+              name: props.name,
+              description: props.description,
+              categoryId: props.categoryId,
+            });
           }}
         >
           <img src={editImg} alt="" />
@@ -58,8 +61,11 @@ const Task = (props: ITask) => {
           className="TaskWrapper__Actions-Delete"
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenDeleteTask);
-            props.setItemId(props.id);
-            props.setName(props.name);
+            props.setTaskItem({
+              ...props.taskItem,
+              id: props.id,
+              name: props.name,
+            });
           }}
         >
           <img src={deleteImg} alt="" />

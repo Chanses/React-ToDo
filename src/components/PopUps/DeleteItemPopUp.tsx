@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalState } from "../../AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "../../AppContainer";
 import { modalEntityType } from "../../models/enum/modalEntityType";
 import CloseDeletePopUpButton from "./Buttons/CloseDeletePopUpButton";
 import DeleteCategoryButton from "./Buttons/DeleteCategoryButton";
@@ -9,12 +9,12 @@ interface IDeletePopUp {
   deleteTask: (id: string) => void;
   deleteCategorie: (id: string) => void;
   setModalState: (state: ModalState) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
+  setTaskItem: (state: ITaskItem) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
   modalState: ModalState;
   section: boolean;
-  itemId: string;
-  name: string;
 }
 
 const DeleteItemPopUp = (props: IDeletePopUp) => {
@@ -34,9 +34,9 @@ const DeleteItemPopUp = (props: IDeletePopUp) => {
           <div className="PopUp__Main-Description-small">
             Вы уверены, что хотите удалить
             {props.section ? (
-              <span> задачу “{props.name}”?</span>
+              <span> задачу “{props.taskItem.name}”?</span>
             ) : (
-              <span> категорию “{props.name}”?</span>
+              <span> категорию “{props.categoryItem.name}”?</span>
             )}
           </div>
           <div className="PopUp__buttons">

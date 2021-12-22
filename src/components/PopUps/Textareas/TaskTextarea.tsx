@@ -1,11 +1,14 @@
 import React from "react";
-import { ModalState } from "../../../AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "../../../AppContainer";
 import { modalEntityType } from "../../../models/enum/modalEntityType";
 interface IInputs {
   modalState: ModalState;
-  description: string;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
   handlerDescriptionInput: () => void;
   descriptionInput: () => void;
+  handleSelect: () => void;
+  setIsChanged: (isChanged: boolean) => void;
 }
 const TaskTextarea = (props: IInputs) => {
   return (
@@ -14,15 +17,20 @@ const TaskTextarea = (props: IInputs) => {
         <textarea
           className="description"
           placeholder="Введите описание задачи"
-          value={props.description}
-          onChange={props.handlerDescriptionInput}
+          value={props.taskItem.description}
+          onChange={() => {
+            props.handlerDescriptionInput();
+            props.setIsChanged(true);
+            props.handleSelect();
+          }}
+          onFocus={props.handleSelect}
           ref={props.descriptionInput}
         />
       ) : (
         <textarea
           className="description"
           placeholder="Введите описание категории"
-          value={props.description}
+          value={props.categoryItem.description}
           onChange={props.handlerDescriptionInput}
           ref={props.descriptionInput}
         />

@@ -9,9 +9,6 @@ export interface ICategorie {
   name: string;
   description: string;
   categoryItem: ICategoryItem;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
-  setItemId: (id: string) => void;
   setModalState: (state: ModalState) => void;
   setCategoryItem: (state: ICategoryItem) => void;
 }
@@ -38,9 +35,6 @@ const Categorie = (props: ICategorie) => {
               name: props.name,
               description: props.description,
             });
-            props.setItemId(props.id);
-            props.setName(props.name);
-            props.setDescription(props.description);
           }}
         >
           <img src={editImg} alt="" />
@@ -54,8 +48,6 @@ const Categorie = (props: ICategorie) => {
               id: props.id,
               name: props.name,
             });
-            props.setItemId(props.id);
-            props.setName(props.name);
           }}
         >
           <img src={deleteImg} alt="" />

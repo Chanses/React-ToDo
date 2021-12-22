@@ -2,14 +2,13 @@ import React from "react";
 import "./TasksStyle.css";
 import { ITask } from "./Task";
 import TasksList from "./TasksList";
-import { ModalState } from "../../AppContainer";
+import { ITaskItem, ModalState } from "../../AppContainer";
 import { ICategorie } from "../ListCategories/Categorie";
 
 interface ITasksListContainer {
-  setItemId: (id: string) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
   setModalState: (state: ModalState) => void;
+  setTaskItem: (state: ITaskItem) => void;
+  taskItem: ITaskItem;
   taskList?: ITask[];
   categorieList?: ICategorie[];
 }

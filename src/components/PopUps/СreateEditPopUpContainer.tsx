@@ -1,16 +1,15 @@
 import React, { useRef, useState } from "react";
 import { addTask, editTask, editCategory } from "../../dbService";
-import { ModalState } from "../../AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "../../AppContainer";
 import CreateEditPopUp from "./CreateEditPopUp";
 import { ICategorie } from "../ListCategories/Categorie";
 
 interface ICreateEditPopUpContainer {
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
   setModalState: (state: ModalState) => void;
-  name: string;
-  description: string;
-  itemId: string;
+  setTaskItem: (state: ITaskItem) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
   modalState: ModalState;
   categorieList?: ICategorie[];
 }
@@ -18,31 +17,46 @@ interface ICreateEditPopUpContainer {
 const СreateEditPopUpContainer = (props: ICreateEditPopUpContainer) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const [isInvalid, setIsInvalid] = useState<boolean>(true);
+  const [selectValueId, setSelectValueId] = useState<string>("placeholder");
+  const [isChanged, setIsChanged] = useState<boolean>(false);
   const nameInput = useRef<any>();
   const descriptionInput = useRef<any>();
-  const [selectValueId, setSelectValueId] = useState<string>("placeholder");
+  const selectRef = useRef<any>();
 
-  const handleSelect = (event?: any) => {
-    const index = event.target.selectedIndex;
-    const optionElement = event.target.childNodes[index];
+  const handleSelect = () => {
+    const index = selectRef.current.selectedIndex;
+    const optionElement = selectRef.current.childNodes[index];
     const optionElementId = optionElement.getAttribute("id");
     setSelectValueId(optionElementId);
   };
-  const handlerDescriptionInput = () => {
-    props.setDescription(descriptionInput?.current?.value);
-  };
 
-  const dirtyHandler = () => {
+  const handlerDescriptionInput = () => {
+    props.setTaskItem({
+      ...props.taskItem,
+      description: descriptionInput?.current?.value,
+    });
+    props.setCategoryItem({
+      ...props.categoryItem,
+      description: descriptionInput?.current?.value,
+    });
+  };
+  const handlerNameInput = () => {
     setIsDirty(true);
-    props.name.length > 1 && props.name.length < 256
+    props.setTaskItem({ ...props.taskItem, name: nameInput?.current?.value });
+    props.setCategoryItem({
+      ...props.categoryItem,
+      name: nameInput?.current?.value,
+    });
+    (props.taskItem.name.length || props.categoryItem.name.length) > 1 &&
+    (props.taskItem.name.length || props.categoryItem.name.length) < 256
       ? setIsInvalid(false)
       : setIsInvalid(true);
   };
 
-  const handlerNameInput = () => {
+  const dirtyHandler = () => {
     setIsDirty(true);
-    props.setName(nameInput?.current?.value);
-    props.name.length > 1 && props.name.length < 256
+    (props.taskItem.name.length || props.categoryItem.name.length) > 1 &&
+    (props.taskItem.name.length || props.categoryItem.name.length) < 256
       ? setIsInvalid(false)
       : setIsInvalid(true);
   };
@@ -52,18 +66,19 @@ const СreateEditPopUpContainer = (props: ICreateEditPopUpContainer) => {
       {...props}
       isDirty={isDirty}
       isInvalid={isInvalid}
-      description={props.description}
       nameInput={nameInput}
+      selectRef={selectRef}
       descriptionInput={descriptionInput}
       selectValueId={selectValueId}
+      isChanged={isChanged}
       addTask={addTask}
       editTask={editTask}
       editCategory={editCategory}
       dirtyHandler={dirtyHandler}
       handlerDescriptionInput={handlerDescriptionInput}
       handlerNameInput={handlerNameInput}
-      setSelectValueId={setSelectValueId}
       handleSelect={handleSelect}
+      setIsChanged={setIsChanged}
     />
   );
 };

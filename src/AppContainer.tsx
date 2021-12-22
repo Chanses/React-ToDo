@@ -28,10 +28,18 @@ const AppContainer = () => {
   // Состояния для попапов
   const [section, setSection] = useState<boolean>(true);
   // Установка значений
-  const [itemId, setItemId] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [taskItem, setTaskItem] = useState<ITaskItem>({
+    id: "",
+    name: "",
+    description: "",
+    categoryId: "",
+  });
 
+  const [categoryItem, setCategoryItem] = useState<ICategoryItem>({
+    id: "",
+    name: "",
+    description: "",
+  });
   // Установка полученных значений
   const [tasksList, setTasksList] = useState<ITask[]>();
   const [categorieList, setCategorieList] = useState<ICategorie[]>();
@@ -44,19 +52,6 @@ const AppContainer = () => {
       lastResult: modalResultEnum.OK,
     },
     deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
-  });
-
-  const [taskItem, setTaskItem] = useState<ITaskItem>({
-    id: "",
-    name: "",
-    description: "",
-    categoryId: "",
-  });
-
-  const [categoryItem, setCategoryItem] = useState<ICategoryItem>({
-    id: "",
-    name: "",
-    description: "",
   });
 
   function setTaskSection() {
@@ -100,9 +95,6 @@ const AppContainer = () => {
       section={section}
       modalState={modalState}
       // Значения
-      itemId={itemId}
-      name={name}
-      description={description}
       taskItem={taskItem}
       categoryItem={categoryItem}
       // Полученные данные
@@ -113,9 +105,6 @@ const AppContainer = () => {
       setCategorieSection={setCategorieSection}
       setModalState={setModalState}
       // Установка значений
-      setItemId={setItemId}
-      setName={setName}
-      setDescription={setDescription}
       setTaskItem={setTaskItem}
       setCategoryItem={setCategoryItem}
       // Удаление

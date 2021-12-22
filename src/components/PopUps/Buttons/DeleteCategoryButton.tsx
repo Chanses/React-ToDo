@@ -1,14 +1,13 @@
 import React from "react";
-import { ModalState } from "../../../AppContainer";
+import { ICategoryItem, ModalState } from "../../../AppContainer";
 import { modalStateValues } from "../../../models/modalStateValues";
 
 interface IDeleteCategoryButton {
   setModalState: (state: ModalState) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
   deleteCategorie: (id: string) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  categoryItem: ICategoryItem;
   modalState: ModalState;
-  itemId: string;
 }
 
 const DeleteCategoryButton = (props: IDeleteCategoryButton) => {
@@ -17,10 +16,13 @@ const DeleteCategoryButton = (props: IDeleteCategoryButton) => {
       name="Категории"
       type="submit"
       onClick={() => {
-        props.deleteCategorie(props.itemId);
+        props.deleteCategorie(props.categoryItem.id);
         props.setModalState(modalStateValues.CloseSave.DeleteCategory);
-        props.setName("");
-        props.setDescription("");
+        props.setCategoryItem({
+          ...props.categoryItem,
+          name: "",
+          description: "",
+        });
       }}
     >
       Да

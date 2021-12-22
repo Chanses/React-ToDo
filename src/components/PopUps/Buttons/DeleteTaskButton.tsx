@@ -1,14 +1,13 @@
 import React from "react";
-import { ModalState } from "../../../AppContainer";
+import { ITaskItem, ModalState } from "../../../AppContainer";
 import { modalStateValues } from "../../../models/modalStateValues";
 
 interface IDeleteTaskButton {
   setModalState: (state: ModalState) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
   deleteTask: (id: string) => void;
+  setTaskItem: (state: ITaskItem) => void;
+  taskItem: ITaskItem;
   modalState: ModalState;
-  itemId: string;
 }
 
 const DeleteTaskButton = (props: IDeleteTaskButton) => {
@@ -17,10 +16,13 @@ const DeleteTaskButton = (props: IDeleteTaskButton) => {
       name="Задачи"
       type="submit"
       onClick={() => {
-        props.deleteTask(props.itemId);
+        props.deleteTask(props.taskItem.id);
         props.setModalState(modalStateValues.CloseSave.DeleteTask);
-        props.setName("");
-        props.setDescription("");
+        props.setTaskItem({
+          ...props.taskItem,
+          name: "",
+          description: "",
+        });
       }}
     >
       Да

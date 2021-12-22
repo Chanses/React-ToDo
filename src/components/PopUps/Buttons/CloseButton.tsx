@@ -1,11 +1,13 @@
 import React from "react";
-import { ModalState } from "../../../AppContainer";
+import { ICategoryItem, ITaskItem, ModalState } from "../../../AppContainer";
 import { modalStateValues } from "../../../models/modalStateValues";
 
 interface IButtonPopUp {
   setModalState: (state: ModalState) => void;
-  setName: (name: string) => void;
-  setDescription: (description: string) => void;
+  setTaskItem: (state: ITaskItem) => void;
+  setCategoryItem: (state: ICategoryItem) => void;
+  taskItem: ITaskItem;
+  categoryItem: ICategoryItem;
 }
 
 const CloseButton = (props: IButtonPopUp) => {
@@ -14,8 +16,16 @@ const CloseButton = (props: IButtonPopUp) => {
       onClick={() => {
         props.setModalState(modalStateValues.CloseDontSave.CloseCreateCategory);
         props.setModalState(modalStateValues.CloseDontSave.CloseCreateTask);
-        props.setName("");
-        props.setDescription("");
+        props.setCategoryItem({
+          ...props.categoryItem,
+          name: "",
+          description: "",
+        });
+        props.setTaskItem({
+          ...props.taskItem,
+          name: "",
+          description: "",
+        });
       }}
     >
       Закрыть
