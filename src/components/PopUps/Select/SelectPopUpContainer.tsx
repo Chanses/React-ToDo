@@ -24,7 +24,7 @@ const SelectPopUpContainer = (props: ISelectPopUpContainer) => {
     if (iterator.id.toString() === props.taskItem.categoryId) {
       value.id = iterator.id;
       value.name = iterator.name;
-    }
+    } else value.name = "Выберите категорию";
   }
 
   return <SelectPopUp {...props} value={value} />;

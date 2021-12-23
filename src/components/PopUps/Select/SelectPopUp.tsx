@@ -36,7 +36,7 @@ const SelectPopUp = (props: ISelectPopUp) => {
           selected
           disabled
         >
-          Выберете категорию
+          Выберите категорию
         </option>
       ) : (
         <option
