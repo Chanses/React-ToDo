@@ -3,23 +3,15 @@ import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
 import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
+import { ICategoryItem } from "../../models/ICategoryItem";
 
-export interface ICategoryItem {
-  id: string;
-  name: string;
-  description: string;
-}
-
-export interface ICategorie {
-  id: string;
-  name: string;
-  description: string;
+export interface ICategorieProps extends ICategoryItem {
   categoryItem: ICategoryItem;
   setModalState: (state: ModalState) => void;
   setCategoryItem: (state: ICategoryItem) => void;
 }
 
-const Categorie = (props: ICategorie) => {
+const Categorie = (props: ICategorieProps) => {
   return (
     <div className="CategoriesWrapper">
       <div className="TaskWrapper__Info">

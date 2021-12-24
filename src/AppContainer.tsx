@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import App from "./App";
 import { deleteTask } from "./dbService";
 import { deleteCategorie } from "./dbService";
-import { ITask, ITaskItem } from "./components/ListTasks/Task";
+import { ITask } from "./components/ListTasks/Task";
 import { getTasks, getCategories } from "./dbService";
 import { modalNames } from "./models/enum/modalNames";
 import { IModalStateInterface } from "./models/IModalStateInterface";
 import { modalResultEnum } from "./models/enum/modalResultEnum";
 
 import { modalActionsType } from "./models/enum/modalActionsType";
-import {
-  ICategorie,
-  ICategoryItem,
-} from "./components/ListCategories/Categorie";
+import { ICategoryItem } from "./models/ICategoryItem";
+import { ITaskItem } from "./models/ITaskItem";
 
 export type ModalState = Record<modalNames, IModalStateInterface>;
 
@@ -33,7 +31,7 @@ const AppContainer = () => {
   });
   // Установка полученных значений
   const [tasksList, setTasksList] = useState<ITask[]>();
-  const [categorieList, setCategorieList] = useState<ICategorie[]>();
+  const [categorieList, setCategorieList] = useState<ICategoryItem[]>();
   // Изменение состояний для попапов
   const [modalState, setModalState] = useState<ModalState>({
     createEditModal: {
@@ -65,7 +63,7 @@ const AppContainer = () => {
     modalState.deleteModal.lastResult,
   ]);
 
-  const handleLoadCategorie = (categorie: ICategorie[]) =>
+  const handleLoadCategorie = (categorie: ICategoryItem[]) =>
     setCategorieList(categorie);
 
   useEffect(() => {

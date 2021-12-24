@@ -4,23 +4,12 @@ import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
 import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
-import { ICategorie } from "../ListCategories/Categorie";
+import { ICategoryItem } from "../../models/ICategoryItem";
+import { ITaskItem } from "../../models/ITaskItem";
 
-export interface ITaskItem {
-  id: string;
-  name: string;
-  description: string;
-  categoryId: string;
-}
-
-export interface ITask {
-  id: string;
-  name: string;
-  key: number;
-  categoryId: string;
-  description: string;
+export interface ITask extends ITaskItem {
   selectedValueId: string;
-  categorieList?: ICategorie[];
+  categorieList?: ICategoryItem[];
   taskItem: ITaskItem;
   setTaskItem: (state: ITaskItem) => void;
   setModalState: (state: ModalState) => void;

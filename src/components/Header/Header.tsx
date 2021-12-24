@@ -2,13 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./HeaderStyles.css";
 import CreateButton from "./CreateButton";
-import { ModalState } from "../../AppContainer";
 
 interface IPopUp {
   setCategorieSection: () => void;
   setTaskSection: () => void;
-  setModalState: (state: ModalState) => void;
-  section: boolean;
+  HeaderValues: any;
+  CreateButtonOnClick: () => void;
 }
 
 const Header = (props: IPopUp) => {
@@ -40,7 +39,11 @@ const Header = (props: IPopUp) => {
           </NavLink>
         </div>
       </div>
-      <CreateButton {...props} />
+      <CreateButton
+        {...props}
+        value={props.HeaderValues.value}
+        onClick={props.CreateButtonOnClick}
+      />
     </div>
   );
 };

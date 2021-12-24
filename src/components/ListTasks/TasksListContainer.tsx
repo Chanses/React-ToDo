@@ -1,16 +1,17 @@
 import React from "react";
 import "./TasksStyle.css";
-import { ITask, ITaskItem } from "./Task";
+import { ITask } from "./Task";
 import TasksList from "./TasksList";
 import { ModalState } from "../../AppContainer";
-import { ICategorie } from "../ListCategories/Categorie";
+import { ICategoryItem } from "../../models/ICategoryItem";
+import { ITaskItem } from "../../models/ITaskItem";
 
 interface ITasksListContainer {
   setModalState: (state: ModalState) => void;
   setTaskItem: (state: ITaskItem) => void;
   taskItem: ITaskItem;
   taskList?: ITask[];
-  categorieList?: ICategorie[];
+  categorieList?: ICategoryItem[];
 }
 
 const TasksListContainer = (props: ITasksListContainer) => {

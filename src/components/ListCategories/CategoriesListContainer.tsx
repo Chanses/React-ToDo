@@ -1,5 +1,5 @@
 import React from "react";
-import { ICategorie, ICategoryItem } from "./Categorie";
+import { ICategoryItem } from "../../models/ICategoryItem";
 import CategoriesList from "./CategoriesList";
 import { ModalState } from "../../AppContainer";
 
@@ -7,7 +7,7 @@ interface ICategoriesListContainer {
   setModalState: (state: ModalState) => void;
   setCategoryItem: (state: ICategoryItem) => void;
   categoryItem: ICategoryItem;
-  categorieList?: ICategorie[];
+  categorieList?: ICategoryItem[];
 }
 
 const CategoriesListContainer = (props: ICategoriesListContainer) => {

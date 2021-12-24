@@ -1,5 +1,6 @@
 import React from "react";
 import { ModalState } from "../../AppContainer";
+import { modalStateValues } from "../../models/modalStateValues";
 import Header from "./Header";
 
 interface IPopUp {
@@ -10,9 +11,22 @@ interface IPopUp {
 }
 
 const HeaderContainer = (props: IPopUp) => {
+  const CreateButtonOnClick = () => {
+    if (!props.section)
+      props.setModalState(modalStateValues.Open.OpenCreateCategory);
+    else props.setModalState(modalStateValues.Open.OpenCreateTask);
+  };
+  const HeaderValues = {
+    value: props.section ? "Добавить задачу" : "  Добавить категорию",
+  };
+
   return (
     <>
-      <Header {...props} />
+      <Header
+        {...props}
+        HeaderValues={HeaderValues}
+        CreateButtonOnClick={CreateButtonOnClick}
+      />
     </>
   );
 };

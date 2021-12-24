@@ -3,7 +3,7 @@ import { modalEntityType } from "./enum/modalEntityType"
 import { modalResultEnum } from "./enum/modalResultEnum"
 
 export const modalStateValues = {
-    // Открытие окон 
+
     Open: {
         // Открытие окон
         OpenCreateTask: {

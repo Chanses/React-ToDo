@@ -2,21 +2,19 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import DeleteItemPopUp from "./components/PopUps/DeleteItemPopUp";
 import TasksListContainer from "./components/ListTasks/TasksListContainer";
 import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
-import { ITask, ITaskItem } from "./components/ListTasks/Task";
+import { ITask } from "./components/ListTasks/Task";
 import { ModalState } from "./AppContainer";
-import CreateEditPopUpContainer from "./components/PopUps/СreateEditPopUpContainer";
-import {
-  ICategorie,
-  ICategoryItem,
-} from "./components/ListCategories/Categorie";
+import EntityModalContainer from "./components/PopUps/CreateEditPopUp/EntityModalContainer";
+import { ICategoryItem } from "./models/ICategoryItem";
+import ConfirmModalContainer from "./components/PopUps/DeletePopUp/ConfirmModalContainer";
+import { ITaskItem } from "./models/ITaskItem";
 
 interface IApp {
   section: boolean;
   taskList?: ITask[];
-  categorieList?: ICategorie[];
+  categorieList?: ICategoryItem[];
   modalState: ModalState;
   taskItem: ITaskItem;
   categoryItem: ICategoryItem;
@@ -34,9 +32,11 @@ const App: React.FC<IApp> = (props) => {
     <Router>
       <div className="App">
         {props.modalState.createEditModal.open && (
-          <CreateEditPopUpContainer {...props} />
+          <EntityModalContainer {...props} />
         )}
-        {props.modalState.deleteModal.open && <DeleteItemPopUp {...props} />}
+        {props.modalState.deleteModal.open && (
+          <ConfirmModalContainer {...props} />
+        )}
         <HeaderContainer {...props} />
         <div className="Content">
           <Routes>
