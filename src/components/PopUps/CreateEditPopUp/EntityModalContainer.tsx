@@ -178,7 +178,7 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
     handleDescriptionTextArea();
     handleSelect();
     setIsChanged(true);
-    props.taskItem!.description!.length > 1536
+    props.taskItem!.description!.length < 1536
       ? setIsInvalid(false)
       : setIsInvalid(true);
   };
@@ -186,7 +186,7 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
   const handlerCategoryDescriptionTextArea = () => {
     handleDescriptionTextArea();
     setIsChanged(true);
-    props.categoryItem.description!.length > 512
+    props.categoryItem.description!.length < 512
       ? setIsInvalid(false)
       : setIsInvalid(true);
   };
