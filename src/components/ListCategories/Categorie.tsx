@@ -4,6 +4,7 @@ import deleteImg from "../../images/Delete.svg";
 import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import { ICategoryItem } from "../../models/ICategoryItem";
+import ImgButton from "../reused/Buttons/ImgButton";
 
 export interface ICategorieProps extends ICategoryItem {
   categoryItem: ICategoryItem;
@@ -23,7 +24,7 @@ const Categorie = (props: ICategorieProps) => {
         </div>
       </div>
       <div className="CategoryWrapper__Actions">
-        <button
+        <ImgButton
           className="CategoryWrapper__Actions-Edit"
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenEditCategory);
@@ -34,10 +35,10 @@ const Categorie = (props: ICategorieProps) => {
               description: props.description,
             });
           }}
-        >
-          <img src={editImg} alt="" />
-        </button>
-        <button
+          img={editImg}
+        />
+
+        <ImgButton
           className="CategoryWrapper__Actions-Delete"
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenDeleteCategory);
@@ -47,9 +48,8 @@ const Categorie = (props: ICategorieProps) => {
               name: props.name,
             });
           }}
-        >
-          <img src={deleteImg} alt="" />
-        </button>
+          img={deleteImg}
+        />
       </div>
     </div>
   );

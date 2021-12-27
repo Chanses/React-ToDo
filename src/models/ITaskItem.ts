@@ -1,6 +1,5 @@
-export interface ITaskItem {
-    id: string;
-    name: string;
-    description?: string;
+import { IBaseEntityModel } from "./IBaseEntityModel";
+
+export interface ITaskItem extends IBaseEntityModel {
     categoryId?: string;
 }

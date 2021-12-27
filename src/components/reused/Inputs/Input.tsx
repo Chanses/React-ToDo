@@ -1,20 +1,18 @@
 import React from "react";
 
 interface IInputs {
-  nameInput: () => void;
+  ref: () => void;
   onChange: () => void;
   onFocus: () => void;
   placeholder: string;
   value: string;
-  style: any;
+  style?: any;
 }
-const NameInput = (props: IInputs) => {
+const Input = (props: IInputs) => {
   return (
     <input
-      type="text"
-      id="namefield"
       placeholder={props.placeholder}
-      ref={props.nameInput}
+      ref={props.ref}
       value={props.value}
       onChange={props.onChange}
       onFocus={props.onFocus}
@@ -23,4 +21,4 @@ const NameInput = (props: IInputs) => {
   );
 };
 
-export default NameInput;
+export default Input;

@@ -6,6 +6,7 @@ import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
+import ImgButton from "../reused/Buttons/ImgButton";
 
 export interface ITask extends ITaskItem {
   selectedValueId: string;
@@ -16,6 +17,16 @@ export interface ITask extends ITaskItem {
 }
 
 const Task = (props: ITask) => {
+  const deleteTask = () => {
+    props.setModalState(modalStateValues.Open.OpenDeleteTask);
+    props.setTaskItem({
+      ...props.taskItem,
+      id: props.id,
+      name: props.name,
+    });
+    console.log(props.taskItem);
+  };
+
   return (
     <div className="TaskWrapper" id={props.id}>
       <div className="TaskWrapper__Info">
@@ -36,7 +47,7 @@ const Task = (props: ITask) => {
         </div>
       </div>
       <div className="TaskWrapper__Actions">
-        <button
+        <ImgButton
           className="TaskWrapper__Actions-Edit"
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenEditTask);
@@ -48,22 +59,14 @@ const Task = (props: ITask) => {
               categoryId: props.categoryId,
             });
           }}
-        >
-          <img src={editImg} alt="" />
-        </button>
-        <button
+          img={editImg}
+        />
+
+        <ImgButton
           className="TaskWrapper__Actions-Delete"
-          onClick={() => {
-            props.setModalState(modalStateValues.Open.OpenDeleteTask);
-            props.setTaskItem({
-              ...props.taskItem,
-              id: props.id,
-              name: props.name,
-            });
-          }}
-        >
-          <img src={deleteImg} alt="" />
-        </button>
+          onClick={deleteTask}
+          img={deleteImg}
+        />
       </div>
     </div>
   );

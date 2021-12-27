@@ -1,19 +1,22 @@
 interface IButtonProps {
   title: string;
   onClick: () => void;
-  disabled: boolean;
+  disabled?: boolean;
+  className?: string;
 }
 
 const Button = ({ title = "Сохранить", ...props }: IButtonProps) => {
-  console.log(props.disabled);
   return (
     <button
-      name="taskSaveButton"
-      style={{ background: "#adbad3", cursor: "default" }}
+      className={props.className}
       onClick={props.onClick}
       {...(props.disabled
-        ? { disabled: true }
-        : { disabled: false, style: { background: "#3F72AF" } })}
+        ? {
+            disabled: true,
+            background: "#adbad3",
+            cursor: "default",
+          }
+        : { disabled: false })}
     >
       {title}
     </button>

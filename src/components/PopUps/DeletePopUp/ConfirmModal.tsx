@@ -1,6 +1,5 @@
 import React from "react";
-import CloseModalButton from "./Buttons/CloseModalButton";
-import DeleteButton from "./Buttons/DeleteTaskButton";
+import Button from "../../reused/Buttons/Button";
 import "./ConfirmModal.css";
 
 interface IConfirmModal {
@@ -23,10 +22,18 @@ const ConfirmModal = (props: IConfirmModal) => {
           </div>
           <div className="ConfirmModal__buttons">
             <div className="ConfirmModal__buttons-create">
-              <DeleteButton {...props} onClick={props.deleteButtonOnClick} />
+              <Button
+                onClick={props.deleteButtonOnClick}
+                disabled={false}
+                title="Да"
+              />
             </div>
             <div className="ConfirmModal__buttons-close">
-              <CloseModalButton {...props} />
+              <Button
+                onClick={props.closeModal}
+                disabled={false}
+                title={"Нет"}
+              />
             </div>
           </div>
         </div>

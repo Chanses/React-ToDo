@@ -2,11 +2,10 @@ import React from "react";
 import "./EntityModal.css";
 import closeImg from "../../../images/Close.svg";
 import { ModalState } from "../../../AppContainer";
-import SelectPopUpContainer from "./Select/SelectPopUpContainer";
-import TaskTextarea from "./Textareas/DescriptionTextarea";
-import Button from "./Buttons/Button";
-import CloseButton from "./Buttons/CloseButton";
-import NameInput from "./Textareas/NameInput";
+import SelectPopUpContainer from "./SelectPopUpContainer";
+import Textarea from "../../reused/Textareas/Textarea";
+import Button from "../../reused/Buttons/Button";
+import Input from "../../reused/Inputs/Input";
 import { ITaskItem } from "../../../models/ITaskItem";
 
 interface IEntityModal {
@@ -51,12 +50,13 @@ const EntityModal = (props: IEntityModal) => {
             </div>
             <form action="submit">
               {/* Поля ввода для имени*/}
-              <NameInput
-                {...props}
+              {/* TODO  Input */}
+              <input
+                ref={props.nameInput}
                 onChange={props.onChangeInput}
+                onFocus={props.onFocusNameInput}
                 placeholder={props.modalValues.nameInputPlaceholder}
                 value={props.modalValues.nameInputValue}
-                onFocus={props.onFocusNameInput}
                 style={props.modalValues.nameInputStyles}
               />
             </form>
@@ -79,8 +79,8 @@ const EntityModal = (props: IEntityModal) => {
           <div className="EntityModal__Main-Description">
             <div className="EntityModal-InputsArticle">Описание </div>
             {/* Поля для ввода для описания*/}
-            <TaskTextarea
-              {...props}
+            <Textarea
+              descriptionInput={props.descriptionInput}
               onChange={props.onChangeTextArea}
               value={props.modalValues.descriptionTextAreaValue}
               placeholder={props.modalValues.descriptionTextAreaPlaceholder}
@@ -93,13 +93,13 @@ const EntityModal = (props: IEntityModal) => {
             {/* Кнопки  для сохранения*/}
 
             <Button
-              {...props}
+              onClick={props.onClick}
               title={props.modalValues.buttonTitle}
               disabled={props.modalValues.disabled}
             />
           </div>
           <div className="EntityModal__buttons-close">
-            <CloseButton {...props} />
+            <Button onClick={props.closePopUp} title="Закрыть" />
           </div>
         </div>
       </div>

@@ -1,14 +1,12 @@
 import React from "react";
 
-interface IInputs {
+interface ITextArea {
   value: string;
   placeholder: string;
-
   descriptionInput: () => void;
-  handleSelect: () => void;
   onChange: () => void;
 }
-const TaskTextarea = (props: IInputs) => {
+const TaskTextarea = (props: ITextArea) => {
   return (
     <textarea
       className="description"

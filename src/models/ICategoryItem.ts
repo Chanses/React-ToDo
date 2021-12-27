@@ -1,5 +1,3 @@
-export interface ICategoryItem {
-    id: string;
-    name: string;
-    description?: string;
+import { IBaseEntityModel } from "./IBaseEntityModel";
+export interface ICategoryItem extends IBaseEntityModel {
 }

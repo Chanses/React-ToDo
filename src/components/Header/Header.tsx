@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./HeaderStyles.css";
-import CreateButton from "./CreateButton";
+import Button from "../reused/Buttons/Button";
 
 interface IPopUp {
   setCategorieSection: () => void;
@@ -39,10 +39,11 @@ const Header = (props: IPopUp) => {
           </NavLink>
         </div>
       </div>
-      <CreateButton
-        {...props}
-        value={props.HeaderValues.value}
+      <Button
+        title={props.HeaderValues.value}
         onClick={props.CreateButtonOnClick}
+        disabled={false}
+        className={"Header__AddNewItem"}
       />
     </div>
   );
