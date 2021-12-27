@@ -14,17 +14,17 @@ export interface ICategorieProps extends ICategoryItem {
 const Categorie = (props: ICategorieProps) => {
   return (
     <div className="CategoriesWrapper">
-      <div className="TaskWrapper__Info">
-        <div className="TaskWrapper__Info__Name">
-          <div className="TaskWrapper__Info__Name-name">{props.name}</div>
+      <div className="CategoryWrapper__Info">
+        <div className="CategoryWrapper__Info__Name">
+          <div className="CategoryWrapper__Info__Name-name">{props.name}</div>
         </div>
-        <div className="TaskWrapper__Info__Description">
+        <div className="CategoryWrapper__Info__Description">
           {props.description}
         </div>
       </div>
-      <div className="TaskWrapper__Actions">
+      <div className="CategoryWrapper__Actions">
         <button
-          className="TaskWrapper__Actions-Edit"
+          className="CategoryWrapper__Actions-Edit"
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenEditCategory);
             props.setCategoryItem({
@@ -38,7 +38,7 @@ const Categorie = (props: ICategorieProps) => {
           <img src={editImg} alt="" />
         </button>
         <button
-          className="TaskWrapper__Actions-Delete"
+          className="CategoryWrapper__Actions-Delete"
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenDeleteCategory);
             props.setCategoryItem({

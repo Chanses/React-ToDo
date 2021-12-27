@@ -1,5 +1,5 @@
 import React from "react";
-import "../StylePopUp.css";
+import "./EntityModal.css";
 import closeImg from "../../../images/Close.svg";
 import { ModalState } from "../../../AppContainer";
 import SelectPopUpContainer from "./Select/SelectPopUpContainer";
@@ -28,22 +28,22 @@ interface IEntityModal {
 
 const EntityModal = (props: IEntityModal) => {
   return (
-    <div className="PopUp-Wrapper">
-      <div className="PopUp">
-        <div className="PopUp__Article">
-          <div className="PopUp__Article-Name ">
+    <div className="EntityModal-Wrapper">
+      <div className="EntityModal">
+        <div className="EntityModal__Article">
+          <div className="EntityModal__Article-Name ">
             <span>{props.modalValues.modalTitleAction}</span>
             <span>{props.modalValues.modalTitleSection}</span>
           </div>
-          <button className="PopUp__Article-Close">
+          <button className="EntityModal__Article-Close">
             <img src={closeImg} alt="" onClick={props.closePopUp} />
           </button>
         </div>
-        <div className="PopUp__Main">
-          <div className="PopUp__Main-Name DoubleInput">
-            <div className="PopUp__Main-Name__article ">
+        <div className="EntityModal__Main">
+          <div className="EntityModal__Main-Name DoubleInput">
+            <div className="EntityModal__Main-Name__article ">
               <div
-                className="PopUp-InputsArticle"
+                className="EntityModal-InputsArticle"
                 style={props.modalValues.nameInputArticleStyle}
               >
                 Имя<span style={{ color: "red" }}>*</span>
@@ -63,11 +63,11 @@ const EntityModal = (props: IEntityModal) => {
           </div>
 
           <div
-            className="PopUp__Main-Categorie DoubleInput"
+            className="EntityModal__Main-Categorie DoubleInput"
             style={{ display: props.modalValues.displaySelect }}
           >
-            <div className="PopUp__Main-Categorie__article ">
-              <div className="PopUp-InputsArticle">Категория </div>
+            <div className="EntityModal__Main-Categorie__article ">
+              <div className="EntityModal-InputsArticle">Категория </div>
             </div>
             <div style={{ display: "flex" }}>
               {/* Поля для выбора категорий*/}
@@ -75,9 +75,9 @@ const EntityModal = (props: IEntityModal) => {
             </div>
           </div>
         </div>
-        <div className="PopUp__Main-Description">
-          <div className="PopUp__Main-Description">
-            <div className="PopUp-InputsArticle">Описание </div>
+        <div className="EntityModal__Main-Description">
+          <div className="EntityModal__Main-Description">
+            <div className="EntityModal-InputsArticle">Описание </div>
             {/* Поля для ввода для описания*/}
             <TaskTextarea
               {...props}
@@ -88,8 +88,8 @@ const EntityModal = (props: IEntityModal) => {
           </div>
         </div>
 
-        <div className="PopUp__buttons">
-          <div className="PopUp__buttons-create">
+        <div className="EntityModal__buttons">
+          <div className="EntityModal__buttons-create">
             {/* Кнопки  для сохранения*/}
 
             <Button
@@ -98,7 +98,7 @@ const EntityModal = (props: IEntityModal) => {
               disabled={props.modalValues.disabled}
             />
           </div>
-          <div className="PopUp__buttons-close">
+          <div className="EntityModal__buttons-close">
             <CloseButton {...props} />
           </div>
         </div>

@@ -13,44 +13,44 @@
   background: rgba(37, 127, 234, 0.2);
 }
 
-.TaskWrapper__Info__Name {
+.CategoryWrapper__Info__Name {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
 }
-.TaskWrapper__Info__Name a {
+.CategoryWrapper__Info__Name a {
   text-decoration: none;
 }
-.TaskWrapper__Info__Name-name {
+.CategoryWrapper__Info__Name-name {
   color: black;
   font-weight: 700;
   margin-right: 16px;
 }
-.TaskWrapper__Info__Name-folder {
+.CategoryWrapper__Info__Name-folder {
   color: #3f72af;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.TaskWrapper__Info__Name-folder img {
+.CategoryWrapper__Info__Name-folder img {
   margin-right: 5px;
 }
-.TaskWrapper__Info__Description {
+.CategoryWrapper__Info__Description {
   color: #808080;
 }
-.TaskWrapper__Actions {
+.CategoryWrapper__Actions {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
 }
-.TaskWrapper__Actions button {
+.CategoryWrapper__Actions button {
   border: none;
   background: none;
   cursor: pointer;
   width: 30px;
   height: 30px;
 }
-.TaskWrapper__Actions button:first-child {
+.CategoryWrapper__Actions button:first-child {
   margin-right: 10px;
 }
