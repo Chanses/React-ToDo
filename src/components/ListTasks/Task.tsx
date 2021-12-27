@@ -28,9 +28,7 @@ const Task = (props: ITask) => {
                 <img src={folderImg} alt="" />
                 <span>{category.name}</span>
               </p>
-            ) : (
-              <></>
-            )
+            ) : undefined
           )}
         </div>
         <div className="TaskWrapper__Info__Description">
