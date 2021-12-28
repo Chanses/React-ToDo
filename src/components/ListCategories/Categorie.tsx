@@ -29,7 +29,6 @@ const Categorie = (props: ICategorieProps) => {
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenEditCategory);
             props.setCategoryItem({
-              ...props.categoryItem,
               id: props.id,
               name: props.name,
               description: props.description,

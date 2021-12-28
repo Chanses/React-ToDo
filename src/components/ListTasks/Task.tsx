@@ -17,16 +17,6 @@ export interface ITask extends ITaskItem {
 }
 
 const Task = (props: ITask) => {
-  const deleteTask = () => {
-    props.setModalState(modalStateValues.Open.OpenDeleteTask);
-    props.setTaskItem({
-      ...props.taskItem,
-      id: props.id,
-      name: props.name,
-    });
-    console.log(props.taskItem);
-  };
-
   return (
     <div className="TaskWrapper" id={props.id}>
       <div className="TaskWrapper__Info">
@@ -52,7 +42,6 @@ const Task = (props: ITask) => {
           onClick={() => {
             props.setModalState(modalStateValues.Open.OpenEditTask);
             props.setTaskItem({
-              ...props.taskItem,
               id: props.id,
               name: props.name,
               description: props.description,
@@ -64,7 +53,14 @@ const Task = (props: ITask) => {
 
         <ImgButton
           className="TaskWrapper__Actions-Delete"
-          onClick={deleteTask}
+          onClick={() => {
+            props.setModalState(modalStateValues.Open.OpenDeleteTask);
+            props.setTaskItem({
+              ...props.taskItem,
+              id: props.id,
+              name: props.name,
+            });
+          }}
           img={deleteImg}
         />
       </div>

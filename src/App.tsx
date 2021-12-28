@@ -6,9 +6,9 @@ import TasksListContainer from "./components/ListTasks/TasksListContainer";
 import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
 import { ITask } from "./components/ListTasks/Task";
 import { ModalState } from "./AppContainer";
-import EntityModalContainer from "./components/PopUps/CreateEditPopUp/EntityModalContainer";
+import EntityModalContainer from "./components/PopUps/EntityModal/EntityModalContainer";
 import { ICategoryItem } from "./models/ICategoryItem";
-import ConfirmModalContainer from "./components/PopUps/DeletePopUp/ConfirmModalContainer";
+import ConfirmModalContainer from "./components/PopUps/ConfirmModal/ConfirmModalContainer";
 import { ITaskItem } from "./models/ITaskItem";
 
 interface IApp {
