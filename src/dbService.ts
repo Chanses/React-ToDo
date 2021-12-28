@@ -1,5 +1,6 @@
-import { ITask } from "./components/ListTasks/Task"
+
 import { ICategoryItem } from "./models/ICategoryItem"
+import { ITaskItem } from "./models/ITaskItem";
 const openRequest = indexedDB.open("ToDo", 1);
 
 export const openStorage = openRequest.onupgradeneeded = function () {
@@ -168,7 +169,7 @@ export const deleteCategorie = (CategorieId: string) => {
     };
 }
 
-export let getTasks = (cb: (tasks: ITask[]) => void) => {
+export let getTasks = (cb: (tasks: ITaskItem[]) => void) => {
     const openRequest = indexedDB.open("ToDo", 1);
     openRequest.onsuccess = () => {
         const db = openRequest.result;

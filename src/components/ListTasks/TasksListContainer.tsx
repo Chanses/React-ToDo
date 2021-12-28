@@ -1,6 +1,5 @@
 import React from "react";
 import "./TasksStyle.css";
-import { ITask } from "./Task";
 import TasksList from "./TasksList";
 import { ModalState } from "../../AppContainer";
 import { ICategoryItem } from "../../models/ICategoryItem";
@@ -10,41 +9,29 @@ import { modalStateValues } from "../../models/modalStateValues";
 interface ITasksListContainer {
   setModalState: (state: ModalState) => void;
   setTaskItem: (state: ITaskItem) => void;
-  taskItem: ITaskItem;
-  taskList?: ITask[];
+  taskList?: ITaskItem[];
   categorieList?: ICategoryItem[];
 }
 
 const TasksListContainer = (props: ITasksListContainer) => {
-  const openEditModal = (
-    id: string,
-    name: string,
-    description?: string,
-    categoryId?: string
-  ) => {
+  const onEdit = (task: ITaskItem) => {
     props.setModalState(modalStateValues.Open.OpenEditTask);
     props.setTaskItem({
-      id: id,
-      name: name,
-      description: description,
-      categoryId: categoryId,
+      id: task.id,
+      name: task.name,
+      description: task.description,
+      categoryId: task.categoryId,
     });
   };
-  const openDeleteModal = (id: string, name: string) => {
+  const onDelete = (task: ITaskItem) => {
     props.setModalState(modalStateValues.Open.OpenDeleteTask);
     props.setTaskItem({
-      id: id,
-      name: name,
+      id: task.id,
+      name: task.name,
     });
   };
 
-  return (
-    <TasksList
-      {...props}
-      openEditModal={openEditModal}
-      openDeleteModal={openDeleteModal}
-    />
-  );
+  return <TasksList {...props} onEdit={onEdit} onDelete={onDelete} />;
 };
 
 export default TasksListContainer;

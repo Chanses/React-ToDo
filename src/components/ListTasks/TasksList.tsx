@@ -1,29 +1,20 @@
 import React from "react";
-import { ModalState } from "../../AppContainer";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
-import Task, { ITask } from "./Task";
+import Task from "./Task";
 
 interface ITasksList {
-  setModalState: (statge: ModalState) => void;
-  setTaskItem: (state: ITaskItem) => void;
-  taskItem: ITaskItem;
-  taskList?: ITask[];
+  taskList?: ITaskItem[];
   categorieList?: ICategoryItem[];
-  openEditModal: (
-    id: string,
-    name: string,
-    description?: string,
-    categoryId?: string
-  ) => void;
-  openDeleteModal: (id: string, name: string) => void;
+  onEdit: (task: ITaskItem) => void;
+  onDelete: (task: ITaskItem) => void;
 }
 
 const TasksList = (props: ITasksList) => {
   return (
     <>
       {props.taskList?.map((task, index) => (
-        <Task {...props} {...task} key={index}></Task>
+        <Task {...props} task={task} key={index}></Task>
       ))}
     </>
   );

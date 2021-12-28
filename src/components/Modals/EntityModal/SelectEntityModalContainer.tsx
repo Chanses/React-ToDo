@@ -23,7 +23,7 @@ const EntityModalSelectContainer = (props: IEntityModalSelectContainer) => {
 
   const defaultValue =
     props.modalState.createEditModal.action === modalActionsType.CREATE
-      ? "placeholder"
+      ? "Выберите категорию"
       : props.categorieList?.find(
           (category) => category.id.toString() === props.taskItem.categoryId
         )?.name;
@@ -32,7 +32,7 @@ const EntityModalSelectContainer = (props: IEntityModalSelectContainer) => {
 
   return (
     <Select
-      {...props}
+      selectRef={props.selectRef}
       options={props.categorieList || []}
       onChange={onChangeSelect}
       getItem={getItem}

@@ -4,18 +4,15 @@ import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import TasksListContainer from "./components/ListTasks/TasksListContainer";
 import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
-import { ITask } from "./components/ListTasks/Task";
 import { ModalState } from "./AppContainer";
-
 import { ICategoryItem } from "./models/ICategoryItem";
-
 import { ITaskItem } from "./models/ITaskItem";
 import EntityModalContainer from "./components/Modals/EntityModal/EntityModalContainer";
 import ConfirmModalContainer from "./components/Modals/ConfirmModal/ConfirmModalContainer";
 
 interface IApp {
   section: boolean;
-  taskList?: ITask[];
+  taskList?: ITaskItem[];
   categorieList?: ICategoryItem[];
   modalState: ModalState;
   taskItem: ITaskItem;

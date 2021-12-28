@@ -176,14 +176,14 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
       ...props.categoryItem,
       description: descriptionInput?.current?.value,
     });
+    props.taskItem!.description!.length < 1536
+      ? setIsInvalid(false)
+      : setIsInvalid(true);
   };
   const onChangeTaskDescription = () => {
     descriptionHandler();
     onChangeSelect();
     setIsChanged(true);
-    props.taskItem!.description!.length < 1536
-      ? setIsInvalid(false)
-      : setIsInvalid(true);
   };
 
   const onChangeCategoryDescription = () => {

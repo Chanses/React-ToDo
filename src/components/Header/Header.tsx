@@ -3,14 +3,14 @@ import { NavLink } from "react-router-dom";
 import Button from "../Button";
 import "./HeaderStyles.css";
 
-interface IPopUp {
+interface IHeader {
   setCategorieSection: () => void;
   setTaskSection: () => void;
   HeaderValues: any;
-  CreateButtonOnClick: () => void;
+  onCreate: () => void;
 }
 
-const Header = (props: IPopUp) => {
+const Header = (props: IHeader) => {
   let activeStyle = {
     color: "#8FB6FF",
   };
@@ -41,7 +41,7 @@ const Header = (props: IPopUp) => {
       </div>
       <Button
         title={props.HeaderValues.value}
-        onClick={props.CreateButtonOnClick}
+        onClick={props.onCreate}
         disabled={false}
         className={"Header__AddNewItem"}
       />

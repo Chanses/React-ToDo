@@ -12,29 +12,23 @@ interface ICategoriesListContainer {
 }
 
 const CategoriesListContainer = (props: ICategoriesListContainer) => {
-  const openEditModal = (id: string, name: string, description?: string) => {
+  const onEdit = (category: ICategoryItem) => {
     props.setModalState(modalStateValues.Open.OpenEditCategory);
     props.setCategoryItem({
-      id: id,
-      name: name,
-      description: description,
+      id: category.id,
+      name: category.name,
+      description: category.description,
     });
   };
-  const openDeleteModal = (id: string, name: string) => {
+  const onDelete = (category: ICategoryItem) => {
     props.setModalState(modalStateValues.Open.OpenDeleteCategory);
     props.setCategoryItem({
-      id: id,
-      name: name,
+      id: category.id,
+      name: category.name,
     });
   };
 
-  return (
-    <CategoriesList
-      {...props}
-      openEditModal={openEditModal}
-      openDeleteModal={openDeleteModal}
-    />
-  );
+  return <CategoriesList {...props} onEdit={onEdit} onDelete={onDelete} />;
 };
 
 export default CategoriesListContainer;

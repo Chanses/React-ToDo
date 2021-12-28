@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./button.css";
 
 interface IButtonProps {
@@ -9,9 +8,6 @@ interface IButtonProps {
 }
 
 const Button = ({ title = "Сохранить", ...props }: IButtonProps) => {
-  useEffect(() => {
-    console.log(props.disabled);
-  }, [props.disabled]);
   return (
     <button
       className={props.className + " button"}

@@ -3,7 +3,7 @@ import "./ConfirmModal.css";
 
 interface IConfirmModal {
   closeModal: () => void;
-  deleteButtonOnClick: () => void;
+  onDeleteButtonClick: () => void;
   ConfirmModalValues: any;
 }
 
@@ -12,27 +12,22 @@ const ConfirmModal = (props: IConfirmModal) => {
     <div className="ConfirmModal-Wrapper">
       <div className="ConfirmModal">
         <div className="ConfirmModal__Article-Name">
-          Удаление {props.ConfirmModalValues.ConfirmModalTitleValue}
+          {props.ConfirmModalValues.ConfirmModalTitleValue}
         </div>
         <div className="ConfirmModal__Main-small" style={{ color: "black" }}>
           <div className="ConfirmModal__Main-Description-small">
-            Вы уверены, что хотите удалить
             {props.ConfirmModalValues.ConfirmModalText}
           </div>
           <div className="ConfirmModal__buttons">
             <div className="ConfirmModal__buttons-create">
               <Button
-                onClick={props.deleteButtonOnClick}
+                onClick={props.onDeleteButtonClick}
                 disabled={false}
                 title="Да"
               />
             </div>
             <div className="ConfirmModal__buttons-close">
-              <Button
-                onClick={props.closeModal}
-                disabled={false}
-                title={"Нет"}
-              />
+              <Button onClick={props.closeModal} disabled={false} title="Нет" />
             </div>
           </div>
         </div>

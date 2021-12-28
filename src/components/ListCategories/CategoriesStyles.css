@@ -36,7 +36,10 @@
   margin-right: 5px;
 }
 .CategoryWrapper__Info__Description {
+  word-wrap: break-word;
   color: #808080;
+  width: 900px;
+  padding-bottom: 10px;
 }
 .CategoryWrapper__Actions {
   display: flex;

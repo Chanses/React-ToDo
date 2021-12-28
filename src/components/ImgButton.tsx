@@ -1,5 +1,5 @@
 interface IImgButton {
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
   img: any;
 }

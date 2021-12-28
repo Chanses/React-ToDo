@@ -37,7 +37,10 @@
   margin-right: 5px;
 }
 .TaskWrapper__Info__Description {
+  word-wrap: break-word;
   color: #808080;
+  width: 900px;
+  padding-bottom: 10px;
 }
 .TaskWrapper__Actions {
   display: flex;

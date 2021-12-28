@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import App from "./App";
 import { deleteTask } from "./dbService";
 import { deleteCategorie } from "./dbService";
-import { ITask } from "./components/ListTasks/Task";
 import { getTasks, getCategories } from "./dbService";
 import { modalNames } from "./models/enum/modalNames";
 import { IModalStateInterface } from "./models/IModalStateInterface";
 import { modalResultEnum } from "./models/enum/modalResultEnum";
-
 import { modalActionsType } from "./models/enum/modalActionsType";
 import { ICategoryItem } from "./models/ICategoryItem";
 import { ITaskItem } from "./models/ITaskItem";
@@ -30,7 +28,7 @@ const AppContainer = () => {
     description: "",
   });
   // Установка полученных значений
-  const [tasksList, setTasksList] = useState<ITask[]>();
+  const [tasksList, setTasksList] = useState<ITaskItem[]>();
   const [categorieList, setCategorieList] = useState<ICategoryItem[]>();
   // Изменение состояний для попапов
   const [modalState, setModalState] = useState<ModalState>({
@@ -49,7 +47,7 @@ const AppContainer = () => {
   function setCategorieSection() {
     setSection(false);
   }
-  const handleLoadTasks = (tasks: ITask[]) => setTasksList(tasks);
+  const handleLoadTasks = (tasks: ITaskItem[]) => setTasksList(tasks);
 
   useEffect(() => {
     if (

@@ -9,15 +9,15 @@ interface ICategoriesList {
   setCategoryItem: (state: ICategoryItem) => void;
   categoryItem: ICategoryItem;
   categorieList?: ICategoryItem[];
-  openEditModal: (id: string, name: string, description?: string) => void;
-  openDeleteModal: (id: string, name: string) => void;
+  onEdit: (category: ICategoryItem) => void;
+  onDelete: (category: ICategoryItem) => void;
 }
 
 const CategoriesList = (props: ICategoriesList) => {
   return (
     <div>
-      {props.categorieList?.map((categorie, index) => (
-        <Category {...props} {...categorie} key={index} />
+      {props.categorieList?.map((category, index) => (
+        <Category {...props} category={category} key={index} />
       ))}
     </div>
   );

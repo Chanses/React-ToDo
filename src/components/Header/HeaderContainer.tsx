@@ -3,15 +3,15 @@ import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import Header from "./Header";
 
-interface IPopUp {
+interface IHeaderContainer {
   setCategorieSection: () => void;
   setTaskSection: () => void;
   setModalState: (state: ModalState) => void;
   section: boolean;
 }
 
-const HeaderContainer = (props: IPopUp) => {
-  const CreateButtonOnClick = () => {
+const HeaderContainer = (props: IHeaderContainer) => {
+  const onCreate = () => {
     if (!props.section)
       props.setModalState(modalStateValues.Open.OpenCreateCategory);
     else props.setModalState(modalStateValues.Open.OpenCreateTask);
@@ -22,11 +22,7 @@ const HeaderContainer = (props: IPopUp) => {
 
   return (
     <>
-      <Header
-        {...props}
-        HeaderValues={HeaderValues}
-        CreateButtonOnClick={CreateButtonOnClick}
-      />
+      <Header {...props} HeaderValues={HeaderValues} onCreate={onCreate} />
     </>
   );
 };

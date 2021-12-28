@@ -6,27 +6,22 @@ import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
 import ImgButton from "../ImgButton";
 
-export interface ITask extends ITaskItem {
-  selectedValueId: string;
+export interface ITaskProps {
+  task: ITaskItem;
   categorieList?: ICategoryItem[];
-  openEditModal: (
-    id: string,
-    name: string,
-    description?: string,
-    categoryId?: string
-  ) => void;
-  openDeleteModal: (id: string, name: string) => void;
+  onEdit: (task: ITaskItem) => void;
+  onDelete: (task: ITaskItem) => void;
 }
 
-const Task = (props: ITask) => {
+const Task = (props: ITaskProps) => {
   return (
-    <div className="TaskWrapper" id={props.id}>
+    <div className="TaskWrapper">
       <div className="TaskWrapper__Info">
         <div className="TaskWrapper__Info__Name">
-          <div className="TaskWrapper__Info__Name-name">{props.name}</div>
+          <div className="TaskWrapper__Info__Name-name">{props.task.name}</div>
           {/* Поиск выбранной категории в массиве */}
           {props.categorieList?.map((category, index) =>
-            category.id.toString() === props.categoryId ? (
+            category.id.toString() === props.task.categoryId ? (
               <p className="TaskWrapper__Info__Name-folder" key={index}>
                 <img src={folderImg} alt="" />
                 <span>{category.name} </span>
@@ -35,26 +30,18 @@ const Task = (props: ITask) => {
           )}
         </div>
         <div className="TaskWrapper__Info__Description">
-          {props.description}
+          {props.task.description}
         </div>
       </div>
       <div className="TaskWrapper__Actions">
         <ImgButton
           className="TaskWrapper__Actions-Edit"
-          onClick={() =>
-            props.openEditModal(
-              props.id,
-              props.name,
-              props.description,
-              props.categoryId
-            )
-          }
+          onClick={() => props.onEdit(props.task)}
           img={editImg}
         />
-
         <ImgButton
           className="TaskWrapper__Actions-Delete"
-          onClick={() => props.openDeleteModal(props.id, props.name)}
+          onClick={() => props.onDelete(props.task)}
           img={deleteImg}
         />
       </div>
