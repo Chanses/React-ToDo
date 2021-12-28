@@ -53,12 +53,12 @@ const ConfirmModalContainer = (props: IConfirmModalContainer) => {
   const ConfirmModalValues = {
     ConfirmModalText:
       props.modalState.createEditModal.entityType === modalEntityType.TASK
-        ? "задачу “" + props.taskItem.name + "”?"
-        : "категорию “" + props.categoryItem.name + "”?",
+        ? " задачу “" + props.taskItem.name + "”?"
+        : " категорию “" + props.categoryItem.name + "”?",
     ConfirmModalTitleValue:
       props.modalState.createEditModal.entityType === modalEntityType.TASK
-        ? "задачи"
-        : "категории",
+        ? " задачи"
+        : " категории",
   };
   const deleteButtonOnClick = () => {
     if (props.modalState.createEditModal.entityType === modalEntityType.TASK)

@@ -1,0 +1,8 @@
+.button:disabled {
+  background-color: #adbad3;
+  cursor: default;
+}
+.button:disabled:hover {
+  background-color: #adbad3;
+  cursor: default;
+}

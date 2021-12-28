@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import "./button.css";
+
 interface IButtonProps {
   title: string;
   onClick: () => void;
@@ -6,15 +9,16 @@ interface IButtonProps {
 }
 
 const Button = ({ title = "Сохранить", ...props }: IButtonProps) => {
+  useEffect(() => {
+    console.log(props.disabled);
+  }, [props.disabled]);
   return (
     <button
-      className={props.className}
+      className={props.className + " button"}
       onClick={props.onClick}
       {...(props.disabled
         ? {
             disabled: true,
-            background: "#adbad3",
-            cursor: "default",
           }
         : { disabled: false })}
     >

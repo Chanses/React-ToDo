@@ -237,14 +237,14 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
       selectRef={selectRef}
       descriptionInput={descriptionInput}
       selectValueId={selectValueId}
+      modalValues={modalValues}
       onChangeSelect={onChangeSelect}
-      setIsChanged={setIsChanged}
-      closePopUp={closePopUp}
-      onClickButton={onClickButton}
       onChangeName={onChangeName}
       onChangeDescription={onChangeDescription}
-      modalValues={modalValues}
       onFocusNameInput={onFocusNameInput}
+      onClickButton={onClickButton}
+      setIsChanged={setIsChanged}
+      closePopUp={closePopUp}
     />
   );
 };

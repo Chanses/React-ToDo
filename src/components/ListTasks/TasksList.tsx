@@ -10,6 +10,13 @@ interface ITasksList {
   taskItem: ITaskItem;
   taskList?: ITask[];
   categorieList?: ICategoryItem[];
+  openEditModal: (
+    id: string,
+    name: string,
+    description?: string,
+    categoryId?: string
+  ) => void;
+  openDeleteModal: (id: string, name: string) => void;
 }
 
 const TasksList = (props: ITasksList) => {
