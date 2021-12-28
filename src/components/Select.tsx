@@ -16,6 +16,9 @@ const Select = <T extends IBaseEntityModel>(props: IEntityModalSelect<T>) => {
       onChange={props.onChange}
       defaultValue={props.defaultValue}
     >
+      <option value="placehodler" style={{ display: "none" }}>
+        {props.defaultValue}
+      </option>
       {props.options.map((option) => {
         const { key, name } = props.getItem(option);
         return (

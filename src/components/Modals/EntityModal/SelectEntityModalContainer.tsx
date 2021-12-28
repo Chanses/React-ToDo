@@ -36,7 +36,7 @@ const EntityModalSelectContainer = (props: IEntityModalSelectContainer) => {
       options={props.categorieList || []}
       onChange={onChangeSelect}
       getItem={getItem}
-      defaultValue={defaultValue || ""}
+      defaultValue={defaultValue || "Выберите категорию"}
     />
   );
 };
