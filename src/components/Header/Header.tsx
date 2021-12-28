@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Button from "../Button";
 import "./HeaderStyles.css";
-import Button from "../reused/Buttons/Button";
 
 interface IPopUp {
   setCategorieSection: () => void;

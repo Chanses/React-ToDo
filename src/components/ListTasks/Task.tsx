@@ -6,7 +6,7 @@ import { ModalState } from "../../AppContainer";
 import { modalStateValues } from "../../models/modalStateValues";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
-import ImgButton from "../reused/Buttons/ImgButton";
+import ImgButton from "../ImgButton";
 
 export interface ITask extends ITaskItem {
   selectedValueId: string;

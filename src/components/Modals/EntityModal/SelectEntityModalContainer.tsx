@@ -3,7 +3,7 @@ import { ModalState } from "../../../AppContainer";
 import { modalActionsType } from "../../../models/enum/modalActionsType";
 import { ICategoryItem } from "../../../models/ICategoryItem";
 import { ITaskItem } from "../../../models/ITaskItem";
-import IEntityModalSelect from "../../reused/Select/EntityModalSelect";
+import Select from "../../Select";
 
 interface IEntityModalSelectContainer {
   categorieList?: ICategoryItem[];
@@ -11,13 +11,13 @@ interface IEntityModalSelectContainer {
   taskItem: ITaskItem;
   selectRef: any;
   selectValueId: string;
-  handleSelect: () => void;
+  onChangeSelect: () => void;
   setIsChanged: (isChanged: boolean) => void;
 }
 
 const EntityModalSelectContainer = (props: IEntityModalSelectContainer) => {
-  const handleSelect = () => {
-    props.handleSelect();
+  const onChangeSelect = () => {
+    props.onChangeSelect();
     props.setIsChanged(true);
   };
 
@@ -31,10 +31,10 @@ const EntityModalSelectContainer = (props: IEntityModalSelectContainer) => {
   const getItem = ({ name, id: key }: ICategoryItem) => ({ name, key });
 
   return (
-    <IEntityModalSelect
+    <Select
       {...props}
       options={props.categorieList || []}
-      onChange={handleSelect}
+      onChange={onChangeSelect}
       getItem={getItem}
       defaultValue={defaultValue || ""}
     />

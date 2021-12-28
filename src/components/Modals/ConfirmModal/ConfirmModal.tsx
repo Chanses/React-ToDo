@@ -1,5 +1,4 @@
-import React from "react";
-import Button from "../../reused/Buttons/Button";
+import Button from "../../Button";
 import "./ConfirmModal.css";
 
 interface IConfirmModal {

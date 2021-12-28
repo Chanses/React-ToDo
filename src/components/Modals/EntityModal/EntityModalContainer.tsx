@@ -30,7 +30,7 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
   const [selectValueId, setSelectValueId] = useState<string>("placeholder");
   const [isChanged, setIsChanged] = useState<boolean>(false);
 
-  const nameInput = useRef<any>();
+  const nameInputRef = useRef<any>();
   const descriptionInput = useRef<any>();
   const selectRef = useRef<any>();
   const modalStyles = {
@@ -99,7 +99,7 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
       isDirty && isInvalid ? modalStyles.invalidTextStyle : undefined,
   };
 
-  const handleSelect = () => {
+  const onChangeSelect = () => {
     const index = selectRef.current.selectedIndex;
     const optionElement = selectRef.current.childNodes[index];
     const optionElementId = optionElement.getAttribute("id");
@@ -134,7 +134,7 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
   };
   const saveTask = () => {
     props.setModalState(modalStateValues.CloseSave.CreateTask);
-    handleSelect();
+    onChangeSelect();
     editTask(
       props.taskItem.id,
       props.taskItem.name,
@@ -152,19 +152,22 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
     );
     clearInputs();
   };
-  const handlerNameInput = () => {
+  const nameHandler = () => {
     setIsDirty(true);
-    props.setTaskItem({ ...props.taskItem, name: nameInput?.current?.value });
+    props.setTaskItem({
+      ...props.taskItem,
+      name: nameInputRef?.current?.value,
+    });
     props.setCategoryItem({
       ...props.categoryItem,
-      name: nameInput?.current?.value,
+      name: nameInputRef?.current?.value,
     });
     (props.taskItem.name.length || props.categoryItem.name.length) > 1 &&
     (props.taskItem.name.length || props.categoryItem.name.length) < 256
       ? setIsInvalid(false)
       : setIsInvalid(true);
   };
-  const handleDescriptionTextArea = () => {
+  const descriptionHandler = () => {
     props.setTaskItem({
       ...props.taskItem,
       description: descriptionInput?.current?.value,
@@ -174,34 +177,34 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
       description: descriptionInput?.current?.value,
     });
   };
-  const handlerTaskDescriptionTextArea = () => {
-    handleDescriptionTextArea();
-    handleSelect();
+  const onChangeTaskDescription = () => {
+    descriptionHandler();
+    onChangeSelect();
     setIsChanged(true);
     props.taskItem!.description!.length < 1536
       ? setIsInvalid(false)
       : setIsInvalid(true);
   };
 
-  const handlerCategoryDescriptionTextArea = () => {
-    handleDescriptionTextArea();
+  const onChangeCategoryDescription = () => {
+    descriptionHandler();
     setIsChanged(true);
     props.categoryItem.description!.length < 512
       ? setIsInvalid(false)
       : setIsInvalid(true);
   };
 
-  const handleTaskNameInput = () => {
-    handlerNameInput();
+  const onChangeTaskInput = () => {
+    nameHandler();
     setIsChanged(true);
-    handleSelect();
+    onChangeSelect();
   };
   const handleCategoryNameInput = () => {
-    handlerNameInput();
+    nameHandler();
     setIsChanged(true);
   };
 
-  const onClick = () => {
+  const onClickButton = () => {
     if (props.modalState.createEditModal.entityType === modalEntityType.TASK) {
       if (props.modalState.createEditModal.action === modalActionsType.CREATE) {
         createTask();
@@ -212,34 +215,34 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
       } else saveCategory();
     }
   };
-  const onChangeInput = () => {
+  const onChangeName = () => {
     if (props.modalState.createEditModal.entityType === modalEntityType.TASK) {
-      handleTaskNameInput();
+      onChangeTaskInput();
     } else handleCategoryNameInput();
   };
-  const onChangeTextArea = () => {
+  const onChangeDescription = () => {
     if (props.modalState.createEditModal.entityType === modalEntityType.TASK) {
-      handlerTaskDescriptionTextArea();
-    } else handlerCategoryDescriptionTextArea();
+      onChangeTaskDescription();
+    } else onChangeCategoryDescription();
   };
 
   const onFocusNameInput = () => {
-    handlerNameInput();
+    nameHandler();
   };
 
   return (
     <EntityModal
       {...props}
-      nameInput={nameInput}
+      nameInputRef={nameInputRef}
       selectRef={selectRef}
       descriptionInput={descriptionInput}
       selectValueId={selectValueId}
-      handleSelect={handleSelect}
+      onChangeSelect={onChangeSelect}
       setIsChanged={setIsChanged}
       closePopUp={closePopUp}
-      onClick={onClick}
-      onChangeInput={onChangeInput}
-      onChangeTextArea={onChangeTextArea}
+      onClickButton={onClickButton}
+      onChangeName={onChangeName}
+      onChangeDescription={onChangeDescription}
       modalValues={modalValues}
       onFocusNameInput={onFocusNameInput}
     />

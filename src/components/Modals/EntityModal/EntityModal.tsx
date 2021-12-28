@@ -2,23 +2,23 @@ import React from "react";
 import "./EntityModal.css";
 import closeImg from "../../../images/Close.svg";
 import { ModalState } from "../../../AppContainer";
-import SelectPopUpContainer from "./SelectPopUpContainer";
-import Textarea from "../../reused/Textareas/Textarea";
-import Button from "../../reused/Buttons/Button";
-import Input from "../../reused/Inputs/Input";
+import SelectPopUpContainer from "./SelectEntityModalContainer";
+import Textarea from "../../Textarea";
 import { ITaskItem } from "../../../models/ITaskItem";
+import Button from "../../Button";
+import ImgButton from "../../ImgButton";
 
 interface IEntityModal {
-  handleSelect: () => void;
+  onChangeSelect: () => void;
   setIsChanged: (isChanged: boolean) => void;
   closePopUp: () => void;
-  onClick: () => void;
+  onClickButton: () => void;
   onFocusNameInput: () => void;
-  onChangeInput: () => void;
-  onChangeTextArea: () => void;
+  onChangeName: () => void;
+  onChangeDescription: () => void;
   taskItem: ITaskItem;
   modalState: ModalState;
-  nameInput: any;
+  nameInputRef: any;
   descriptionInput: any;
   selectRef: any;
   selectValueId: string;
@@ -34,9 +34,11 @@ const EntityModal = (props: IEntityModal) => {
             <span>{props.modalValues.modalTitleAction}</span>
             <span>{props.modalValues.modalTitleSection}</span>
           </div>
-          <button className="EntityModal__Article-Close">
-            <img src={closeImg} alt="" onClick={props.closePopUp} />
-          </button>
+          <ImgButton
+            img={closeImg}
+            onClick={props.closePopUp}
+            className="EntityModal__Article-Close"
+          />
         </div>
         <div className="EntityModal__Main">
           <div className="EntityModal__Main-Name DoubleInput">
@@ -50,10 +52,9 @@ const EntityModal = (props: IEntityModal) => {
             </div>
             <form action="submit">
               {/* Поля ввода для имени*/}
-              {/* TODO  Input */}
               <input
-                ref={props.nameInput}
-                onChange={props.onChangeInput}
+                ref={props.nameInputRef}
+                onChange={props.onChangeName}
                 onFocus={props.onFocusNameInput}
                 placeholder={props.modalValues.nameInputPlaceholder}
                 value={props.modalValues.nameInputValue}
@@ -81,7 +82,7 @@ const EntityModal = (props: IEntityModal) => {
             {/* Поля для ввода для описания*/}
             <Textarea
               descriptionInput={props.descriptionInput}
-              onChange={props.onChangeTextArea}
+              onChange={props.onChangeDescription}
               value={props.modalValues.descriptionTextAreaValue}
               placeholder={props.modalValues.descriptionTextAreaPlaceholder}
             />
@@ -91,9 +92,8 @@ const EntityModal = (props: IEntityModal) => {
         <div className="EntityModal__buttons">
           <div className="EntityModal__buttons-create">
             {/* Кнопки  для сохранения*/}
-
             <Button
-              onClick={props.onClick}
+              onClick={props.onClickButton}
               title={props.modalValues.buttonTitle}
               disabled={props.modalValues.disabled}
             />

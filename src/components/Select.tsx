@@ -1,6 +1,5 @@
 import React from "react";
-
-import { IBaseEntityModel } from "../../../models/IBaseEntityModel";
+import { IBaseEntityModel } from "../models/IBaseEntityModel";
 
 interface IEntityModalSelect<T extends IBaseEntityModel> {
   options: T[];
@@ -10,9 +9,7 @@ interface IEntityModalSelect<T extends IBaseEntityModel> {
   onChange: () => void;
 }
 
-const EntityModalSelect = <T extends IBaseEntityModel>(
-  props: IEntityModalSelect<T>
-) => {
+const Select = <T extends IBaseEntityModel>(props: IEntityModalSelect<T>) => {
   return (
     <select
       name="categories"
@@ -36,4 +33,4 @@ const EntityModalSelect = <T extends IBaseEntityModel>(
   );
 };
 
-export default EntityModalSelect;
+export default Select;
