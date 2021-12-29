@@ -79,6 +79,7 @@ const Modal = (props: IModal) => {
             </div>
           </div>
         </div>
+
         <div
           className="Modal__Main-Description"
           style={props.modalValues.formDisplayStyle}
@@ -94,6 +95,7 @@ const Modal = (props: IModal) => {
             />
           </div>
         </div>
+        {/* Описание для удаления */}
         <div
           className="Modal__Main-Description-small"
           style={props.modalValues.descriptionDeleteDisplayStyle}

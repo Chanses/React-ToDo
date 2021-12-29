@@ -18,8 +18,6 @@ interface IApp {
   categoryItem: ICategoryItem;
   setTaskSection: () => void;
   setCategorieSection: () => void;
-  deleteTask: (id: string) => void;
-  deleteCategorie: (id: string) => void;
   setModalState: (state: ModalState) => void;
   setTaskItem: (state: ITaskItem) => void;
   setCategoryItem: (state: ICategoryItem) => void;
