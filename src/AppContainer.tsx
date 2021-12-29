@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import App from "./App";
 import { deleteTask } from "./dbService";
-import { deleteCategorie } from "./dbService";
+import { deleteCategory } from "./dbService";
 import { getTasks, getCategories } from "./dbService";
 import { modalNames } from "./models/enum/modalNames";
 import { IModalStateInterface } from "./models/IModalStateInterface";
@@ -96,7 +96,7 @@ const AppContainer = () => {
       setCategoryItem={setCategoryItem}
       // Удаление
       deleteTask={deleteTask}
-      deleteCategorie={deleteCategorie}
+      deleteCategorie={deleteCategory}
     />
   );
 };

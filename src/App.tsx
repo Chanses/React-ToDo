@@ -7,8 +7,7 @@ import CategoriesListContainer from "./components/ListCategories/CategoriesListC
 import { ModalState } from "./AppContainer";
 import { ICategoryItem } from "./models/ICategoryItem";
 import { ITaskItem } from "./models/ITaskItem";
-import EntityModalContainer from "./components/Modals/EntityModal/EntityModalContainer";
-import ConfirmModalContainer from "./components/Modals/ConfirmModal/ConfirmModalContainer";
+import ModalContainer from "./components/Modal/ModalContainer";
 
 interface IApp {
   section: boolean;
@@ -30,12 +29,7 @@ const App: React.FC<IApp> = (props) => {
   return (
     <Router>
       <div className="App">
-        {props.modalState.createEditModal.open && (
-          <EntityModalContainer {...props} />
-        )}
-        {props.modalState.deleteModal.open && (
-          <ConfirmModalContainer {...props} />
-        )}
+        {props.modalState.createEditModal.open && <ModalContainer {...props} />}
         <HeaderContainer {...props} />
         <div className="Content">
           <Routes>

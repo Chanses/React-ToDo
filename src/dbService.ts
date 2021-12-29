@@ -155,7 +155,7 @@ export const deleteTask = (taskId: string) => {
     };
 }
 
-export const deleteCategorie = (CategorieId: string) => {
+export const deleteCategory = (CategorieId: string) => {
     const db = openRequest.result;
     const request = db.transaction(["categories"], "readwrite")
         .objectStore("categories")

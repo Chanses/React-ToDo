@@ -4,16 +4,18 @@ import {
   editTask,
   editCategory,
   addCategory,
-} from "../../../dbService";
-import { ModalState } from "../../../AppContainer";
-import EntityModal from "./EntityModal";
-import { ICategoryItem } from "../../../models/ICategoryItem";
-import { modalActionsType } from "../../../models/enum/modalActionsType";
-import { modalStateValues } from "../../../models/modalStateValues";
-import { modalEntityType } from "../../../models/enum/modalEntityType";
-import { ITaskItem } from "../../../models/ITaskItem";
+  deleteTask,
+  deleteCategory,
+} from "../../dbService";
+import { ModalState } from "../../AppContainer";
+import Modal from "./Modal";
+import { ICategoryItem } from "../../models/ICategoryItem";
+import { modalActionsType } from "../../models/enum/modalActionsType";
+import { modalStateValues } from "../../models/modalStateValues";
+import { modalEntityType } from "../../models/enum/modalEntityType";
+import { ITaskItem } from "../../models/ITaskItem";
 
-interface IEntityModalContainer {
+interface IModalContainer {
   setModalState: (state: ModalState) => void;
   setTaskItem: (state: ITaskItem) => void;
   setCategoryItem: (state: ICategoryItem) => void;
@@ -24,7 +26,7 @@ interface IEntityModalContainer {
   section: boolean;
 }
 
-const EntityModalContainer = (props: IEntityModalContainer) => {
+const ModalContainer = (props: IModalContainer) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const [isInvalid, setIsInvalid] = useState<boolean>(true);
   const [selectValueId, setSelectValueId] = useState<string>("placeholder");
@@ -45,22 +47,23 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
       width: "calc(200% + 12px)",
     },
     invalidTextStyle: { color: "red" },
+    hideElementStyle: { display: "none" },
   };
   const modalValues = {
-    buttonTitle:
-      props.modalState.createEditModal.action === modalActionsType.CREATE
-        ? "Создать"
-        : "Сохранить",
     modalTitleAction:
       props.modalState.createEditModal.action === modalActionsType.CREATE
-        ? "Создать"
-        : "Редактировать",
+        ? "Создание"
+        : props.modalState.createEditModal.action === modalActionsType.EDIT
+        ? "Редактирование"
+        : "Удаление",
     modalTitleSection:
       props.modalState.createEditModal.entityType === modalEntityType.TASK
-        ? " задачу"
-        : " категорию",
+        ? " задачи"
+        : " категории",
     disabled:
-      props.modalState.createEditModal.action === modalActionsType.CREATE
+      props.modalState.createEditModal.action === modalActionsType.DELETE
+        ? false
+        : props.modalState.createEditModal.action === modalActionsType.CREATE
         ? isInvalid
           ? true
           : false
@@ -97,6 +100,33 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
         : "none",
     nameInputArticleStyle:
       isDirty && isInvalid ? modalStyles.invalidTextStyle : undefined,
+    confirmButtonValue:
+      props.modalState.createEditModal.action === modalActionsType.CREATE
+        ? "Создать"
+        : props.modalState.createEditModal.action === modalActionsType.EDIT
+        ? "Сохранить"
+        : "Да",
+    dislineButtonValue:
+      props.modalState.createEditModal.action === modalActionsType.CREATE ||
+      props.modalState.createEditModal.action === modalActionsType.EDIT
+        ? "Закрыть"
+        : "Нет",
+    formDisplayStyle:
+      props.modalState.createEditModal.action === modalActionsType.CREATE ||
+      props.modalState.createEditModal.action === modalActionsType.EDIT
+        ? undefined
+        : modalStyles.hideElementStyle,
+    descriptionDeleteDisplayStyle:
+      props.modalState.createEditModal.action === modalActionsType.CREATE ||
+      props.modalState.createEditModal.action === modalActionsType.EDIT
+        ? modalStyles.hideElementStyle
+        : undefined,
+    confirmDeleteText:
+      props.modalState.createEditModal.entityType === modalEntityType.TASK
+        ? "Вы уверены, что хотите удалить задачу “" + props.taskItem.name + "”?"
+        : "Вы уверены, что хотите удалить категорию “" +
+          props.categoryItem.name +
+          "”?",
   };
 
   const onChangeSelect = () => {
@@ -151,6 +181,24 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
       props.categoryItem.description
     );
     clearInputs();
+  };
+  const confirmDeleteTask = () => {
+    deleteTask(props.taskItem.id);
+    props.setModalState(modalStateValues.CloseSave.DeleteTask);
+    props.setTaskItem({
+      ...props.taskItem,
+      name: "",
+      description: "",
+    });
+  };
+  const confirmDeleteCategory = () => {
+    deleteCategory(props.categoryItem.id);
+    props.setModalState(modalStateValues.CloseSave.DeleteCategory);
+    props.setCategoryItem({
+      ...props.categoryItem,
+      name: "",
+      description: "",
+    });
   };
   const nameHandler = () => {
     setIsDirty(true);
@@ -208,11 +256,19 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
     if (props.modalState.createEditModal.entityType === modalEntityType.TASK) {
       if (props.modalState.createEditModal.action === modalActionsType.CREATE) {
         createTask();
-      } else saveTask();
+      } else if (
+        props.modalState.createEditModal.action === modalActionsType.EDIT
+      )
+        saveTask();
+      else confirmDeleteTask();
     } else {
       if (props.modalState.createEditModal.action === modalActionsType.CREATE) {
         createCategory();
-      } else saveCategory();
+      } else if (
+        props.modalState.createEditModal.action === modalActionsType.EDIT
+      )
+        saveCategory();
+      else confirmDeleteCategory();
     }
   };
   const onChangeName = () => {
@@ -231,7 +287,7 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
   };
 
   return (
-    <EntityModal
+    <Modal
       {...props}
       nameInputRef={nameInputRef}
       selectRef={selectRef}
@@ -249,4 +305,4 @@ const EntityModalContainer = (props: IEntityModalContainer) => {
   );
 };
 
-export default EntityModalContainer;
+export default ModalContainer;

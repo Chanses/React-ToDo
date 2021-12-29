@@ -26,6 +26,16 @@ export const modalStateValues = {
             },
             deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
         },
+        OpenDeleteTask: {
+
+            createEditModal: {
+                entityType: modalEntityType.TASK,
+                action: modalActionsType.DELETE,
+                open: true,
+                lastResult: modalResultEnum.CANCEL,
+            },
+            deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
+        },
         OpenCreateCategory: {
             createEditModal: {
                 entityType: modalEntityType.CATEGORY,
@@ -44,21 +54,15 @@ export const modalStateValues = {
             },
             deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
         },
-        OpenDeleteTask: {
-            createEditModal: {
-                entityType: modalEntityType.TASK,
-                open: false,
-                lastResult: modalResultEnum.CANCEL,
-            },
-            deleteModal: { open: true, lastResult: modalResultEnum.CANCEL },
-        },
         OpenDeleteCategory: {
+
             createEditModal: {
                 entityType: modalEntityType.CATEGORY,
-                open: false,
+                action: modalActionsType.DELETE,
+                open: true,
                 lastResult: modalResultEnum.CANCEL,
             },
-            deleteModal: { open: true, lastResult: modalResultEnum.CANCEL },
+            deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
         },
     },
     // Закрытие окон с сохранением

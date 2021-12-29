@@ -1,14 +1,14 @@
 import React from "react";
-import "./EntityModal.css";
-import closeImg from "../../../images/Close.svg";
-import { ModalState } from "../../../AppContainer";
-import SelectPopUpContainer from "./SelectEntityModalContainer";
-import Textarea from "../../Textarea";
-import { ITaskItem } from "../../../models/ITaskItem";
-import Button from "../../Button";
-import ImgButton from "../../ImgButton";
+import "./Modal.css";
+import closeImg from "../../images/Close.svg";
+import { ModalState } from "../../AppContainer";
+import ModalSelectContainer from "./ModalSelectContainer";
+import Textarea from "../Textarea";
+import { ITaskItem } from "../../models/ITaskItem";
+import Button from "../Button";
+import ImgButton from "../ImgButton";
 
-interface IEntityModal {
+interface IModal {
   onChangeSelect: () => void;
   setIsChanged: (isChanged: boolean) => void;
   closePopUp: () => void;
@@ -25,26 +25,29 @@ interface IEntityModal {
   modalValues: any;
 }
 
-const EntityModal = (props: IEntityModal) => {
+const Modal = (props: IModal) => {
   return (
-    <div className="EntityModal-Wrapper">
-      <div className="EntityModal">
-        <div className="EntityModal__Article">
-          <div className="EntityModal__Article-Name ">
-            <span>{props.modalValues.modalTitleAction}</span>
-            <span>{props.modalValues.modalTitleSection}</span>
+    <div className="Modal-Wrapper">
+      <div className="Modal">
+        <div className="Modal__Article">
+          <div className="Modal__Article-Name ">
+            <span>
+              {props.modalValues.modalTitleAction +
+                " " +
+                props.modalValues.modalTitleSection}
+            </span>
           </div>
           <ImgButton
             img={closeImg}
             onClick={props.closePopUp}
-            className="EntityModal__Article-Close"
+            className="Modal__Article-Close"
           />
         </div>
-        <div className="EntityModal__Main">
-          <div className="EntityModal__Main-Name DoubleInput">
-            <div className="EntityModal__Main-Name__article ">
+        <div className="Modal__Main" style={props.modalValues.formDisplayStyle}>
+          <div className="Modal__Main-Name DoubleInput">
+            <div className="Modal__Main-Name__article ">
               <div
-                className="EntityModal-InputsArticle"
+                className="Modal-InputsArticle"
                 style={props.modalValues.nameInputArticleStyle}
               >
                 Имя<span style={{ color: "red" }}>*</span>
@@ -64,21 +67,24 @@ const EntityModal = (props: IEntityModal) => {
           </div>
 
           <div
-            className="EntityModal__Main-Categorie DoubleInput"
+            className="Modal__Main-Categorie DoubleInput"
             style={{ display: props.modalValues.displaySelect }}
           >
-            <div className="EntityModal__Main-Categorie__article ">
-              <div className="EntityModal-InputsArticle">Категория </div>
+            <div className="Modal__Main-Categorie__article ">
+              <div className="Modal-InputsArticle">Категория </div>
             </div>
             <div style={{ display: "flex" }}>
               {/* Поля для выбора категорий*/}
-              <SelectPopUpContainer {...props} />
+              <ModalSelectContainer {...props} />
             </div>
           </div>
         </div>
-        <div className="EntityModal__Main-Description">
-          <div className="EntityModal__Main-Description">
-            <div className="EntityModal-InputsArticle">Описание </div>
+        <div
+          className="Modal__Main-Description"
+          style={props.modalValues.formDisplayStyle}
+        >
+          <div className="Modal__Main-Description">
+            <div className="Modal-InputsArticle">Описание </div>
             {/* Поля для ввода для описания*/}
             <Textarea
               descriptionInput={props.descriptionInput}
@@ -88,18 +94,26 @@ const EntityModal = (props: IEntityModal) => {
             />
           </div>
         </div>
-
-        <div className="EntityModal__buttons">
-          <div className="EntityModal__buttons-create">
+        <div
+          className="Modal__Main-Description-small"
+          style={props.modalValues.descriptionDeleteDisplayStyle}
+        >
+          {props.modalValues.confirmDeleteText}
+        </div>
+        <div className="Modal__buttons">
+          <div className="Modal__buttons-create">
             {/* Кнопки  для сохранения*/}
             <Button
               onClick={props.onClickButton}
-              title={props.modalValues.buttonTitle}
+              title={props.modalValues.confirmButtonValue}
               disabled={props.modalValues.disabled}
             />
           </div>
-          <div className="EntityModal__buttons-close">
-            <Button onClick={props.closePopUp} title="Закрыть" />
+          <div className="Modal__buttons-close">
+            <Button
+              onClick={props.closePopUp}
+              title={props.modalValues.dislineButtonValue}
+            />
           </div>
         </div>
       </div>
@@ -107,4 +121,4 @@ const EntityModal = (props: IEntityModal) => {
   );
 };
 
-export default EntityModal;
+export default Modal;
