@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { ModalState } from "../../../AppContainer";
+import { ModalState } from "../../AppContainer";
 import {
   addTask,
   editTask,
@@ -7,16 +7,16 @@ import {
   addCategory,
   deleteTask,
   deleteCategorie,
-} from "../../../dbService";
-import { modalActionsType } from "../../../models/enum/modalActionsType";
-import { modalEntityType } from "../../../models/enum/modalEntityType";
-import { ICategoryItem } from "../../../models/ICategoryItem";
-import { ITaskItem } from "../../../models/ITaskItem";
-import { modalStateValues } from "../../../models/modalStateValues";
-import ConfirmModal from "../ConfirmModal/ConfirmModal";
+} from "../../dbService";
+import { modalActionsType } from "../../models/enum/modalActionsType";
+import { modalEntityType } from "../../models/enum/modalEntityType";
+import { ICategoryItem } from "../../models/ICategoryItem";
+import { ITaskItem } from "../../models/ITaskItem";
+import { modalStateValues } from "../../models/modalStateValues";
+import ConfirmModal from "./Forms/ConfirmForm/ConfirmForm";
 import CategoryForm from "./Forms/CategoryForm";
 import TaskForm from "./Forms/TaskForm";
-import "./EntityModal.css";
+import "./Modal.css";
 
 interface IModalContainer {
   setModalState: (state: ModalState) => void;

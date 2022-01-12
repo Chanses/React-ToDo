@@ -1,9 +1,9 @@
 import React from "react";
 import "./Form.css";
-import Textarea from "../../../Textarea";
-import ImgButton from "../../../ImgButton";
-import closeImg from "../../../../images/Close.svg";
-import Button from "../../../Button";
+import Textarea from "../../Textarea";
+import ImgButton from "../../ImgButton";
+import closeImg from "../../../images/Close.svg";
+import Button from "../../Button";
 
 export interface IForm {
   modalValues: any;

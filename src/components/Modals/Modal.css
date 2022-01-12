@@ -1,4 +1,4 @@
-.EntityModal-Wrapper {
+.Modal-Wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -8,7 +8,7 @@
 
   background-color: rgba(0, 0, 0, 0.3);
 }
-.EntityModal {
+.Modal {
   width: 800px;
   position: absolute;
   background-color: #dbe2ef;
@@ -19,7 +19,7 @@
   border-radius: 4px;
   color: #3f72af;
 }
-.EntityModal button {
+.Modal button {
   color: #3f72af;
   outline: none;
   border: none;
@@ -27,7 +27,7 @@
   cursor: pointer;
 }
 
-.EntityModal input {
+.Modal input {
   color: black;
   background-color: transparent;
   border: 2px solid #3f72af;
@@ -37,14 +37,14 @@
   padding-left: 8px;
   outline: none;
 }
-.EntityModal input:focus {
+.Modal input:focus {
   border: solid 2px #257fea;
 }
-.EntityModal input::placeholder {
+.Modal input::placeholder {
   color: rgba(0, 0, 0, 0.5);
   font-size: 20px;
 }
-.EntityModal-InputsArticle {
+.Modal-InputsArticle {
   background-color: #dbe2ef;
   padding: 0 4px;
   position: absolute;
@@ -52,40 +52,40 @@
   left: 15px;
   font-weight: 400;
 }
-.EntityModal__Article {
+.Modal__Article {
   display: flex;
   justify-content: space-between;
 }
-.EntityModal__Article-Name {
+.Modal__Article-Name {
   color: #3f72af;
   font-size: 40px;
   font-weight: 500;
   text-align: left;
   margin-bottom: 50px;
 }
-.EntityModal__Article-Close {
+.Modal__Article-Close {
   margin-bottom: 50px;
   font-size: 30px;
 }
 
-.EntityModal__Main {
+.Modal__Main {
   display: flex;
   justify-content: space-between;
   background-color: none;
   margin-bottom: 35px;
 }
 
-.EntityModal__Main-Name-small {
+.Modal__Main-Name-small {
   margin-bottom: 35px;
 }
-.EntityModal__Main-Name-small input {
+.Modal__Main-Name-small input {
   width: calc(100% - 12px);
 }
-.EntityModal__Main-Name__article {
+.Modal__Main-Name__article {
   display: flex;
   position: relative;
 }
-.EntityModal__Main-Categorie select {
+.Modal__Main-Categorie select {
   display: flex;
   background-color: transparent;
   border: none;
@@ -101,27 +101,27 @@
   width: calc(100%);
   height: 52px;
 }
-.EntityModal__Main-Categorie select:hover {
+.Modal__Main-Categorie select:hover {
   border: 2px solid #257fea;
 }
-.EntityModal__Main-Categorie select:focus {
+.Modal__Main-Categorie select:focus {
   border: 2px solid #257fea;
 }
 
-.EntityModal__Main-Categorie select option {
+.Modal__Main-Categorie select option {
   color: black;
   border: 2px solid #257fea;
   height: 50px;
 }
-.EntityModal__Main-Categorie option:hover {
+.Modal__Main-Categorie option:hover {
   box-shadow: 0 0 10px 100px red;
 }
-.EntityModal__Main-Categorie select option:checked {
+.Modal__Main-Categorie select option:checked {
   background-color: #3f72af;
   color: white;
 }
 
-.EntityModal__Main-Categorie__article {
+.Modal__Main-Categorie__article {
   position: relative;
 }
 .DoubleInput {
@@ -134,15 +134,15 @@
   display: block;
   width: calc(100% - 12px);
 }
-.EntityModal__Main-Description {
+.Modal__Main-Description {
   margin-bottom: 16px;
   text-align: left;
   position: relative;
 }
-.EntityModal__Main-Description-small {
+.Modal__Main-Description-small {
   margin-bottom: 32px;
 }
-.EntityModal__Main-Description textarea {
+.Modal__Main-Description textarea {
   width: 100%;
   min-height: 72px;
   resize: none;
@@ -157,19 +157,19 @@
   outline: none;
   font-family: Roboto;
 }
-.EntityModal__Main-Description textarea:focus {
+.Modal__Main-Description textarea:focus {
   border: solid 2px #257fea;
 }
-.EntityModal__Main-Description textarea::placeholder {
+.Modal__Main-Description textarea::placeholder {
   color: rgba(0, 0, 0, 0.5);
   font-size: 20px;
 }
 
-.EntityModal__buttons {
+.Modal__buttons {
   display: flex;
   justify-content: flex-end;
 }
-.EntityModal__buttons button {
+.Modal__buttons button {
   display: flex;
   justify-content: flex-end;
   height: 46px;
@@ -180,30 +180,30 @@
   justify-content: center;
 }
 
-.EntityModal__buttons-create button {
+.Modal__buttons-create button {
   width: 200px;
   background-color: #3f72af;
   color: white;
   margin-right: 24px;
 }
-.EntityModal__buttons-create button:hover {
+.Modal__buttons-create button:hover {
   background-color: #257fea;
 }
-.EntityModal__buttons-create button:active {
+.Modal__buttons-create button:active {
   background-color: #65abff;
 }
-.EntityModal__buttons-close button {
+.Modal__buttons-close button {
   background-color: transparent;
   border: 2px solid #3f72af;
   color: #3f72af;
   width: 120px;
 }
-.EntityModal__buttons-close button:hover {
+.Modal__buttons-close button:hover {
   background: rgba(37, 127, 234, 0.2);
   color: #257fea;
   border: 2px solid #257fea;
 }
-.EntityModal__buttons-close button:active {
+.Modal__buttons-close button:active {
   background-color: #257fea;
   border: 2px solid #257fea;
   color: white;

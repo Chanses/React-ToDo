@@ -1,13 +1,13 @@
 import React from "react";
-import { ModalState } from "../../../../AppContainer";
-import { ICategoryItem } from "../../../../models/ICategoryItem";
-import { ITaskItem } from "../../../../models/ITaskItem";
-import ImgButton from "../../../ImgButton";
+import { ModalState } from "../../../AppContainer";
+import { ICategoryItem } from "../../../models/ICategoryItem";
+import { ITaskItem } from "../../../models/ITaskItem";
+import ImgButton from "../../ImgButton";
 import EntityModalSelectContainer from "../SelectEntityModalContainer";
 import { IForm } from "./CategoryForm";
-import closeImg from "../../../../images/Close.svg";
+import closeImg from "../../../images/Close.svg";
 import "./Form.css";
-import Button from "../../../Button";
+import Button from "../../Button";
 
 interface ITaskForm extends IForm {
   categorieList?: ICategoryItem[];

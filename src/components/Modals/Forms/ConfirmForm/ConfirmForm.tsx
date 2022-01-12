@@ -1,5 +1,5 @@
-import Button from "../../Button";
-import "./ConfirmModal.css";
+import Button from "../../../Button";
+import "./ConfirmForm.css";
 
 interface IConfirmModal {
   closeModal: () => void;
@@ -7,7 +7,7 @@ interface IConfirmModal {
   values: any;
 }
 
-const ConfirmModal = (props: IConfirmModal) => {
+const ConfirmForm = (props: IConfirmModal) => {
   return (
     <div className="ConfirmModal-Wrapper">
       <div className="ConfirmModal">
@@ -36,4 +36,4 @@ const ConfirmModal = (props: IConfirmModal) => {
   );
 };
 
-export default ConfirmModal;
+export default ConfirmForm;
