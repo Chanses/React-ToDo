@@ -14,7 +14,7 @@ import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
 import { modalStateValues } from "../../models/modalStateValues";
 import ConfirmModal from "./Forms/ConfirmForm/ConfirmForm";
-import CategoryForm from "./Forms/CategoryForm";
+import CategoryForm, { IForm } from "./Forms/CategoryForm";
 import TaskForm from "./Forms/TaskForm";
 import "./Modal.css";
 
@@ -28,6 +28,8 @@ interface IModalContainer {
   categorieList?: ICategoryItem[];
   section: boolean;
 }
+
+export const showModal = (modalName: string, modalValues: any) => {};
 
 const ModalContainer = (props: IModalContainer) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
@@ -100,6 +102,9 @@ const ModalContainer = (props: IModalContainer) => {
           : false,
     },
     showModal: () => {
+      // switch (modalName) {
+      //   case "CreateCategory"
+      // }
       if (props.modalState.createEditModal.action === modalActionsType.DELETE) {
         return (
           <ConfirmModal
