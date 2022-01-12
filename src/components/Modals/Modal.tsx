@@ -298,7 +298,7 @@ const ModalContainer = (props: IModalContainer) => {
       }
     },
   };
-  return <div className="EntityModal-Wrapper">{ModaleService.showModal()}</div>;
+  return <div className="Modal-Wrapper">{ModaleService.showModal()}</div>;
 };
 
 export default ModalContainer;

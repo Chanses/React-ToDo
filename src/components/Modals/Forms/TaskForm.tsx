@@ -3,7 +3,7 @@ import { ModalState } from "../../../AppContainer";
 import { ICategoryItem } from "../../../models/ICategoryItem";
 import { ITaskItem } from "../../../models/ITaskItem";
 import ImgButton from "../../ImgButton";
-import EntityModalSelectContainer from "../SelectEntityModalContainer";
+import ModalSelectEntityContainer from "../SelectEntityModalContainer";
 import { IForm } from "./CategoryForm";
 import closeImg from "../../../images/Close.svg";
 import "./Form.css";
@@ -15,23 +15,21 @@ interface ITaskForm extends IForm {
   taskItem: ITaskItem;
   selectRef: any;
   selectValueId: string;
-  nameInputRef: any;
-  styles: any;
   onChangeSelect: () => void;
   setIsChanged: (isChanged: boolean) => void;
 }
 
 const TaskForm = (props: ITaskForm) => {
   return (
-    <div className="EntityModal">
-      <div className="EntityModal__Article">
-        <div className="EntityModal__Article-Name ">
+    <div className="Modal">
+      <div className="Modal__Article">
+        <div className="Modal__Article-Name ">
           <span>{props.modalValues.titleValue}</span>
         </div>
         <ImgButton
           img={closeImg}
           onClick={props.closeModal}
-          className="EntityModal__Article-Close"
+          className="Modal__Article-Close"
         />
       </div>
       <form className="ModalForm">
@@ -55,7 +53,7 @@ const TaskForm = (props: ITaskForm) => {
           </label>
           <label className="ModalForm__Item">
             <p className="ModalForm__Item-Name"> Категория</p>
-            <EntityModalSelectContainer {...props} />
+            <ModalSelectEntityContainer {...props} />
           </label>
         </div>
         <label className="ModalForm__Item">
@@ -69,8 +67,8 @@ const TaskForm = (props: ITaskForm) => {
           />
         </label>
       </form>
-      <div className="EntityModal__buttons">
-        <div className="EntityModal__buttons-create">
+      <div className="Modal__buttons">
+        <div className="Modal__buttons-create">
           {/* Кнопки  для сохранения*/}
           <Button
             onClick={props.acceptOnClick}
@@ -78,7 +76,7 @@ const TaskForm = (props: ITaskForm) => {
             disabled={props.styles.disabled}
           />
         </div>
-        <div className="EntityModal__buttons-close">
+        <div className="Modal__buttons-close">
           <Button onClick={props.closeModal} title="Закрыть" />
         </div>
       </div>

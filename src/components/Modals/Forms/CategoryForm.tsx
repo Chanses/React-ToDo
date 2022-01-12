@@ -8,26 +8,26 @@ import Button from "../../Button";
 export interface IForm {
   modalValues: any;
   nameInputRef: any;
-  onChangeName: () => void;
-  nameInputOnFocus: () => void;
   descriptionRef: any;
   styles: any;
   descriptionOnChange: () => void;
   acceptOnClick: () => void;
   closeModal: () => void;
+  onChangeName: () => void;
+  nameInputOnFocus: () => void;
 }
 
 const CategoryForm = (props: IForm) => {
   return (
-    <div className="EntityModal">
-      <div className="EntityModal__Article">
-        <div className="EntityModal__Article-Name ">
+    <div className="Modal">
+      <div className="Modal__Article">
+        <div className="Modal__Article-Name ">
           <span>{props.modalValues.titleValue}</span>
         </div>
         <ImgButton
           img={closeImg}
           onClick={props.closeModal}
-          className="EntityModal__Article-Close"
+          className="Modal__Article-Close"
         />
       </div>
       <form className="Modal__Form">
@@ -58,8 +58,8 @@ const CategoryForm = (props: IForm) => {
           />
         </label>
       </form>
-      <div className="EntityModal__buttons">
-        <div className="EntityModal__buttons-create">
+      <div className="Modal__buttons">
+        <div className="Modal__buttons-create">
           {/* Кнопки  для сохранения*/}
           <Button
             onClick={props.acceptOnClick}
@@ -67,7 +67,7 @@ const CategoryForm = (props: IForm) => {
             disabled={props.styles.disabled}
           />
         </div>
-        <div className="EntityModal__buttons-close">
+        <div className="Modal__buttons-close">
           <Button onClick={props.closeModal} title="Закрыть" />
         </div>
       </div>
