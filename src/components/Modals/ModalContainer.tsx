@@ -99,160 +99,14 @@ const ModalContainer = (props: IModalContainer) => {
           ? true
           : false,
     },
-    onChangeSelect: () => {
-      const index = selectRef.current.selectedIndex;
-      const optionElement = selectRef.current.childNodes[index];
-      const optionElementId = optionElement.getAttribute("id");
-      setSelectValueId(optionElementId);
-    },
-    clearInputs: () => {
-      props.setCategoryItem({
-        ...props.categoryItem,
-        name: "",
-        description: "",
-      });
-      props.setTaskItem({
-        ...props.taskItem,
-        name: "",
-        description: "",
-      });
-    },
-    closeModal: () => {
-      props.setModalState(modalStateValues.CloseDontSave.CloseCreateCategory);
-      props.setModalState(modalStateValues.CloseDontSave.CloseCreateTask);
-      ModaleService.clearInputs();
-    },
-    createTask: () => {
-      props.setModalState(modalStateValues.CloseSave.CreateTask);
-      addTask(props.taskItem.name, props.taskItem.description, selectValueId);
-      ModaleService.clearInputs();
-    },
-    createCategory: () => {
-      props.setModalState(modalStateValues.CloseSave.CreateCategory);
-      addCategory(props.categoryItem.name, props.categoryItem.description);
-      ModaleService.clearInputs();
-    },
-    saveTask: () => {
-      props.setModalState(modalStateValues.CloseSave.CreateTask);
-      ModaleService.onChangeSelect();
-      editTask(
-        props.taskItem.id,
-        props.taskItem.name,
-        props.taskItem.description,
-        selectValueId
-      );
-      ModaleService.clearInputs();
-    },
-    saveCategory: () => {
-      props.setModalState(modalStateValues.CloseSave.CreateCategory);
-      editCategory(
-        props.categoryItem.id,
-        props.categoryItem.name,
-        props.categoryItem.description
-      );
-      ModaleService.clearInputs();
-    },
-    nameHandler: () => {
-      setIsDirty(true);
-      props.setTaskItem({
-        ...props.taskItem,
-        name: nameInputRef?.current?.value,
-      });
-      props.setCategoryItem({
-        ...props.categoryItem,
-        name: nameInputRef?.current?.value,
-      });
-      (props.taskItem.name.length || props.categoryItem.name.length) > 1 &&
-      (props.taskItem.name.length || props.categoryItem.name.length) < 256
-        ? setIsInvalid(false)
-        : setIsInvalid(true);
-    },
-    descriptionHandler: () => {
-      props.setTaskItem({
-        ...props.taskItem,
-        description: descriptionRef?.current?.value,
-      });
-      props.setCategoryItem({
-        ...props.categoryItem,
-        description: descriptionRef?.current?.value,
-      });
-      props.taskItem!.description!.length < 1536
-        ? setIsInvalid(false)
-        : setIsInvalid(true);
-    },
-    onChangeTaskDescription: () => {
-      ModaleService.descriptionHandler();
-      ModaleService.onChangeSelect();
-      setIsChanged(true);
-    },
-
-    onChangeCategoryDescription: () => {
-      ModaleService.descriptionHandler();
-      setIsChanged(true);
-      props.categoryItem.description!.length < 512
-        ? setIsInvalid(false)
-        : setIsInvalid(true);
-    },
-
-    onChangeTaskInput: () => {
-      ModaleService.nameHandler();
-      setIsChanged(true);
-      ModaleService.onChangeSelect();
-    },
-    handleCategoryNameInput: () => {
-      ModaleService.nameHandler();
-      setIsChanged(true);
-    },
-    nameInputOnFocus: () => {
-      ModaleService.nameHandler();
-    },
-    onClickButton: () => {
-      if (
-        props.modalState.createEditModal.entityType === modalEntityType.TASK
-      ) {
-        if (
-          props.modalState.createEditModal.action === modalActionsType.CREATE
-        ) {
-          ModaleService.createTask();
-        } else ModaleService.saveTask();
-      } else {
-        if (
-          props.modalState.createEditModal.action === modalActionsType.CREATE
-        ) {
-          ModaleService.createCategory();
-        } else ModaleService.saveCategory();
-      }
-    },
-    onClickConfirm: () => {
-      if (
-        props.modalState.createEditModal.entityType === modalEntityType.TASK
-      ) {
-        deleteTask(props.taskItem.id);
-        props.setModalState(modalStateValues.CloseSave.DeleteTask);
-        props.setTaskItem({
-          ...props.taskItem,
-          name: "",
-          description: "",
-        });
-      } else {
-        deleteCategorie(props.categoryItem.id);
-        props.setModalState(modalStateValues.CloseSave.DeleteCategory);
-        props.setCategoryItem({
-          ...props.categoryItem,
-          name: "",
-          description: "",
-        });
-      }
-    },
-
     showModal: () => {
       if (props.modalState.createEditModal.action === modalActionsType.DELETE) {
         return (
           <ConfirmModal
             values={ModaleService.modals.confirmModal}
             {...props}
-            closeModal={ModaleService.closeModal}
-            acceptOnClick={ModaleService.onClickConfirm}
+            closeModal={closeModal}
+            acceptOnClick={onClickConfirm}
           />
         );
       } else if (
@@ -261,20 +115,19 @@ const ModalContainer = (props: IModalContainer) => {
         return (
           <TaskForm
             {...props}
-            {...ModaleService}
-            nameInputOnFocus={ModaleService.nameInputOnFocus}
+            modalValues={ModaleService.modals.taskModal}
+            styles={ModaleService.styles}
+            nameInputOnFocus={nameInputOnFocus}
             setIsChanged={setIsChanged}
-            onChangeSelect={ModaleService.onChangeSelect}
-            closeModal={ModaleService.closeModal}
-            acceptOnClick={ModaleService.onClickButton}
+            onChangeSelect={onChangeSelect}
+            closeModal={closeModal}
+            acceptOnClick={onClickButton}
             selectRef={selectRef}
             nameInputRef={nameInputRef}
             descriptionRef={descriptionRef}
-            modalValues={ModaleService.modals.taskModal}
             selectValueId={selectValueId}
-            onChangeName={ModaleService.onChangeTaskInput}
-            descriptionOnChange={ModaleService.onChangeTaskDescription}
-            styles={ModaleService.styles}
+            onChangeName={onChangeTaskInput}
+            descriptionOnChange={onChangeTaskDescription}
           />
         );
       } else if (
@@ -283,20 +136,156 @@ const ModalContainer = (props: IModalContainer) => {
         return (
           <CategoryForm
             {...props}
-            {...ModaleService}
-            nameInputOnFocus={ModaleService.nameInputOnFocus}
-            closeModal={ModaleService.closeModal}
-            acceptOnClick={ModaleService.onClickButton}
+            nameInputOnFocus={nameInputOnFocus}
+            closeModal={closeModal}
+            acceptOnClick={onClickButton}
             nameInputRef={nameInputRef}
             descriptionRef={descriptionRef}
             modalValues={ModaleService.modals.categoryModal}
-            onChangeName={ModaleService.handleCategoryNameInput}
-            descriptionOnChange={ModaleService.onChangeCategoryDescription}
+            onChangeName={handleCategoryNameInput}
+            descriptionOnChange={onChangeCategoryDescription}
             styles={ModaleService.styles}
           />
         );
       }
     },
+  };
+  const onChangeSelect = () => {
+    const index = selectRef.current.selectedIndex;
+    const optionElement = selectRef.current.childNodes[index];
+    const optionElementId = optionElement.getAttribute("id");
+    setSelectValueId(optionElementId);
+  };
+  const clearInputs = () => {
+    props.setCategoryItem({
+      ...props.categoryItem,
+      name: "",
+      description: "",
+    });
+    props.setTaskItem({
+      ...props.taskItem,
+      name: "",
+      description: "",
+    });
+  };
+  const closeModal = () => {
+    props.setModalState(modalStateValues.CloseDontSave.CloseCreateCategory);
+    props.setModalState(modalStateValues.CloseDontSave.CloseCreateTask);
+    clearInputs();
+  };
+  const createTask = () => {
+    props.setModalState(modalStateValues.CloseSave.CreateTask);
+    addTask(props.taskItem.name, props.taskItem.description, selectValueId);
+    clearInputs();
+  };
+  const createCategory = () => {
+    props.setModalState(modalStateValues.CloseSave.CreateCategory);
+    addCategory(props.categoryItem.name, props.categoryItem.description);
+    clearInputs();
+  };
+  const saveTask = () => {
+    props.setModalState(modalStateValues.CloseSave.CreateTask);
+    onChangeSelect();
+    editTask(
+      props.taskItem.id,
+      props.taskItem.name,
+      props.taskItem.description,
+      selectValueId
+    );
+    clearInputs();
+  };
+  const saveCategory = () => {
+    props.setModalState(modalStateValues.CloseSave.CreateCategory);
+    editCategory(
+      props.categoryItem.id,
+      props.categoryItem.name,
+      props.categoryItem.description
+    );
+    clearInputs();
+  };
+  const nameHandler = () => {
+    setIsDirty(true);
+    props.setTaskItem({
+      ...props.taskItem,
+      name: nameInputRef?.current?.value,
+    });
+    props.setCategoryItem({
+      ...props.categoryItem,
+      name: nameInputRef?.current?.value,
+    });
+    (props.taskItem.name.length || props.categoryItem.name.length) > 1 &&
+    (props.taskItem.name.length || props.categoryItem.name.length) < 256
+      ? setIsInvalid(false)
+      : setIsInvalid(true);
+  };
+  const descriptionHandler = () => {
+    props.setTaskItem({
+      ...props.taskItem,
+      description: descriptionRef?.current?.value,
+    });
+    props.setCategoryItem({
+      ...props.categoryItem,
+      description: descriptionRef?.current?.value,
+    });
+    props.taskItem!.description!.length < 1536
+      ? setIsInvalid(false)
+      : setIsInvalid(true);
+  };
+  const onChangeTaskDescription = () => {
+    descriptionHandler();
+    onChangeSelect();
+    setIsChanged(true);
+  };
+
+  const onChangeCategoryDescription = () => {
+    descriptionHandler();
+    setIsChanged(true);
+    props.categoryItem.description!.length < 512
+      ? setIsInvalid(false)
+      : setIsInvalid(true);
+  };
+
+  const onChangeTaskInput = () => {
+    nameHandler();
+    setIsChanged(true);
+    onChangeSelect();
+  };
+  const handleCategoryNameInput = () => {
+    nameHandler();
+    setIsChanged(true);
+  };
+  const nameInputOnFocus = () => {
+    nameHandler();
+  };
+  const onClickButton = () => {
+    if (props.modalState.createEditModal.entityType === modalEntityType.TASK) {
+      if (props.modalState.createEditModal.action === modalActionsType.CREATE) {
+        createTask();
+      } else saveTask();
+    } else {
+      if (props.modalState.createEditModal.action === modalActionsType.CREATE) {
+        createCategory();
+      } else saveCategory();
+    }
+  };
+  const onClickConfirm = () => {
+    if (props.modalState.createEditModal.entityType === modalEntityType.TASK) {
+      deleteTask(props.taskItem.id);
+      props.setModalState(modalStateValues.CloseSave.DeleteTask);
+      props.setTaskItem({
+        ...props.taskItem,
+        name: "",
+        description: "",
+      });
+    } else {
+      deleteCategorie(props.categoryItem.id);
+      props.setModalState(modalStateValues.CloseSave.DeleteCategory);
+      props.setCategoryItem({
+        ...props.categoryItem,
+        name: "",
+        description: "",
+      });
+    }
   };
   return <div className="Modal-Wrapper">{ModaleService.showModal()}</div>;
 };
