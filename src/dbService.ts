@@ -53,19 +53,19 @@ export const addCategory = (name: string, description?: string) => {
     const transaction = db.transaction(["categories"], "readwrite");
     const categories = transaction.objectStore("categories");
 
-    const categorie = {
+    const category = {
 
         name: name,
         description: description,
     }
-    const request = categories.put(categorie);
+    const request = categories.put(category);
 
     request.onsuccess = function () { };
 
     request.onerror = function () { };
 };
 
-export const editCategory = (id: string, name: string, description?: string, categorieId?: string) => {
+export const editCategory = (id: string, name: string, description?: string, categoryId?: string) => {
     const db = openRequest.result;
     const transaction = db.transaction(["categories"], "readwrite");
     const categories = transaction.objectStore("categories");
@@ -74,7 +74,7 @@ export const editCategory = (id: string, name: string, description?: string, cat
         id: id,
         name: name,
         description: description,
-        categorieId: categorieId
+        categorieId: categoryId
     }
 
     const request = categories.put(category);
@@ -112,11 +112,11 @@ export const deleteTask = (taskId: string) => {
     request.onerror = function () { };
 }
 
-export const deleteCategorie = (CategorieId: string) => {
+export const deleteCategorie = (CategoryId: string) => {
     const db = openRequest.result;
     const request = db.transaction(["categories"], "readwrite")
         .objectStore("categories")
-        .delete(CategorieId);
+        .delete(CategoryId);
     request.onsuccess = function () { };
 
     request.onerror = function () { };
