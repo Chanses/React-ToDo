@@ -7,7 +7,9 @@ import CategoriesListContainer from "./components/ListCategories/CategoriesListC
 import { ModalState } from "./AppContainer";
 import { ICategoryItem } from "./models/ICategoryItem";
 import { ITaskItem } from "./models/ITaskItem";
-import ModalContainer from "./components/Modal/ModalContainer";
+import EntityModalContainer from "./components/Modals/EntityModal/EntityModalContainer";
+import ConfirmModalContainer from "./components/Modals/ConfirmModal/ConfirmModalContainer";
+import ModalContainer from "./components/Modals/EntityModal/Modal";
 
 interface IApp {
   section: boolean;

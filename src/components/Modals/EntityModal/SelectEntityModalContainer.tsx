@@ -1,11 +1,11 @@
 import React from "react";
-import { ModalState } from "../../AppContainer";
-import { modalActionsType } from "../../models/enum/modalActionsType";
-import { ICategoryItem } from "../../models/ICategoryItem";
-import { ITaskItem } from "../../models/ITaskItem";
-import Select from "../Select";
+import { ModalState } from "../../../AppContainer";
+import { modalActionsType } from "../../../models/enum/modalActionsType";
+import { ICategoryItem } from "../../../models/ICategoryItem";
+import { ITaskItem } from "../../../models/ITaskItem";
+import Select from "../../Select";
 
-interface IModalSelectContainer {
+interface IEntityModalSelectContainer {
   categorieList?: ICategoryItem[];
   modalState: ModalState;
   taskItem: ITaskItem;
@@ -15,7 +15,7 @@ interface IModalSelectContainer {
   setIsChanged: (isChanged: boolean) => void;
 }
 
-const ModalSelectContainer = (props: IModalSelectContainer) => {
+const EntityModalSelectContainer = (props: IEntityModalSelectContainer) => {
   const onChangeSelect = () => {
     props.onChangeSelect();
     props.setIsChanged(true);
@@ -41,4 +41,4 @@ const ModalSelectContainer = (props: IModalSelectContainer) => {
   );
 };
 
-export default ModalSelectContainer;
+export default EntityModalSelectContainer;

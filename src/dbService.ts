@@ -9,19 +9,10 @@ export const openStorage = openRequest.onupgradeneeded = function () {
     db.createObjectStore('categories', { keyPath: 'id', autoIncrement: true });
 };
 
-
-
 export const addTask = (name: string, description?: string, categoryId?: string) => {
     const db = openRequest.result;
     const transaction = db.transaction(["tasks"], "readwrite"); // (1)
     const tasks = transaction.objectStore("tasks"); // (2)
-
-
-    const transactionCategory = db.transaction(["categories"], "readwrite"); // (1)
-    const categories = transactionCategory.objectStore("categories"); // (2)
-
-    const categoryItem = categories.get("Срочно")
-    console.log(categoryItem)
 
     const task = {
 
@@ -30,24 +21,17 @@ export const addTask = (name: string, description?: string, categoryId?: string)
         categoryId: categoryId
     }
 
-    const request = tasks.put(task); // (3)
+    const request = tasks.put(task);
 
+    request.onsuccess = function () { };
 
-    request.onsuccess = function () { // (4)
-
-
-    };
-
-    request.onerror = function () {
-
-    };
+    request.onerror = function () { };
 };
 
 export const editTask = (id: string, name: string, description?: string, categoryId?: string,) => {
     const db = openRequest.result;
     const transaction = db.transaction(["tasks"], "readwrite"); // (1)
     const tasks = transaction.objectStore("tasks"); // (2)
-
 
     const task = {
         id: id,
@@ -56,48 +40,35 @@ export const editTask = (id: string, name: string, description?: string, categor
         categoryId: categoryId
     }
 
-    const request = tasks.put(task); // (3)
+    const request = tasks.put(task);
 
+    request.onsuccess = function () { };
 
-    request.onsuccess = function () { // (4)
-
-
-    };
-
-    request.onerror = function () {
-
-    };
+    request.onerror = function () { };
 };
-
-
 
 export const addCategory = (name: string, description?: string) => {
 
     const db = openRequest.result;
-    const transaction = db.transaction(["categories"], "readwrite"); // (1)
-    const categories = transaction.objectStore("categories"); // (2)
+    const transaction = db.transaction(["categories"], "readwrite");
+    const categories = transaction.objectStore("categories");
 
     const categorie = {
 
         name: name,
         description: description,
     }
-    const request = categories.put(categorie); // (3)
+    const request = categories.put(categorie);
 
+    request.onsuccess = function () { };
 
-    request.onsuccess = function () { // (4)
-
-    };
-
-    request.onerror = function () {
-
-    };
+    request.onerror = function () { };
 };
 
 export const editCategory = (id: string, name: string, description?: string, categorieId?: string) => {
     const db = openRequest.result;
-    const transaction = db.transaction(["categories"], "readwrite"); // (1)
-    const categories = transaction.objectStore("categories"); // (2)
+    const transaction = db.transaction(["categories"], "readwrite");
+    const categories = transaction.objectStore("categories");
 
     const category = {
         id: id,
@@ -106,20 +77,12 @@ export const editCategory = (id: string, name: string, description?: string, cat
         categorieId: categorieId
     }
 
-    const request = categories.put(category); // (3)
+    const request = categories.put(category);
 
+    request.onsuccess = function () { };
 
-    request.onsuccess = function () { // (4)
-
-
-    };
-
-    request.onerror = function () {
-
-    };
+    request.onerror = function () { };
 };
-
-
 
 export const getCategories = (cb: (categories: ICategoryItem[]) => void) => {
     const openRequest = indexedDB.open("ToDo", 1);
@@ -134,39 +97,29 @@ export const getCategories = (cb: (categories: ICategoryItem[]) => void) => {
             cb(allRecords.result);
         };
 
-        allRecords.onerror = function () {
-
-        };
+        allRecords.onerror = function () { };
     }
 }
-
 
 export const deleteTask = (taskId: string) => {
     const db = openRequest.result;
     const request = db.transaction(["tasks"], "readwrite")
         .objectStore("tasks")
         .delete(taskId);
-    request.onsuccess = function () {
 
+    request.onsuccess = function () { };
 
-    };
-    request.onerror = function () {
-
-    };
+    request.onerror = function () { };
 }
 
-export const deleteCategory = (CategorieId: string) => {
+export const deleteCategorie = (CategorieId: string) => {
     const db = openRequest.result;
     const request = db.transaction(["categories"], "readwrite")
         .objectStore("categories")
         .delete(CategorieId);
-    request.onsuccess = function () {
+    request.onsuccess = function () { };
 
-
-    };
-    request.onerror = function () {
-
-    };
+    request.onerror = function () { };
 }
 
 export let getTasks = (cb: (tasks: ITaskItem[]) => void) => {
@@ -179,11 +132,9 @@ export let getTasks = (cb: (tasks: ITaskItem[]) => void) => {
 
         allRecords.onsuccess = function () {
             cb(allRecords.result);
-
         };
-        allRecords.onerror = function () {
 
-        };
+        allRecords.onerror = function () { };
     }
 
     openRequest.onerror = () => console.log("open DB error")

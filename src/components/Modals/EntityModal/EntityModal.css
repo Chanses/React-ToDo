@@ -1,15 +1,16 @@
-.Modal-Wrapper {
+.EntityModal-Wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   background-color: rgba(0, 0, 0, 0.3);
 }
-.Modal {
+.EntityModal {
   width: 800px;
   position: absolute;
-  top: 33%;
-  left: 27%;
   background-color: #dbe2ef;
   display: flex;
   flex-direction: column;
@@ -18,7 +19,7 @@
   border-radius: 4px;
   color: #3f72af;
 }
-.Modal button {
+.EntityModal button {
   color: #3f72af;
   outline: none;
   border: none;
@@ -26,7 +27,7 @@
   cursor: pointer;
 }
 
-.Modal input {
+.EntityModal input {
   color: black;
   background-color: transparent;
   border: 2px solid #3f72af;
@@ -36,14 +37,14 @@
   padding-left: 8px;
   outline: none;
 }
-.Modal input:focus {
+.EntityModal input:focus {
   border: solid 2px #257fea;
 }
-.Modal input::placeholder {
+.EntityModal input::placeholder {
   color: rgba(0, 0, 0, 0.5);
   font-size: 20px;
 }
-.Modal-InputsArticle {
+.EntityModal-InputsArticle {
   background-color: #dbe2ef;
   padding: 0 4px;
   position: absolute;
@@ -51,44 +52,40 @@
   left: 15px;
   font-weight: 400;
 }
-.Modal__Article {
+.EntityModal__Article {
   display: flex;
   justify-content: space-between;
 }
-.Modal__Article-Name {
+.EntityModal__Article-Name {
   color: #3f72af;
   font-size: 40px;
   font-weight: 500;
   text-align: left;
   margin-bottom: 50px;
 }
-.Modal__Article-Close {
+.EntityModal__Article-Close {
   margin-bottom: 50px;
   font-size: 30px;
 }
 
-.Modal__Main {
+.EntityModal__Main {
   display: flex;
   justify-content: space-between;
   background-color: none;
   margin-bottom: 35px;
 }
 
-.Modal__Main-Name-small {
+.EntityModal__Main-Name-small {
   margin-bottom: 35px;
 }
-.Modal__Main-Name-small input {
+.EntityModal__Main-Name-small input {
   width: calc(100% - 12px);
 }
-.Modal__Main-Description-small {
-  margin-bottom: 30px;
-  color: black;
-}
-.Modal__Main-Name__article {
+.EntityModal__Main-Name__article {
   display: flex;
   position: relative;
 }
-.Modal__Main-Categorie select {
+.EntityModal__Main-Categorie select {
   display: flex;
   background-color: transparent;
   border: none;
@@ -104,27 +101,27 @@
   width: calc(100%);
   height: 52px;
 }
-.Modal__Main-Categorie select:hover {
+.EntityModal__Main-Categorie select:hover {
   border: 2px solid #257fea;
 }
-.Modal__Main-Categorie select:focus {
+.EntityModal__Main-Categorie select:focus {
   border: 2px solid #257fea;
 }
 
-.Modal__Main-Categorie select option {
+.EntityModal__Main-Categorie select option {
   color: black;
   border: 2px solid #257fea;
   height: 50px;
 }
-.Modal__Main-Categorie option:hover {
+.EntityModal__Main-Categorie option:hover {
   box-shadow: 0 0 10px 100px red;
 }
-.Modal__Main-Categorie select option:checked {
+.EntityModal__Main-Categorie select option:checked {
   background-color: #3f72af;
   color: white;
 }
 
-.Modal__Main-Categorie__article {
+.EntityModal__Main-Categorie__article {
   position: relative;
 }
 .DoubleInput {
@@ -137,15 +134,15 @@
   display: block;
   width: calc(100% - 12px);
 }
-.Modal__Main-Description {
+.EntityModal__Main-Description {
   margin-bottom: 16px;
   text-align: left;
   position: relative;
 }
-.Modal__Main-Description-small {
+.EntityModal__Main-Description-small {
   margin-bottom: 32px;
 }
-.Modal__Main-Description textarea {
+.EntityModal__Main-Description textarea {
   width: 100%;
   min-height: 72px;
   resize: none;
@@ -160,19 +157,19 @@
   outline: none;
   font-family: Roboto;
 }
-.Modal__Main-Description textarea:focus {
+.EntityModal__Main-Description textarea:focus {
   border: solid 2px #257fea;
 }
-.Modal__Main-Description textarea::placeholder {
+.EntityModal__Main-Description textarea::placeholder {
   color: rgba(0, 0, 0, 0.5);
   font-size: 20px;
 }
 
-.Modal__buttons {
+.EntityModal__buttons {
   display: flex;
   justify-content: flex-end;
 }
-.Modal__buttons button {
+.EntityModal__buttons button {
   display: flex;
   justify-content: flex-end;
   height: 46px;
@@ -183,30 +180,30 @@
   justify-content: center;
 }
 
-.Modal__buttons-create button {
+.EntityModal__buttons-create button {
   width: 200px;
   background-color: #3f72af;
   color: white;
   margin-right: 24px;
 }
-.Modal__buttons-create button:hover {
+.EntityModal__buttons-create button:hover {
   background-color: #257fea;
 }
-.Modal__buttons-create button:active {
+.EntityModal__buttons-create button:active {
   background-color: #65abff;
 }
-.Modal__buttons-close button {
+.EntityModal__buttons-close button {
   background-color: transparent;
   border: 2px solid #3f72af;
   color: #3f72af;
   width: 120px;
 }
-.Modal__buttons-close button:hover {
+.EntityModal__buttons-close button:hover {
   background: rgba(37, 127, 234, 0.2);
   color: #257fea;
   border: 2px solid #257fea;
 }
-.Modal__buttons-close button:active {
+.EntityModal__buttons-close button:active {
   background-color: #257fea;
   border: 2px solid #257fea;
   color: white;

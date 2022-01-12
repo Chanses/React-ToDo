@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import App from "./App";
+
 import { getTasks, getCategories } from "./dbService";
 import { modalNames } from "./models/enum/modalNames";
 import { IModalStateInterface } from "./models/IModalStateInterface";

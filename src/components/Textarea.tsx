@@ -3,7 +3,7 @@ import React from "react";
 interface ITextArea {
   value: string;
   placeholder: string;
-  descriptionInput: () => void;
+  descriptionRef: () => void;
   onChange: () => void;
 }
 const TaskTextarea = (props: ITextArea) => {
@@ -13,7 +13,7 @@ const TaskTextarea = (props: ITextArea) => {
       placeholder={props.placeholder}
       value={props.value}
       onChange={props.onChange}
-      ref={props.descriptionInput}
+      ref={props.descriptionRef}
     />
   );
 };
