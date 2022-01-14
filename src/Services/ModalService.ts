@@ -6,15 +6,19 @@ class ModalService {
     modals: Partial<ModalRegistry>;
     constructor() {
         this.modals = {};
-    }
 
+    }
+    isModalOpen = false;
     isOpen(modalName: keyof ModalRegistry) {
-        return !!this.modals[modalName]
+        this.isModalOpen = !!this.modals[modalName]
     }
 
     showModal(modalName: keyof ModalRegistry, modalProps: Omit<ModalRegistry, keyof ModalRegistry>) {
         this.modals = { ...this.modals, [modalName]: modalProps }
+
+
     }
+
 
     closeModal(modalName: keyof ModalRegistry) {
         delete this.modals[modalName];

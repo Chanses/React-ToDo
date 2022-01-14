@@ -35,6 +35,7 @@ const CategoriesListContainer = (props: ICategoriesListContainer) => {
 
   const onDelete = () => {
     props.setModalState(modalStateValues.Open.OpenDeleteCategory);
+
     ModalService.showModal("confirmModal", {});
   };
   const confirmModalChildren = () => {

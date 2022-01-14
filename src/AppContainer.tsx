@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import App from "./App";
 
 import { getTasks, getCategories } from "./dbService";
-import { modalNames } from "./models/enum/modalNames";
+import { modalNamesEnum } from "./models/enum/modalNames";
 import { IModalStateInterface } from "./models/IModalStateInterface";
 import { modalResultEnum } from "./models/enum/modalResultEnum";
 import { modalActionsType } from "./models/enum/modalActionsType";
 import { ICategoryItem } from "./models/ICategoryItem";
 import { ITaskItem } from "./models/ITaskItem";
-import { ModalService } from "./models/enum/modalNames";
+import ModalService from "./Services/ModalService";
 
-export type ModalState = Record<modalNames, IModalStateInterface>;
+export type ModalState = Record<modalNamesEnum, IModalStateInterface>;
 
 const AppContainer = () => {
   // Состояния для попапов
@@ -63,7 +63,7 @@ const AppContainer = () => {
 
   const handleLoadCategorie = (categorie: ICategoryItem[]) =>
     setCategorieList(categorie);
-  console.log(ModalService.isOpen);
+
   useEffect(() => {
     if (
       modalState.createEditModal.lastResult === modalResultEnum.OK ||
@@ -76,7 +76,7 @@ const AppContainer = () => {
   return (
     <App
       // Состояния для попапов
-      isModalOpen={ModalService.isOpen}
+
       section={section}
       modalState={modalState}
       // Значения

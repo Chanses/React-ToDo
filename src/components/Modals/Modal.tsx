@@ -4,46 +4,50 @@ import Button from "../Button";
 import ImgButton from "../ImgButton";
 import closeImg from "../../images/Close.svg";
 import { IModal } from "../../models/IModal";
-import modalService from "../../Services/ModalService";
+
+import ModalService from "../../Services/ModalService";
 
 const Modal = (props: IModal) => {
   const modalRoot: Element = document.body;
+  console.log(ModalService.isModalOpen);
   const ModalPortal = () => {
-    if (!modalService.isOpen) return null;
-    else
-      return ReactDOM.createPortal(
-        <div className="Modal">
-          <div className="Modal__Article">
-            <div className="Modal__Article-Name ">
-              <span>{props.title}</span>
-            </div>
-            <ImgButton
-              img={closeImg}
-              onClick={() => modalService.closeModal(props.modalName)}
-              className="Modal__Article-Close"
+    return ReactDOM.createPortal(
+      <div className="Modal">
+        <div className="Modal__Article">
+          <div className="Modal__Article-Name ">
+            <span>{props.title}</span>
+          </div>
+          <ImgButton
+            img={closeImg}
+            onClick={() => ModalService.closeModal(props.modalName)}
+            className="Modal__Article-Close"
+          />
+        </div>
+        {/* Content */}
+        {props.children}
+        <div className="Modal__buttons">
+          <div className="Modal__buttons-create">
+            <Button
+              onClick={props.onSubmitClick}
+              title={props.submitButtonTitle}
             />
           </div>
-          {/* Content */}
-          {props.children}
-          <div className="Modal__buttons">
-            <div className="Modal__buttons-create">
-              <Button
-                onClick={props.onSubmitClick}
-                title={props.submitButtonTitle}
-              />
-            </div>
-            <div className="Modal__buttons-close">
-              <Button
-                onClick={() => props.onCloseModal}
-                title={props.closeButtonTitle}
-              />
-            </div>
+          <div className="Modal__buttons-close">
+            <Button
+              onClick={() => props.onCloseModal}
+              title={props.closeButtonTitle}
+            />
           </div>
-        </div>,
-        modalRoot
-      );
+        </div>
+      </div>,
+      modalRoot
+    );
   };
-  return <div className="Modal">{ModalPortal}</div>;
+  const getModal = () => {
+    if (ModalService.isModalOpen) return null;
+    else return ModalPortal;
+  };
+  return <div className="Modal">{getModal}</div>;
 };
 
 export default Modal;

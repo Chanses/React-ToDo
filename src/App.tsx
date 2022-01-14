@@ -10,7 +10,6 @@ import { ITaskItem } from "./models/ITaskItem";
 import ModalContainer from "./components/Modals/ModalContainer";
 
 interface IApp {
-  isModalOpen: boolean;
   section: boolean;
   taskList?: ITaskItem[];
   categorieList?: ICategoryItem[];
@@ -28,7 +27,6 @@ const App: React.FC<IApp> = (props) => {
   return (
     <Router>
       <div className="App">
-        {props.isModalOpen && <ModalContainer {...props} />}
         <HeaderContainer {...props} />
         <div className="Content">
           <Routes>
