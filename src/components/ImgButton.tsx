@@ -1,5 +1,7 @@
+import React from "react";
+
 interface IImgButton {
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler;
   className?: string;
   img: any;
 }

@@ -1,5 +1,6 @@
 
-export enum modalNames {
-  CREATEEDITMODAL = "createEditModal",
-  DELETEMODAL = "deleteModal",
+export enum modalNamesEnum {
+  TASKMODAL = "taskModal",
+  CATEGORYMODAL = "categoryModal",
+  CONFIRMMODAL = "confirmModal",
 }

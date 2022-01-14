@@ -8,6 +8,7 @@ import { modalResultEnum } from "./models/enum/modalResultEnum";
 import { modalActionsType } from "./models/enum/modalActionsType";
 import { ICategoryItem } from "./models/ICategoryItem";
 import { ITaskItem } from "./models/ITaskItem";
+import { ModalService } from "./models/enum/modalNames";
 
 export type ModalState = Record<modalNames, IModalStateInterface>;
 
@@ -62,7 +63,7 @@ const AppContainer = () => {
 
   const handleLoadCategorie = (categorie: ICategoryItem[]) =>
     setCategorieList(categorie);
-
+  console.log(ModalService.isOpen);
   useEffect(() => {
     if (
       modalState.createEditModal.lastResult === modalResultEnum.OK ||
@@ -70,14 +71,12 @@ const AppContainer = () => {
     ) {
       getCategories(handleLoadCategorie);
     }
-  }, [
-    modalState.createEditModal.lastResult,
-    modalState.deleteModal.lastResult,
-  ]);
+  }, [ModalService.isOpen]);
 
   return (
     <App
       // Состояния для попапов
+      isModalOpen={ModalService.isOpen}
       section={section}
       modalState={modalState}
       // Значения
