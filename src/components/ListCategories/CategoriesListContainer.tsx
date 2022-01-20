@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import CategoriesList from "./CategoriesList";
 import { ModalState } from "../../AppContainer";
-import { modalStateValues } from "../../models/modalStateValues";
 import ModalService from "../../Services/ModalService";
 import ConfirmModal from "../Modals/Forms/ConfirmForm/ConfirmModal";
 import { deleteCategorie, editCategory, getCategories } from "../../dbService";

@@ -4,7 +4,7 @@ import TasksList from "./TasksList";
 import { ModalState } from "../../AppContainer";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
-import { modalStateValues } from "../../models/modalStateValues";
+
 import { modalActionsType } from "../../models/enum/modalActionsType";
 import { modalResultEnum } from "../../models/enum/modalResultEnum";
 import { deleteTask, getTasks } from "../../dbService";
@@ -21,15 +21,6 @@ const TasksListContainer = (props: ITasksListContainer) => {
   const handleLoadTasks = (tasks: ITaskItem[]) => setTasksList(tasks);
   const [tasksList, setTasksList] = useState<ITaskItem[]>();
 
-  const [modalState, setModalState] = useState<ModalState>({
-    createEditModal: {
-      entityType: undefined,
-      action: modalActionsType.CREATE,
-      open: false,
-      lastResult: modalResultEnum.OK,
-    },
-    deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
-  });
   const [taskItem, setTaskItem] = useState<ITaskItem>({
     id: "",
     name: "",
@@ -41,11 +32,7 @@ const TasksListContainer = (props: ITasksListContainer) => {
     getTasks(handleLoadTasks);
   }, [ModalService.isOpen("confirmModal"), ModalService.isOpen("taskModal")]);
 
-  const onUpdate = () => {
-    props.setModalState(modalStateValues.Open.OpenEditTask);
-  };
   const onEdit = (task: ITaskItem) => {
-    setModalState(modalStateValues.Open.OpenEditCategory);
     setTaskItem({
       id: task.id,
       name: task.name,
@@ -58,7 +45,9 @@ const TasksListContainer = (props: ITasksListContainer) => {
       </form>
     );
     ModalService.showModal("taskModal", {
-      onSubmitClick: () => onUpdate,
+      onSubmitClick: () => {
+        ModalService.closeModal("taskModal");
+      },
       title: "Редактирование задачи",
       modalName: "taskModal",
       children: taskModalChildren,
