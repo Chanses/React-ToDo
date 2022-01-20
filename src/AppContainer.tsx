@@ -13,24 +13,6 @@ import ModalService from "./Services/ModalService";
 export type ModalState = Record<modalNamesEnum, IModalStateInterface>;
 
 const AppContainer = () => {
-  // Состояния для попапов
-  const [section, setSection] = useState<boolean>(true);
-  // Установка значений
-  const [taskItem, setTaskItem] = useState<ITaskItem>({
-    id: "",
-    name: "",
-    description: "",
-    categoryId: "",
-  });
-  const [categoryItem, setCategoryItem] = useState<ICategoryItem>({
-    id: "",
-    name: "",
-    description: "",
-  });
-  // Установка полученных значений
-  const [tasksList, setTasksList] = useState<ITaskItem[]>();
-  const [categorieList, setCategorieList] = useState<ICategoryItem[]>();
-  // Изменение состояний для попапов
   const [modalState, setModalState] = useState<ModalState>({
     createEditModal: {
       entityType: undefined,
@@ -40,58 +22,10 @@ const AppContainer = () => {
     },
     deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
   });
-
-  function setTaskSection() {
-    setSection(true);
-  }
-  function setCategorieSection() {
-    setSection(false);
-  }
-  const handleLoadTasks = (tasks: ITaskItem[]) => setTasksList(tasks);
-
-  useEffect(() => {
-    if (
-      modalState.createEditModal.lastResult === modalResultEnum.OK ||
-      modalState.deleteModal.lastResult === modalResultEnum.OK
-    ) {
-      getTasks(handleLoadTasks);
-    }
-  }, [
-    modalState.createEditModal.lastResult,
-    modalState.deleteModal.lastResult,
-  ]);
-
-  const handleLoadCategorie = (categorie: ICategoryItem[]) =>
-    setCategorieList(categorie);
-
-  useEffect(() => {
-    if (
-      modalState.createEditModal.lastResult === modalResultEnum.OK ||
-      modalState.deleteModal.lastResult === modalResultEnum.OK
-    ) {
-      getCategories(handleLoadCategorie);
-    }
-  }, [ModalService.isOpen]);
-
   return (
     <App
-      // Состояния для попапов
-
-      section={section}
-      modalState={modalState}
-      // Значения
-      taskItem={taskItem}
-      categoryItem={categoryItem}
-      // Полученные данные
-      taskList={tasksList}
-      categorieList={categorieList}
       // Изменение состояний для попапов
-      setTaskSection={setTaskSection}
-      setCategorieSection={setCategorieSection}
       setModalState={setModalState}
-      // Установка значений
-      setTaskItem={setTaskItem}
-      setCategoryItem={setCategoryItem}
     />
   );
 };

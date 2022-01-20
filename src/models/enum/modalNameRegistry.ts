@@ -3,6 +3,6 @@ import { IModalProps } from "../IModalProps";
 
 export interface ModalRegistry {
     "confirmModal": IConfirmModal;
-    "taskModal": IModalProps;
-    "categoryModal": IModalProps;
+    "taskModal": IConfirmModal;
+    "categoryModal": IConfirmModal;
 }

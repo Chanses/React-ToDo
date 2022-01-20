@@ -41,7 +41,7 @@ const Header = (props: IHeader) => {
       </div>
       <Button
         title={props.HeaderValues.value}
-        onClick={props.onCreate}
+        onClick={() => props.onCreate()}
         disabled={false}
         className={"Header__AddNewItem"}
       />

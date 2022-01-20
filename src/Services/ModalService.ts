@@ -1,28 +1,34 @@
 
 import { ModalRegistry } from "../models/enum/modalNameRegistry";
-
+import { makeObservable, observable, computed, action } from "mobx"
 
 class ModalService {
     modals: Partial<ModalRegistry>;
     constructor() {
-        this.modals = {};
+        makeObservable(this, {
+            modals: observable,
+            showModal: action,
+            closeModal: action,
 
+        })
+        this.modals = {};
     }
-    isModalOpen = false;
+
     isOpen(modalName: keyof ModalRegistry) {
-        this.isModalOpen = !!this.modals[modalName]
+        return modalName in this.modals;
     }
 
     showModal(modalName: keyof ModalRegistry, modalProps: Omit<ModalRegistry, keyof ModalRegistry>) {
         this.modals = { ...this.modals, [modalName]: modalProps }
-
+        this.isOpen(modalName)
 
     }
 
-
     closeModal(modalName: keyof ModalRegistry) {
+        this.isOpen(modalName);
         delete this.modals[modalName];
+
     }
 }
 
-export default new ModalService();
+export default new ModalService();                                                                                                       

@@ -1,78 +1,60 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./Form.css";
 import Textarea from "../../Textarea";
-import ImgButton from "../../ImgButton";
-import closeImg from "../../../images/Close.svg";
-import Button from "../../Button";
+import CategoryState from "../../states/CategoryState";
+import { observer } from "mobx-react-lite";
 
-export interface IForm {
-  modalValues: any;
-  nameInputRef: any;
-  descriptionRef: any;
-  styles: any;
-  descriptionOnChange: () => void;
-  acceptOnClick: () => void;
-  closeModal: () => void;
-  onChangeName: () => void;
-  nameInputOnFocus: () => void;
-}
+export interface IForm {}
 
 const CategoryForm = (props: IForm) => {
+  //TODO Сдедлать функциональную форму
+  const nameInputRef = useRef<any>();
+  const descriptionRef = useRef<any>();
+  const [nameValue, setNameValue] = useState<string>("");
+  const onNameChange = () => {
+    setNameValue(nameInputRef.current.value);
+  };
+
+  // const nameHandler = () => {
+  //     props.setCategoryItem({
+  //     ...props.categoryItem,
+  //     name: nameInputRef?.current?.value,
+  //   });
+
+  // };
+
   return (
-    <div className="Modal">
-      <div className="Modal__Article">
-        <div className="Modal__Article-Name ">
-          <span>{props.modalValues.titleValue}</span>
-        </div>
-        <ImgButton
-          img={closeImg}
-          onClick={props.closeModal}
-          className="Modal__Article-Close"
+    <form className="Modal__Form">
+      <label className="ModalForm__Item">
+        <p
+          className="ModalForm__Item-Name"
+          // style={props.styles.nameArticleValidStyle}
+        >
+          Имя <span style={{ color: "red" }}>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Введите имя категории"
+          ref={nameInputRef}
+          onChange={() => {
+            CategoryState.setName(nameInputRef.current.value);
+          }}
+          // onFocus={props.nameInputOnFocus}
+
+          // style={props.styles.nameInputValidStyle}
         />
-      </div>
-      <form className="Modal__Form">
-        <label className="ModalForm__Item">
-          <p
-            className="ModalForm__Item-Name"
-            style={props.styles.nameArticleValidStyle}
-          >
-            Имя <span style={{ color: "red" }}>*</span>
-          </p>
-          <input
-            type="text"
-            placeholder="Введите имя категории"
-            ref={props.nameInputRef}
-            onChange={props.onChangeName}
-            onFocus={props.nameInputOnFocus}
-            value={props.modalValues.nameInputValue}
-            style={props.styles.nameInputValidStyle}
-          />
-        </label>
-        <label className="ModalForm__Item">
-          <p className="ModalForm__Item-Name">Описание</p>
-          <Textarea
-            value={props.modalValues.descriptionTextAreaValue}
-            placeholder="Введите описание категории"
-            descriptionRef={props.descriptionRef}
-            onChange={props.descriptionOnChange}
-          />
-        </label>
-      </form>
-      <div className="Modal__buttons">
-        <div className="Modal__buttons-create">
-          {/* Кнопки  для сохранения*/}
-          <Button
-            onClick={props.acceptOnClick}
-            title={props.modalValues.buttonTitle}
-            disabled={props.styles.disabled}
-          />
-        </div>
-        <div className="Modal__buttons-close">
-          <Button onClick={props.closeModal} title="Закрыть" />
-        </div>
-      </div>
-    </div>
+      </label>
+      <label className="ModalForm__Item">
+        <p className="ModalForm__Item-Name">Описание</p>
+        {/* <Textarea
+          value={CategoryState.category?.description!}
+          placeholder="Введите описание категории"
+          descriptionRef={descriptionRef}
+          // onChange={props.descriptionOnChange}
+        /> */}
+      </label>
+    </form>
   );
 };
 
-export default CategoryForm;
+export default observer(CategoryForm);
