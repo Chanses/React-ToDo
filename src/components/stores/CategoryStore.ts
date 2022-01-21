@@ -11,6 +11,7 @@ class CategoryStore {
             setName: action,
             setDescription: action,
             setCategoryList: action,
+            setCategoryItem: action
         })
         this.category = {
             id: "",
@@ -22,6 +23,9 @@ class CategoryStore {
 
     setCategoryList(list: ICategoryItem[]) {
         this.categoryList = list;
+    }
+    setCategoryItem(item: ICategoryItem) {
+        this.category = item;
     }
     setName(name: string) {
         this.category.name = name

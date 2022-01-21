@@ -15,9 +15,7 @@ import ModalFooter from "../Modals/ModalFooter";
 const TasksListContainer = () => {
   const categoryList = CategoryStore.categoryList;
   const onEdit = (task: ITaskItem) => {
-    TaskStore.task.name = task.name;
-    TaskStore.task.description = task.description;
-    TaskStore.task.categoryId = task.categoryId;
+    TaskStore.setTaskItem(task);
     ModalStore.showModal("taskModal", {
       title: "Редактирование задачи",
       modalName: "taskModal",

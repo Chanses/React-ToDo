@@ -11,8 +11,7 @@ import ModalFooter from "../Modals/ModalFooter";
 
 const CategoriesListContainer = () => {
   const onEdit = (category: ICategoryItem) => {
-    CategoryStore.category.name = category.name;
-    CategoryStore.category.description = category.description;
+    CategoryStore.setCategoryItem(category);
     ModalStore.showModal("categoryModal", {
       title: "Редактирование категории",
       modalName: "categoryModal",

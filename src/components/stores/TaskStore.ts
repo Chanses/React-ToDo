@@ -11,6 +11,7 @@ class TaskStore {
             setName: action,
             setDescription: action,
             setTaskList: action,
+            setTaskItem: action,
 
         })
         this.task = {
@@ -20,6 +21,9 @@ class TaskStore {
             categoryId: ""
         }
         this.tasksList = []
+    }
+    setTaskItem(item: ITaskItem) {
+        this.task = item;
     }
     setTaskList(list: ITaskItem[]) {
         this.tasksList = list

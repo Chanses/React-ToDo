@@ -14,6 +14,9 @@
   display: flex;
   flex-direction: column;
 }
+.ModalForm__Item-Name {
+  color: #3f72af;
+}
 .ModalForm__Item:last-child {
   margin-bottom: 0px;
 }
