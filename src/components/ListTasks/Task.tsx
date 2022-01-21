@@ -8,7 +8,7 @@ import ImgButton from "../ImgButton";
 
 export interface ITaskProps {
   task: ITaskItem;
-  categorieList?: ICategoryItem[];
+  categoryList?: ICategoryItem[];
   onEdit: (task: ITaskItem) => void;
   onDelete: (task: ITaskItem) => void;
 }
@@ -20,7 +20,7 @@ const Task = (props: ITaskProps) => {
         <div className="TaskWrapper__Info__Name">
           <div className="TaskWrapper__Info__Name-name">{props.task.name}</div>
           {/* Поиск выбранной категории в массиве */}
-          {props.categorieList?.map((category, index) =>
+          {props.categoryList?.map((category, index) =>
             category.id.toString() === props.task.categoryId ? (
               <p className="TaskWrapper__Info__Name-folder" key={index}>
                 <img src={folderImg} alt="" />

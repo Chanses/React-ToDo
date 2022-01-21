@@ -1,33 +1,27 @@
-import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 import App from "./App";
-
-import { getTasks, getCategories } from "./dbService";
-import { modalNamesEnum } from "./models/enum/modalNames";
-import { IModalStateInterface } from "./models/IModalStateInterface";
-import { modalResultEnum } from "./models/enum/modalResultEnum";
-import { modalActionsType } from "./models/enum/modalActionsType";
+import CategoryStore from "./components/stores/CategoryStore";
+import TaskStore from "./components/stores/TaskStore";
+import { getCategories, getTasks } from "./dbService";
 import { ICategoryItem } from "./models/ICategoryItem";
 import { ITaskItem } from "./models/ITaskItem";
-import ModalService from "./Services/ModalService";
-
-export type ModalState = Record<modalNamesEnum, IModalStateInterface>;
+import ModalStore from "./components/stores/ModalStore";
 
 const AppContainer = () => {
-  const [modalState, setModalState] = useState<ModalState>({
-    createEditModal: {
-      entityType: undefined,
-      action: modalActionsType.CREATE,
-      open: false,
-      lastResult: modalResultEnum.OK,
-    },
-    deleteModal: { open: false, lastResult: modalResultEnum.CANCEL },
-  });
-  return (
-    <App
-      // Изменение состояний для попапов
-      setModalState={setModalState}
-    />
-  );
+  const handleLoadTasks = (tasks: ITaskItem[]) => TaskStore.setTaskList(tasks);
+  /* eslint-disable */
+  useEffect(() => {
+    getTasks(handleLoadTasks);
+  }, [ModalStore.isOpen("confirmModal"), ModalStore.isOpen("taskModal")]);
+  const handleLoadCategorie = (category: ICategoryItem[]) => {
+    CategoryStore.setCategoryList(category);
+  };
+  /* eslint-disable */
+  useEffect(() => {
+    getCategories(handleLoadCategorie);
+  }, [ModalStore.isOpen("categoryModal"), ModalStore.isOpen("confirmModal")]);
+  return <App />;
 };
 
-export default AppContainer;
+export default observer(AppContainer);

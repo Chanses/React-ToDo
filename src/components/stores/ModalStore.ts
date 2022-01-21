@@ -1,8 +1,10 @@
 
-import { ModalRegistry } from "../models/enum/modalNameRegistry";
-import { makeObservable, observable, computed, action } from "mobx"
+import { ModalRegistry } from "../../models/enum/modalNameRegistry";
+import { makeObservable, observable, action } from "mobx"
+import TaskStore from "./TaskStore";
+import CategoryStore from "./CategoryStore";
 
-class ModalService {
+class ModalStore {
     modals: Partial<ModalRegistry>;
     constructor() {
         makeObservable(this, {
@@ -27,8 +29,13 @@ class ModalService {
     closeModal(modalName: keyof ModalRegistry) {
         this.isOpen(modalName);
         delete this.modals[modalName];
+        TaskStore.task.name = "";
+        TaskStore.task.description = "";
+        TaskStore.task.categoryId = "";
+        CategoryStore.category.name = "";
+        CategoryStore.category.description = "";
 
     }
 }
 
-export default new ModalService();                                                                                                       
+export default new ModalStore();                                                                                                       

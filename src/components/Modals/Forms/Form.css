@@ -1,3 +1,9 @@
+.ModalForm {
+  margin-bottom: 30px;
+}
+.Modal__Form {
+  margin-bottom: 30px;
+}
 .ModalForm input {
   display: flex;
   flex-direction: column;
@@ -7,6 +13,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
+}
+.ModalForm__Item:last-child {
+  margin-bottom: 0px;
 }
 .ModalForm__DoubleInput {
   display: flex;

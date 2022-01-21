@@ -58,3 +58,6 @@
 .TaskWrapper__Actions button:first-child {
   margin-right: 10px;
 }
+.Confirm-text {
+  margin-bottom: 30px;
+}

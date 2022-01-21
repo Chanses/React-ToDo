@@ -3,7 +3,6 @@ import editImg from "../../images/Edit.svg";
 import deleteImg from "../../images/Delete.svg";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import ImgButton from "../ImgButton";
-import ModalService from "../../Services/ModalService";
 
 export interface ICategoryProps {
   category: ICategoryItem;

@@ -5,7 +5,7 @@ import Task from "./Task";
 
 interface ITasksList {
   taskList?: ITaskItem[];
-  categorieList?: ICategoryItem[];
+  categoryList?: ICategoryItem[];
   onEdit: (task: ITaskItem) => void;
   onDelete: (task: ITaskItem) => void;
 }

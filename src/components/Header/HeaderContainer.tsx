@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import { ModalState } from "../../AppContainer";
 import { addCategory, addTask } from "../../dbService";
-import { ICategoryItem } from "../../models/ICategoryItem";
-import { ITaskItem } from "../../models/ITaskItem";
-import { modalStateValues } from "../../models/modalStateValues";
-import ModalService from "../../Services/ModalService";
+import ModalStore from "../stores/ModalStore";
 import CategoryForm from "../Modals/Forms/CategoryForm";
 import ConfirmModal from "../Modals/Forms/ConfirmForm/ConfirmModal";
 import Header from "./Header";
-import CategoryState from "../states/CategoryState";
-import Category from "../ListCategories/Category";
+import CategoryState from "../stores/CategoryStore";
 import { observer } from "mobx-react-lite";
+import TaskForm from "../Modals/Forms/TaskForm";
+import TaskStore from "../stores/TaskStore";
 
-interface IHeaderContainer {
-  setModalState: (state: ModalState) => void;
-}
-
-const HeaderContainer = (props: IHeaderContainer) => {
+const HeaderContainer = () => {
   const [section, setSection] = useState<boolean>(true);
   function setTaskSection() {
     setSection(true);
@@ -31,45 +24,46 @@ const HeaderContainer = (props: IHeaderContainer) => {
   const HeaderValues = {
     value: section ? "Добавить задачу" : "  Добавить категорию",
   };
-  const createTask = () => {
-    addTask("task.name", "task.description");
-  };
-  const createCategory = () => {
-    addCategory(
-      CategoryState.category.name,
-      CategoryState.category.description
-    );
-  };
-  const taskFormChildren = (
-    <form action="">
-      <input type="text" placeholder="Zopa" />
-    </form>
-  );
-  const categoryFormChildren = <CategoryForm />;
+
   const onCategoryCreate = () => {
-    ModalService.showModal("categoryModal", {
-      onSubmitClick: () => {
-        createCategory();
-        ModalService.closeModal("categoryModal");
-      },
+    ModalStore.showModal("categoryModal", {
       title: "Создание категории",
       modalName: "categoryModal",
-      children: categoryFormChildren,
-      submitButtonTitle: "Создать",
-      closeButtonTitle: "Закрыть",
+      children: (
+        <CategoryForm
+          modalName="categoryModal"
+          submitButtonTitle="Создать"
+          closeButtonTitle="Закрыть"
+          onSubmitClick={() => {
+            addCategory(
+              CategoryState.category.name,
+              CategoryState.category.description
+            );
+            ModalStore.closeModal("categoryModal");
+          }}
+        />
+      ),
     });
   };
   const onTaskCreate = () => {
-    ModalService.showModal("taskModal", {
-      onSubmitClick: () => {
-        createTask();
-        ModalService.closeModal("taskModal");
-      },
+    ModalStore.showModal("taskModal", {
       title: "Создание задачи",
       modalName: "taskModal",
-      children: taskFormChildren,
-      submitButtonTitle: "Создать",
-      closeButtonTitle: "Закрыть",
+      children: (
+        <TaskForm
+          modalName="taskModal"
+          onSubmitClick={() => {
+            addTask(
+              TaskStore.task.name,
+              TaskStore.task.description,
+              TaskStore.task.categoryId
+            );
+            ModalStore.closeModal("taskModal");
+          }}
+          submitButtonTitle="Создать"
+          closeButtonTitle="Закрыть"
+        />
+      ),
     });
   };
 
@@ -81,8 +75,8 @@ const HeaderContainer = (props: IHeaderContainer) => {
         setTaskSection={setTaskSection}
         setCategorieSection={setCategorieSection}
       />
-      <ConfirmModal {...ModalService.modals.taskModal!} />
-      <ConfirmModal {...ModalService.modals.categoryModal!} />
+      <ConfirmModal {...ModalStore.modals.taskModal!} />
+      <ConfirmModal {...ModalStore.modals.categoryModal!} />
     </>
   );
 };

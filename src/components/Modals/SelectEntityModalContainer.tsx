@@ -1,39 +1,30 @@
-import React from "react";
-import { ModalState } from "../../AppContainer";
-import { modalActionsType } from "../../models/enum/modalActionsType";
+import React, { useRef } from "react";
 import { ICategoryItem } from "../../models/ICategoryItem";
-import { ITaskItem } from "../../models/ITaskItem";
 import Select from "../Select";
+import CategoryStore from "../stores/CategoryStore";
+import TaskStore from "../stores/TaskStore";
 
-interface ISelectContainer {
-  categorieList?: ICategoryItem[];
-  modalState: ModalState;
-  taskItem: ITaskItem;
-  selectRef: any;
-  selectValueId: string;
-  onChangeSelect: () => void;
-  setIsChanged: (isChanged: boolean) => void;
-}
+interface ISelectContainer {}
 
 const EntityModalSelectContainer = (props: ISelectContainer) => {
+  const selectRef = useRef<any>();
   const onChangeSelect = () => {
-    props.onChangeSelect();
-    props.setIsChanged(true);
+    const index = selectRef.current!.selectedIndex;
+    const optionElement = selectRef.current.childNodes[index];
+    const optionElementId = optionElement.getAttribute("id");
+    TaskStore.task.categoryId = optionElementId.toString();
   };
 
-  const defaultValue =
-    props.modalState.createEditModal.action === modalActionsType.CREATE
-      ? "Выберите категорию"
-      : props.categorieList?.find(
-          (category) => category.id.toString() === props.taskItem.categoryId
-        )?.name;
+  const defaultValue = CategoryStore.categoryList.find(
+    (category) => category.id.toString() === TaskStore.task.categoryId
+  )?.name;
 
   const getItem = ({ name, id: key }: ICategoryItem) => ({ name, key });
 
   return (
     <Select
-      selectRef={props.selectRef}
-      options={props.categorieList || []}
+      selectRef={selectRef}
+      options={CategoryStore.categoryList || []}
       onChange={onChangeSelect}
       getItem={getItem}
       defaultValue={defaultValue || "Выберите категорию"}

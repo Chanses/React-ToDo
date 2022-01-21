@@ -1,91 +1,77 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./TasksStyle.css";
 import TasksList from "./TasksList";
-import { ModalState } from "../../AppContainer";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
-
-import { modalActionsType } from "../../models/enum/modalActionsType";
-import { modalResultEnum } from "../../models/enum/modalResultEnum";
-import { deleteTask, getTasks } from "../../dbService";
-import ModalService from "../../Services/ModalService";
+import { deleteTask, editTask } from "../../dbService";
+import ModalStore from "../stores/ModalStore";
 import ConfirmModal from "../Modals/Forms/ConfirmForm/ConfirmModal";
 import { observer } from "mobx-react-lite";
+import TaskForm from "../Modals/Forms/TaskForm";
+import TaskStore from "../stores/TaskStore";
+import CategoryStore from "../stores/CategoryStore";
+import ModalFooter from "../Modals/ModalFooter";
 
-interface ITasksListContainer {
-  setModalState: (state: ModalState) => void;
-  categorieList?: ICategoryItem[];
-}
+interface ITasksListContainer {}
 
 const TasksListContainer = (props: ITasksListContainer) => {
-  const handleLoadTasks = (tasks: ITaskItem[]) => setTasksList(tasks);
-  const [tasksList, setTasksList] = useState<ITaskItem[]>();
-
-  const [taskItem, setTaskItem] = useState<ITaskItem>({
-    id: "",
-    name: "",
-    description: "",
-    categoryId: "",
-  });
-
-  useEffect(() => {
-    getTasks(handleLoadTasks);
-  }, [ModalService.isOpen("confirmModal"), ModalService.isOpen("taskModal")]);
-
+  const categoryList = CategoryStore.categoryList;
   const onEdit = (task: ITaskItem) => {
-    setTaskItem({
-      id: task.id,
-      name: task.name,
-      description: task.description,
-      categoryId: task.categoryId,
-    });
-    let taskModalChildren = (
-      <form action="">
-        <input type="text" placeholder="Task edit" />
-      </form>
-    );
-    ModalService.showModal("taskModal", {
-      onSubmitClick: () => {
-        ModalService.closeModal("taskModal");
-      },
+    TaskStore.task.name = task.name;
+    TaskStore.task.description = task.description;
+    TaskStore.task.categoryId = task.categoryId;
+    ModalStore.showModal("taskModal", {
       title: "Редактирование задачи",
       modalName: "taskModal",
-      children: taskModalChildren,
-      submitButtonTitle: "Сохранить",
-      closeButtonTitle: "Закрыть",
+      children: (
+        <TaskForm
+          submitButtonTitle="Сохранить"
+          closeButtonTitle="Закрыть"
+          modalName="taskModal"
+          onSubmitClick={() => {
+            editTask(
+              task.id,
+              TaskStore.task.name,
+              TaskStore.task.description,
+              TaskStore.task.categoryId
+            );
+            ModalStore.closeModal("taskModal");
+          }}
+        />
+      ),
     });
   };
   const onDelete = (task: ICategoryItem) => {
-    setTaskItem({
-      id: task.id,
-      name: task.name,
-    });
-
-    let confirmModalChildren = `Вы уверены что хотите удалить задачу "${task.name}"`;
-
-    ModalService.showModal("confirmModal", {
-      onSubmitClick: () => {
-        deleteTask(task.id);
-        ModalService.closeModal("confirmModal");
-      },
+    ModalStore.showModal("confirmModal", {
       title: "Удаление задачи",
       modalName: "confirmModal",
-      children: confirmModalChildren,
-      submitButtonTitle: "Да",
-      closeButtonTitle: "Нет",
+      children: (
+        <>
+          <div className="Confirm-text">{`Вы уверены что хотите удалить задачу "${task.name}"`}</div>
+          <ModalFooter
+            onSubmitClick={() => {
+              deleteTask(task.id);
+              ModalStore.closeModal("confirmModal");
+            }}
+            submitButtonTitle="Да"
+            closeButtonTitle="Нет"
+            modalName="confirmModal"
+          />
+        </>
+      ),
     });
   };
 
   return (
     <>
       <TasksList
-        {...props}
+        categoryList={categoryList}
         onEdit={onEdit}
         onDelete={onDelete}
-        taskList={tasksList}
+        taskList={TaskStore.tasksList}
       />
-      <ConfirmModal {...ModalService.modals.confirmModal!} />
-      <ConfirmModal {...ModalService.modals.taskModal!} />
+      <ConfirmModal {...ModalStore.modals.confirmModal!} />
+      <ConfirmModal {...ModalStore.modals.taskModal!} />
     </>
   );
 };

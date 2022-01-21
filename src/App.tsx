@@ -4,28 +4,18 @@ import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import TasksListContainer from "./components/ListTasks/TasksListContainer";
 import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
-import { ModalState } from "./AppContainer";
-import { ICategoryItem } from "./models/ICategoryItem";
-import { ITaskItem } from "./models/ITaskItem";
 
-interface IApp {
-  taskList?: ITaskItem[];
-  categorieList?: ICategoryItem[];
-  setModalState: (state: ModalState) => void;
-}
+interface IApp {}
 
-const App: React.FC<IApp> = (props) => {
+const App = (props: IApp) => {
   return (
     <Router>
       <div className="App">
-        <HeaderContainer {...props} />
+        <HeaderContainer />
         <div className="Content">
           <Routes>
-            <Route path="/tasks" element={<TasksListContainer {...props} />} />
-            <Route
-              path="/categories"
-              element={<CategoriesListContainer {...props} />}
-            />
+            <Route path="/tasks" element={<TasksListContainer />} />
+            <Route path="/categories" element={<CategoriesListContainer />} />
           </Routes>
         </div>
       </div>
