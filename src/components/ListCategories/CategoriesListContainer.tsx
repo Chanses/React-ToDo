@@ -9,11 +9,8 @@ import { observer } from "mobx-react";
 import CategoryStore from "../stores/CategoryStore";
 import ModalFooter from "../Modals/ModalFooter";
 
-interface ICategoriesListContainer {}
-
-const CategoriesListContainer = (props: ICategoriesListContainer) => {
+const CategoriesListContainer = () => {
   const onEdit = (category: ICategoryItem) => {
-    console.log(CategoryStore.categoryList);
     CategoryStore.category.name = category.name;
     CategoryStore.category.description = category.description;
     ModalStore.showModal("categoryModal", {

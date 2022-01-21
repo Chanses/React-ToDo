@@ -12,9 +12,7 @@ import TaskStore from "../stores/TaskStore";
 import CategoryStore from "../stores/CategoryStore";
 import ModalFooter from "../Modals/ModalFooter";
 
-interface ITasksListContainer {}
-
-const TasksListContainer = (props: ITasksListContainer) => {
+const TasksListContainer = () => {
   const categoryList = CategoryStore.categoryList;
   const onEdit = (task: ITaskItem) => {
     TaskStore.task.name = task.name;
