@@ -4,9 +4,7 @@ import Select from "../Select";
 import CategoryStore from "../stores/CategoryStore";
 import TaskStore from "../stores/TaskStore";
 
-interface ISelectContainer {}
-
-const EntityModalSelectContainer = (props: ISelectContainer) => {
+const EntityModalSelectContainer = () => {
   const selectRef = useRef<any>();
   const onChangeSelect = () => {
     const index = selectRef.current!.selectedIndex;
