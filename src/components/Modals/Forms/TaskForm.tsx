@@ -2,26 +2,26 @@ import React, { useRef, useState } from "react";
 import ModalSelectEntityContainer from "../SelectEntityModalContainer";
 import { IForm } from "./CategoryForm";
 import "./Form.css";
-import TaskStore from "../../stores/TaskStore";
 import { observer } from "mobx-react-lite";
 import ModalFooter from "../ModalFooter";
 import { ModalRegistry } from "../../../models/enum/modalNameRegistry";
+import { ITaskItem } from "../../../models/ITaskItem";
 
 interface ITaskForm extends IForm {
   onSubmitClick: () => void;
   submitButtonTitle: string;
   closeButtonTitle: string;
   modalName: keyof ModalRegistry;
+  task: ITaskItem;
 }
 
 const TaskForm = (props: ITaskForm) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const nameInputRef = useRef<any>();
   const descriptionRef = useRef<any>();
+
   const isDisabled =
-    TaskStore.task.name.length < 3 || TaskStore.task.name.length > 256
-      ? true
-      : false;
+    props.task.name.length < 3 || props.task.name.length > 256 ? true : false;
 
   return (
     <>
@@ -31,8 +31,8 @@ const TaskForm = (props: ITaskForm) => {
             <p
               className="ModalForm__Item-Name"
               style={
-                (TaskStore.task.name.length < 3 && isDirty) ||
-                TaskStore.task.name.length > 256
+                (props.task.name.length < 3 && isDirty) ||
+                props.task.name.length > 256
                   ? { color: "red" }
                   : undefined
               }
@@ -44,13 +44,13 @@ const TaskForm = (props: ITaskForm) => {
               placeholder="Введите имя задачи"
               ref={nameInputRef}
               onChange={() => {
-                TaskStore.setName(nameInputRef.current.value);
+                props.task.name = nameInputRef.current.value;
               }}
               onFocus={() => setIsDirty(true)}
-              value={TaskStore.task.name!}
+              value={props.task.name}
               style={
-                (TaskStore.task.name.length < 3 && isDirty) ||
-                TaskStore.task.name.length > 256
+                (props.task.name.length < 3 && isDirty) ||
+                props.task.name.length > 256
                   ? { border: "2px  solid red" }
                   : undefined
               }
@@ -66,10 +66,10 @@ const TaskForm = (props: ITaskForm) => {
           <textarea
             name=""
             placeholder="Введите описание задачи"
-            value={TaskStore.task.description!}
+            value={props.task.description}
             ref={descriptionRef}
             onChange={() =>
-              TaskStore.setDescription(descriptionRef.current.value)
+              (props.task.description = descriptionRef.current.value)
             }
           />
         </label>

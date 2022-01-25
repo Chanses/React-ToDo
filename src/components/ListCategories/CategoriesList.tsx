@@ -12,8 +12,8 @@ interface ICategoriesList {
 const CategoriesList = (props: ICategoriesList) => {
   return (
     <div>
-      {props.categoriesList?.map((category, index) => (
-        <Category {...props} category={category} key={index} />
+      {props.categoriesList?.map((category) => (
+        <Category {...props} category={category} key={category.id} />
       ))}
     </div>
   );

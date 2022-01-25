@@ -5,9 +5,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import TasksListContainer from "./components/ListTasks/TasksListContainer";
 import CategoriesListContainer from "./components/ListCategories/CategoriesListContainer";
 
-interface IApp {}
-
-const App = (props: IApp) => {
+const App = () => {
   return (
     <Router>
       <div className="App">

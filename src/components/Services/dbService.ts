@@ -1,6 +1,6 @@
 
-import { ICategoryItem } from "./models/ICategoryItem"
-import { ITaskItem } from "./models/ITaskItem";
+import { ICategoryItem } from "../../models/ICategoryItem"
+import { ITaskItem } from "../../models/ITaskItem";
 const openRequest = indexedDB.open("ToDo", 1);
 
 export const openStorage = openRequest.onupgradeneeded = function () {
@@ -21,11 +21,7 @@ export const addTask = (name: string, description?: string, categoryId?: string)
         categoryId: categoryId
     }
 
-    const request = tasks.put(task);
-
-    request.onsuccess = function () { };
-
-    request.onerror = function () { };
+    tasks.put(task);
 };
 
 export const editTask = (id: string, name: string, description?: string, categoryId?: string,) => {
@@ -40,14 +36,12 @@ export const editTask = (id: string, name: string, description?: string, categor
         categoryId: categoryId
     }
 
-    const request = tasks.put(task);
+    tasks.put(task);
 
-    request.onsuccess = function () { };
-
-    request.onerror = function () { };
 };
 
 export const addCategory = (name: string, description?: string) => {
+
 
     const db = openRequest.result;
     const transaction = db.transaction(["categories"], "readwrite");
@@ -58,11 +52,8 @@ export const addCategory = (name: string, description?: string) => {
         name: name,
         description: description,
     }
-    const request = categories.put(category);
+    categories.put(category);
 
-    request.onsuccess = function () { };
-
-    request.onerror = function () { };
 };
 
 export const editCategory = (id: string, name: string, description?: string, categoryId?: string) => {
@@ -77,11 +68,8 @@ export const editCategory = (id: string, name: string, description?: string, cat
         categorieId: categoryId
     }
 
-    const request = categories.put(category);
+    categories.put(category);
 
-    request.onsuccess = function () { };
-
-    request.onerror = function () { };
 };
 
 export const getCategories = (cb: (categories: ICategoryItem[]) => void) => {
@@ -103,23 +91,17 @@ export const getCategories = (cb: (categories: ICategoryItem[]) => void) => {
 
 export const deleteTask = (taskId: string) => {
     const db = openRequest.result;
-    const request = db.transaction(["tasks"], "readwrite")
+    db.transaction(["tasks"], "readwrite")
         .objectStore("tasks")
         .delete(taskId);
-
-    request.onsuccess = function () { };
-
-    request.onerror = function () { };
 }
 
-export const deleteCategorie = (CategoryId: string) => {
+export const deleteCategory = (CategoryId: string) => {
     const db = openRequest.result;
-    const request = db.transaction(["categories"], "readwrite")
+    db.transaction(["categories"], "readwrite")
         .objectStore("categories")
         .delete(CategoryId);
-    request.onsuccess = function () { };
 
-    request.onerror = function () { };
 }
 
 export let getTasks = (cb: (tasks: ITaskItem[]) => void) => {
@@ -133,9 +115,5 @@ export let getTasks = (cb: (tasks: ITaskItem[]) => void) => {
         allRecords.onsuccess = function () {
             cb(allRecords.result);
         };
-
-        allRecords.onerror = function () { };
     }
-
-    openRequest.onerror = () => console.log("open DB error")
 }

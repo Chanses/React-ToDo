@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import App from "./App";
 import CategoryStore from "./components/stores/CategoryStore";
 import TaskStore from "./components/stores/TaskStore";
-import { getCategories, getTasks } from "./dbService";
+import { getCategories, getTasks } from "./components/Services/dbService";
 import { ICategoryItem } from "./models/ICategoryItem";
 import { ITaskItem } from "./models/ITaskItem";
 import ModalStore from "./components/stores/ModalStore";
@@ -14,13 +14,13 @@ const AppContainer = () => {
   useEffect(() => {
     getTasks(handleLoadTasks);
   }, [ModalStore.isOpen("confirmModal"), ModalStore.isOpen("taskModal")]);
-  const handleLoadCategorie = (category: ICategoryItem[]) => {
+  const handleLoadCategory = (category: ICategoryItem[]) => {
     CategoryStore.setCategoryList(category);
   };
   /* eslint-disable */
   useEffect(() => {
-    getCategories(handleLoadCategorie);
-  }, [ModalStore.isOpen("categoryModal"), ModalStore.isOpen("confirmModal")]);
+    getCategories(handleLoadCategory);
+  }, []);
   return <App />;
 };
 

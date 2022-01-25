@@ -13,8 +13,8 @@ interface ITasksList {
 const TasksList = (props: ITasksList) => {
   return (
     <>
-      {props.taskList?.map((task, index) => (
-        <Task {...props} task={task} key={index}></Task>
+      {props.taskList?.map((task) => (
+        <Task {...props} task={task} key={task.id}></Task>
       ))}
     </>
   );

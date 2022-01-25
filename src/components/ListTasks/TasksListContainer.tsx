@@ -3,71 +3,63 @@ import "./TasksStyle.css";
 import TasksList from "./TasksList";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
-import { deleteTask, editTask } from "../../dbService";
+import { deleteTask, editTask, getTasks } from "../Services/dbService";
 import ModalStore from "../stores/ModalStore";
 import ConfirmModal from "../Modals/Forms/ConfirmForm/ConfirmModal";
 import { observer } from "mobx-react-lite";
-import TaskForm from "../Modals/Forms/TaskForm";
 import TaskStore from "../stores/TaskStore";
 import CategoryStore from "../stores/CategoryStore";
-import ModalFooter from "../Modals/ModalFooter";
+import TaskModal from "../Modals/TaskModal";
 
 const TasksListContainer = () => {
-  const categoryList = CategoryStore.categoryList;
+  const handleLoadTasks = (tasks: ITaskItem[]) => TaskStore.setTaskList(tasks);
   const onEdit = (task: ITaskItem) => {
-    TaskStore.setTaskItem(task);
+    TaskStore.task = task;
     ModalStore.showModal("taskModal", {
       title: "Редактирование задачи",
       modalName: "taskModal",
-      children: (
-        <TaskForm
-          submitButtonTitle="Сохранить"
-          closeButtonTitle="Закрыть"
-          modalName="taskModal"
-          onSubmitClick={() => {
-            editTask(
-              task.id,
-              TaskStore.task.name,
-              TaskStore.task.description,
-              TaskStore.task.categoryId
-            );
-            ModalStore.closeModal("taskModal");
-          }}
-        />
-      ),
+      submitButtonTitle: "Сохранить",
+      closeButtonTitle: "Закрыть",
+      task: TaskStore.task,
+      onSubmitClick: () => {
+        editTask(
+          TaskStore.task.id,
+          TaskStore.task.name,
+          TaskStore.task.description,
+          TaskStore.task.categoryId
+        );
+        ModalStore.closeModal("taskModal");
+        TaskStore.task = { id: "", name: "", description: "", categoryId: "" };
+        getTasks(handleLoadTasks);
+      },
     });
   };
   const onDelete = (task: ICategoryItem) => {
     ModalStore.showModal("confirmModal", {
       title: "Удаление задачи",
       modalName: "confirmModal",
-      children: (
-        <>
-          <div className="Confirm-text">{`Вы уверены что хотите удалить задачу "${task.name}"`}</div>
-          <ModalFooter
-            onSubmitClick={() => {
-              deleteTask(task.id);
-              ModalStore.closeModal("confirmModal");
-            }}
-            submitButtonTitle="Да"
-            closeButtonTitle="Нет"
-            modalName="confirmModal"
-          />
-        </>
-      ),
+      submitButtonTitle: "Да",
+      closeButtonTitle: "Нет",
+      task: task,
+      confirmText: `Вы уверены что хотите удалить задачу "${task.name}"`,
+      onSubmitClick: () => {
+        deleteTask(task.id);
+        ModalStore.closeModal("confirmModal");
+        getTasks(handleLoadTasks);
+      },
     });
   };
 
   return (
     <>
       <TasksList
-        categoryList={categoryList}
+        categoryList={CategoryStore.categoryList}
         onEdit={onEdit}
         onDelete={onDelete}
         taskList={TaskStore.tasksList}
       />
       <ConfirmModal {...ModalStore.modals.confirmModal!} />
-      <ConfirmModal {...ModalStore.modals.taskModal!} />
+      <TaskModal {...ModalStore.modals.taskModal!} />
     </>
   );
 };

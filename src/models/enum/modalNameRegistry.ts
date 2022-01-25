@@ -1,8 +1,10 @@
+import { ICategoryModal } from "../../components/Modals/CategoryModal";
 import { IConfirmModal } from "../../components/Modals/Forms/ConfirmForm/ConfirmModal";
-import { IModalProps } from "../IModalProps";
+import { ITaskModal } from "../../components/Modals/TaskModal";
+
 
 export interface ModalRegistry {
     "confirmModal": IConfirmModal;
-    "taskModal": IConfirmModal;
-    "categoryModal": IConfirmModal;
+    "taskModal": ITaskModal;
+    "categoryModal": ICategoryModal;
 }

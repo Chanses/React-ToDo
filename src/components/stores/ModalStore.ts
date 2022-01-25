@@ -1,9 +1,6 @@
 
 import { ModalRegistry } from "../../models/enum/modalNameRegistry";
 import { makeObservable, observable, action } from "mobx"
-import TaskStore from "./TaskStore";
-import CategoryStore from "./CategoryStore";
-
 class ModalStore {
     modals: Partial<ModalRegistry>;
     constructor() {
@@ -11,6 +8,7 @@ class ModalStore {
             modals: observable,
             showModal: action,
             closeModal: action,
+
 
         })
         this.modals = {};
@@ -27,15 +25,9 @@ class ModalStore {
     }
 
     closeModal(modalName: keyof ModalRegistry) {
-        this.isOpen(modalName);
         delete this.modals[modalName];
-        TaskStore.task.name = "";
-        TaskStore.task.description = "";
-        TaskStore.task.categoryId = "";
-        CategoryStore.category.name = "";
-        CategoryStore.category.description = "";
-
     }
+
 }
 
 export default new ModalStore();                                                                                                       
