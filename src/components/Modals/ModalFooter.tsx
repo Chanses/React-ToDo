@@ -23,6 +23,7 @@ const ModalFooter = (props: IModalProps) => {
       </div>
       <div className="Modal__buttons-close">
         <Button
+          type={"reset"}
           onClick={() => ModalService.closeModal(props.modalName)}
           title={props.closeButtonTitle}
         />

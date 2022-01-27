@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import "./Form.css";
 import Textarea from "../../Textarea";
 import { observer } from "mobx-react-lite";
@@ -25,7 +25,7 @@ const CategoryForm = (props: ICategoryForm) => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const isDisabled =
     formValues.name.length < 3 || formValues.name.length > 256 ? true : false;
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFormValues({
       name: props.category.name,
       description: props.category.description!,

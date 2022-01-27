@@ -1,7 +1,4 @@
 import { ModalRegistry } from "./enum/modalNameRegistry";
-
-
-
 export interface IModal {
     children: any;
     title: string;

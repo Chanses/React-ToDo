@@ -14,11 +14,11 @@ const AppContainer = () => {
   };
 
   useEffect(() => {
-    if (dbService.isDbReady) {
+    dbService.createDatabase().then(() => {
       dbService.getTasks(handleLoadTasks);
       dbService.getCategories(handleLoadCategory);
-    }
-  }, [dbService.isDbReady]);
+    });
+  }, []);
 
   return <App />;
 };

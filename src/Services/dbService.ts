@@ -1,4 +1,3 @@
-import { makeObservable } from 'mobx';
 import { ICategoryItem } from '../models/ICategoryItem';
 import { ITaskItem } from '../models/ITaskItem';
 
@@ -7,27 +6,26 @@ class dbService {
     private db: any;
     public isDbReady: boolean = false;
 
-    constructor() {
+    public createDatabase() {
+        const createPromise = new Promise((resolve, reject) => {
+            const openRequest = indexedDB.open("ToDo", 1);
 
-        makeObservable(this, {
+            openRequest.onupgradeneeded = function () {
+                let db = openRequest.result;
+                if (!db.objectStoreNames.contains("categories")) { db.createObjectStore("categories", { autoIncrement: true, keyPath: 'id' }); }
+                if (!db.objectStoreNames.contains("tasks")) { db.createObjectStore("tasks", { autoIncrement: true, keyPath: 'id' }); }
+            }
 
+            openRequest.onsuccess = () => {
+                this.db = openRequest.result
+                resolve(openRequest);
+            }
+
+            openRequest.onerror = function () {
+                reject(openRequest.error);
+            };
         })
-        const self = this;
-        const openRequest = indexedDB.open("ToDo", 1);
-
-        openRequest.onupgradeneeded = function () {
-            let db = openRequest.result;
-            if (!db.objectStoreNames.contains("categories")) { db.createObjectStore("categories", { autoIncrement: true, keyPath: 'id' }); }
-            if (!db.objectStoreNames.contains("tasks")) { db.createObjectStore("tasks", { autoIncrement: true, keyPath: 'id' }); }
-        }
-
-        openRequest.onsuccess = function () {
-
-            self.isDbReady = true;
-            self.db = openRequest.result;
-
-        }
-
+        return createPromise;
     }
 
     public getTasks = (cb: (tasks: ITaskItem[]) => void) => {

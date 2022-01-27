@@ -24,7 +24,6 @@ const Modal = (props: IModal) => {
               className="Modal__Article-Close"
             />
           </div>
-          {/* Content */}
           <div className="Modal__Content">{props.children}</div>
         </div>
       </div>,
