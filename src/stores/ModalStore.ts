@@ -1,5 +1,5 @@
 
-import { ModalRegistry } from "../../models/enum/modalNameRegistry";
+import { ModalRegistry } from "../models/enum/modalNameRegistry";
 import { makeObservable, observable, action } from "mobx"
 class ModalStore {
     modals: Partial<ModalRegistry>;

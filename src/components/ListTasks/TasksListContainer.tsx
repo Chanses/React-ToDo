@@ -3,34 +3,32 @@ import "./TasksStyle.css";
 import TasksList from "./TasksList";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import { ITaskItem } from "../../models/ITaskItem";
-import { deleteTask, editTask, getTasks } from "../Services/dbService";
-import ModalStore from "../stores/ModalStore";
+import ModalStore from "../../stores/ModalStore";
 import ConfirmModal from "../Modals/Forms/ConfirmForm/ConfirmModal";
 import { observer } from "mobx-react-lite";
-import TaskStore from "../stores/TaskStore";
-import CategoryStore from "../stores/CategoryStore";
+import TaskStore from "../../stores/TaskStore";
+import CategoryStore from "../../stores/CategoryStore";
 import TaskModal from "../Modals/TaskModal";
+import dbService from "../../Services/dbService";
 
 const TasksListContainer = () => {
   const handleLoadTasks = (tasks: ITaskItem[]) => TaskStore.setTaskList(tasks);
   const onEdit = (task: ITaskItem) => {
-    TaskStore.task = task;
     ModalStore.showModal("taskModal", {
       title: "Редактирование задачи",
       modalName: "taskModal",
       submitButtonTitle: "Сохранить",
       closeButtonTitle: "Закрыть",
-      task: TaskStore.task,
-      onSubmitClick: () => {
-        editTask(
-          TaskStore.task.id,
-          TaskStore.task.name,
-          TaskStore.task.description,
-          TaskStore.task.categoryId
-        );
+      task: task,
+      onSubmitClick: (formValues: ITaskItem) => {
+        dbService.putTask({
+          id: task.id,
+          name: formValues.name,
+          description: formValues.description,
+          categoryId: formValues.categoryId,
+        });
         ModalStore.closeModal("taskModal");
-        TaskStore.task = { id: "", name: "", description: "", categoryId: "" };
-        getTasks(handleLoadTasks);
+        dbService.getTasks(handleLoadTasks);
       },
     });
   };
@@ -43,9 +41,9 @@ const TasksListContainer = () => {
       task: task,
       confirmText: `Вы уверены что хотите удалить задачу "${task.name}"`,
       onSubmitClick: () => {
-        deleteTask(task.id);
+        dbService.deleteTask(task.id);
         ModalStore.closeModal("confirmModal");
-        getTasks(handleLoadTasks);
+        dbService.getTasks(handleLoadTasks);
       },
     });
   };

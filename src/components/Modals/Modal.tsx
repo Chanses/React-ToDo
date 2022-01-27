@@ -4,8 +4,7 @@ import ImgButton from "../ImgButton";
 import closeImg from "../../images/Close.svg";
 import { IModal } from "../../models/IModal";
 import "./Modal.css";
-
-import ModalService from "../stores/ModalStore";
+import ModalService from "../../stores/ModalStore";
 import { observer } from "mobx-react-lite";
 
 const Modal = (props: IModal) => {

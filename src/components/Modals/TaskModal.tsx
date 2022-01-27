@@ -1,7 +1,7 @@
 import React from "react";
 import { IModal } from "../../models/IModal";
 import { ITaskItem } from "../../models/ITaskItem";
-import ModalStore from "../stores/ModalStore";
+import ModalStore from "../../stores/ModalStore";
 import TaskForm from "./Forms/TaskForm";
 import Modal from "./Modal";
 

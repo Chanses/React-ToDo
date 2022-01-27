@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import {
-  addCategory,
-  addTask,
-  getCategories,
-  getTasks,
-} from "../Services/dbService";
-import ModalStore from "../stores/ModalStore";
+import ModalStore from "../../stores/ModalStore";
 import Header from "./Header";
 import { observer } from "mobx-react-lite";
-import TaskStore from "../stores/TaskStore";
+import TaskStore from "../../stores/TaskStore";
 import { ICategoryItem } from "../../models/ICategoryItem";
-import CategoryStore from "../stores/CategoryStore";
+import CategoryStore from "../../stores/CategoryStore";
 import { ITaskItem } from "../../models/ITaskItem";
+import dbService from "../../Services/dbService";
 
 const HeaderContainer = () => {
   const [section, setSection] = useState<boolean>(true);
@@ -42,15 +37,11 @@ const HeaderContainer = () => {
       modalName: "categoryModal",
       submitButtonTitle: "Создать",
       closeButtonTitle: "Закрыть",
-      category: CategoryStore.categoryItem,
-      onSubmitClick: () => {
-        addCategory(
-          CategoryStore.categoryItem.name,
-          CategoryStore.categoryItem.description
-        );
-        CategoryStore.categoryItem = { id: "", name: "", description: "" };
+      category: { name: "", description: "" },
+      onSubmitClick: (formValues: ICategoryItem) => {
+        dbService.putCategory(formValues);
         ModalStore.closeModal("categoryModal");
-        getCategories(handleLoadCategory);
+        dbService.getCategories(handleLoadCategory);
       },
     });
   };
@@ -60,16 +51,11 @@ const HeaderContainer = () => {
       modalName: "taskModal",
       submitButtonTitle: "Создать",
       closeButtonTitle: "Закрыть",
-      task: TaskStore.task,
-      onSubmitClick: () => {
-        addTask(
-          TaskStore.task.name,
-          TaskStore.task.description,
-          TaskStore.task.categoryId
-        );
+      task: { name: "", description: "", categoryId: "" },
+      onSubmitClick: (formValues: ITaskItem) => {
+        dbService.putTask(formValues);
         ModalStore.closeModal("taskModal");
-        TaskStore.task = { id: "", name: "", description: "", categoryId: "" };
-        getTasks(handleLoadTasks);
+        dbService.getTasks(handleLoadTasks);
       },
     });
   };

@@ -1,11 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { ModalRegistry } from "../../models/enum/modalNameRegistry";
-import ModalService from "../stores/ModalStore";
+import ModalService from "../../stores/ModalStore";
 import Button from "../Button";
 
 interface IModalProps {
-  onSubmitClick: () => void;
   submitButtonTitle: string;
   closeButtonTitle: string;
   modalName: keyof ModalRegistry;
@@ -17,7 +16,7 @@ const ModalFooter = (props: IModalProps) => {
     <div className="Modal__buttons">
       <div className="Modal__buttons-create">
         <Button
-          onClick={() => props.onSubmitClick()}
+          type={"submit"}
           title={props.submitButtonTitle}
           disabled={props.disabled}
         />

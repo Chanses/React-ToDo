@@ -22,7 +22,9 @@ const Header = (props: IHeader) => {
         <div className="Header__Logo__Actions">
           <NavLink
             to="/tasks"
-            onClick={props.setTaskSection}
+            onClick={() => {
+              props.setTaskSection();
+            }}
             className={"Header__Logo__Actions-Tasks"}
             style={({ isActive }) => (isActive ? activeStyle : {})}
           >

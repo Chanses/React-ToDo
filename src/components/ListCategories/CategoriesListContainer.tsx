@@ -1,16 +1,12 @@
 import React from "react";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import CategoriesList from "./CategoriesList";
-import ModalStore from "../stores/ModalStore";
+import ModalStore from "../../stores/ModalStore";
 import ConfirmModal from "../Modals/Forms/ConfirmForm/ConfirmModal";
-import {
-  deleteCategory,
-  editCategory,
-  getCategories,
-} from "../Services/dbService";
 import { observer } from "mobx-react";
-import CategoryStore from "../stores/CategoryStore";
+import CategoryStore from "../../stores/CategoryStore";
 import CategoryModal from "../Modals/CategoryModal";
+import dbService from "../../Services/dbService";
 
 const CategoriesListContainer = () => {
   const handleLoadCategory = (category: ICategoryItem[]) => {
@@ -18,23 +14,20 @@ const CategoriesListContainer = () => {
   };
 
   const onEdit = (category: ICategoryItem) => {
-    CategoryStore.categoryItem = category;
     ModalStore.showModal("categoryModal", {
       title: "Редактирование категории",
       modalName: "categoryModal",
       submitButtonTitle: "Сохранить",
       closeButtonTitle: "Закрыть",
-      category: CategoryStore.categoryItem,
-      onSubmitClick: () => {
-        console.log(category);
-        editCategory(
-          CategoryStore.categoryItem.id,
-          CategoryStore.categoryItem.name,
-          CategoryStore.categoryItem.description
-        );
+      category: category,
+      onSubmitClick: (formValues: ICategoryItem) => {
+        dbService.putCategory({
+          id: category.id,
+          name: formValues.name,
+          description: formValues.description,
+        });
         ModalStore.closeModal("categoryModal");
-        CategoryStore.categoryItem = { id: "", name: "", description: "" };
-        getCategories(handleLoadCategory);
+        dbService.getCategories(handleLoadCategory);
       },
     });
   };
@@ -46,9 +39,9 @@ const CategoriesListContainer = () => {
       submitButtonTitle: "Да",
       closeButtonTitle: "Нет",
       onSubmitClick: () => {
-        deleteCategory(category.id);
+        dbService.deleteCategory(category.id);
         ModalStore.closeModal("confirmModal");
-        getCategories(handleLoadCategory);
+        dbService.getCategories(handleLoadCategory);
       },
       category: category,
       confirmText: `Вы уверены что хотите удалить категорию "${category.name}"`,

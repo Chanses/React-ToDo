@@ -1,26 +1,25 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import App from "./App";
-import CategoryStore from "./components/stores/CategoryStore";
-import TaskStore from "./components/stores/TaskStore";
-import { getCategories, getTasks } from "./components/Services/dbService";
+import CategoryStore from "./stores/CategoryStore";
+import TaskStore from "./stores/TaskStore";
 import { ICategoryItem } from "./models/ICategoryItem";
 import { ITaskItem } from "./models/ITaskItem";
-import ModalStore from "./components/stores/ModalStore";
+import dbService from "./Services/dbService";
 
 const AppContainer = () => {
   const handleLoadTasks = (tasks: ITaskItem[]) => TaskStore.setTaskList(tasks);
-  /* eslint-disable */
-  useEffect(() => {
-    getTasks(handleLoadTasks);
-  }, [ModalStore.isOpen("confirmModal"), ModalStore.isOpen("taskModal")]);
   const handleLoadCategory = (category: ICategoryItem[]) => {
     CategoryStore.setCategoryList(category);
   };
-  /* eslint-disable */
+
   useEffect(() => {
-    getCategories(handleLoadCategory);
-  }, []);
+    if (dbService.isDbReady) {
+      dbService.getTasks(handleLoadTasks);
+      dbService.getCategories(handleLoadCategory);
+    }
+  }, [dbService.isDbReady]);
+
   return <App />;
 };
 

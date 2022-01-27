@@ -1,7 +1,7 @@
 import React from "react";
 import { ICategoryItem } from "../../models/ICategoryItem";
 import { IModal } from "../../models/IModal";
-import ModalStore from "../stores/ModalStore";
+import ModalStore from "../../stores/ModalStore";
 import CategoryForm from "./Forms/CategoryForm";
 import Modal from "./Modal";
 
